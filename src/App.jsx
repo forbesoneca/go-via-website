@@ -37,54 +37,54 @@ export default function App() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.25),transparent_30%),radial-gradient(circle_at_top_left,rgba(59,130,246,0.25),transparent_35%)]" />
         <div className="relative mx-auto max-w-7xl px-6 py-8 md:px-10 lg:px-12">
-          <nav className="mb-16 flex items-center justify-between rounded-[30px] border border-sky-400/15 bg-gradient-to-r from-white/8 via-slate-900/80 to-fuchsia-500/10 px-6 py-5 shadow-2xl shadow-fuchsia-950/20 backdrop-blur-xl">
-            <div className="flex items-center gap-4">
+          <nav className="mb-12 flex flex-col gap-5 rounded-[30px] border border-sky-400/15 bg-gradient-to-r from-white/8 via-slate-900/80 to-fuchsia-500/10 px-5 py-5 shadow-2xl shadow-fuchsia-950/20 backdrop-blur-xl sm:mb-16 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <div className="flex min-w-0 items-center gap-3 sm:gap-4">
               <img
                 src="/logo.png"
                 alt="Go Via Logo"
-                className="h-20 w-20 object-contain drop-shadow-[0_0_18px_rgba(56,189,248,0.25)]"
+                className="h-14 w-14 flex-none object-contain drop-shadow-[0_0_18px_rgba(56,189,248,0.25)] sm:h-20 sm:w-20"
               />
-              <div>
-                <div className="text-[1.7rem] font-black tracking-wide leading-none md:text-[2rem]">
-                  <span className="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">Go Via</span>{" "}
+              <div className="min-w-0">
+                <div className="text-[1.15rem] font-black leading-none tracking-wide sm:text-[2rem]">
+                  <span className="text-sky-400">Go Via</span>{" "}
                   <span className="text-white">Travel Services</span>{" "}
                   <span className="text-fuchsia-400 drop-shadow-[0_0_10px_rgba(217,70,239,0.35)]">+</span>
                 </div>
-                <div className="mt-2 text-base italic text-slate-300 md:text-lg">
+                <div className="mt-2 text-sm italic leading-relaxed text-slate-300 sm:text-lg">
                   One Service. Every Step Covered.
                 </div>
               </div>
             </div>
             <a
               href="https://wa.me/16582177952"
-              className="rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 px-6 py-3 text-sm font-bold text-white shadow-[0_12px_35px_rgba(217,70,239,0.35)] transition hover:scale-[1.03]"
+              className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 px-6 py-3 text-sm font-bold text-white shadow-[0_12px_35px_rgba(217,70,239,0.35)] transition hover:scale-[1.03] sm:w-auto"
             >
               WhatsApp Us
             </a>
           </nav>
 
-          <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div className="grid items-start gap-10 lg:grid-cols-2">
             <div>
-              <div className="mb-5 inline-flex rounded-full border border-sky-400/30 bg-gradient-to-r from-sky-400/10 to-fuchsia-400/10 px-5 py-2.5 text-sm font-medium text-sky-100 shadow-lg shadow-sky-950/20">
+              <div className="mb-5 inline-flex max-w-full rounded-full border border-sky-400/30 bg-gradient-to-r from-sky-400/10 to-fuchsia-400/10 px-4 py-2.5 text-sm font-medium leading-relaxed text-sky-100 shadow-lg shadow-sky-950/20 sm:px-5">
                 Travel & Admin Solutions for Jamaicans Locally and Abroad
               </div>
-              <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-tight md:text-7xl">
+              <h1 className="max-w-4xl text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-7xl">
                 Reliable <span className="text-sky-400">Travel</span> and <span className="text-fuchsia-400">Admin</span> Services, All in One Place.
               </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
                 From visa support and passport renewal to traffic ticket payment and property tax assistance, Go Via Travel Services + helps you handle important tasks quickly and confidently.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                 <a
                   href="https://wa.me/16582177952"
-                  className="rounded-2xl bg-fuchsia-500 px-6 py-3 font-semibold shadow-xl shadow-fuchsia-500/30 transition hover:scale-[1.02]"
+                  className="rounded-2xl bg-fuchsia-500 px-6 py-3 text-center font-semibold shadow-xl shadow-fuchsia-500/30 transition hover:scale-[1.02]"
                 >
                   Book a Consultation
                 </a>
                 <a
                   href="#services"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-slate-100 transition hover:bg-white/10"
+                  className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center font-semibold text-slate-100 transition hover:bg-white/10"
                 >
                   View Services
                 </a>
@@ -106,10 +106,10 @@ export default function App() {
 
             <div className="grid gap-5">
               <div className="rounded-[32px] border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-7 shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
-                <div className="mb-4 flex items-center justify-between">
+                <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <div className="text-sm uppercase tracking-[0.25em] text-sky-300">Featured Service</div>
-                    <div className="mt-1 text-2xl font-bold">Traffic Ticket Payment</div>
+                    <div className="mt-1 text-xl font-bold sm:text-2xl">Traffic Ticket Payment</div>
                   </div>
                   <div className="rounded-2xl bg-yellow-400 px-3 py-2 text-sm font-bold text-slate-950">Popular</div>
                 </div>
