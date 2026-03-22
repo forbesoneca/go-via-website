@@ -1,4 +1,5 @@
-export default function App()  {
+// Vercel fix: ensure correct export
+export default function App() {
   const services = {
     travel: [
       'Visa Application Assistance',
@@ -37,13 +38,21 @@ export default function App()  {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.25),transparent_30%),radial-gradient(circle_at_top_left,rgba(59,130,246,0.25),transparent_35%)]" />
         <div className="relative mx-auto max-w-7xl px-6 py-8 md:px-10 lg:px-12">
           <nav className="mb-14 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-fuchsia-500 shadow-lg shadow-fuchsia-500/20">
-                <span className="text-2xl">✈️</span>
-              </div>
+            <div className="flex items-center gap-4">
+              <img
+                src="/logo.png"
+                alt="Go Via Logo"
+                className="h-12 w-12 rounded-xl object-contain bg-white p-1"
+              />
               <div>
-                <div className="text-lg font-bold tracking-wide">Go Via Travel Services +</div>
-                <div className="text-sm text-slate-300">One Service. Every Step Covered.</div>
+                <div className="text-xl font-extrabold tracking-wide">
+                  <span className="text-sky-400">Go Via</span>{" "}
+                  <span className="text-white">Travel Services</span>{" "}
+                  <span className="text-fuchsia-400">+</span>
+                </div>
+                <div className="text-sm italic text-slate-300">
+                  One Service. Every Step Covered.
+                </div>
               </div>
             </div>
             <a
