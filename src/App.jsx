@@ -41,13 +41,13 @@ export default function App() {
               <img
                 src="/logo.png"
                 alt="Go Via Logo"
-                className="h-14 w-14 flex-none object-contain drop-shadow-lg sm:h-20 sm:w-20"
+                className="h-16 w-16 flex-none object-contain drop-shadow-lg sm:h-24 sm:w-24"
               />
               <div className="min-w-0">
-                <div className="text-lg font-black leading-none tracking-wide sm:text-3xl">
+                <div className="text-xl font-black leading-none tracking-tight sm:text-4xl">
                   <span className="text-sky-400">Go Via</span>{" "}
-                  <span className="text-white">Travel Services</span>{" "}
-                  <span className="text-fuchsia-400 drop-shadow-sm">+</span>
+                  <span className="text-fuchsia-400">Travel Services</span>{" "}
+                  <span className="text-fuchsia-400">+</span>
                 </div>
                 <div className="mt-2 text-sm italic leading-relaxed text-slate-300 sm:text-lg">
                   One Service. Every Step Covered.
@@ -56,28 +56,25 @@ export default function App() {
             </div>
             <a
               href="https://wa.me/16582177952"
-              className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-fuchsia-500/30 transition hover:scale-[1.03] sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-full bg-green-500 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.03] sm:w-auto"
             >
               WhatsApp Us
             </a>
           </nav>
 
-          <div className="grid items-start gap-10 lg:grid-cols-2">
+          <div className="grid items-start gap-8 lg:grid-cols-[0.95fr_1.05fr] xl:gap-10">
             <div>
-              <div className="mb-5 inline-flex max-w-full rounded-full border border-sky-400/30 bg-gradient-to-r from-sky-400/10 to-fuchsia-400/10 px-4 py-2.5 text-sm font-medium leading-relaxed text-sky-100 shadow-lg shadow-sky-950/20 sm:px-5">
-                Travel & Admin Solutions for Jamaicans Locally and Abroad
-              </div>
-              <h1 className="max-w-4xl text-4xl font-black leading-none tracking-tight sm:text-5xl md:text-7xl">
+              <h1 className="max-w-4xl text-4xl font-black leading-none tracking-tight sm:text-6xl md:text-7xl xl:text-[5.2rem]">
                 Reliable <span className="text-sky-400">Travel</span> and <span className="text-fuchsia-400">Admin</span> Services, All in One Place.
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
                 From visa support and passport renewal to traffic ticket payment and property tax assistance, Go Via Travel Services + helps you handle important tasks quickly and confidently.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                 <a
                   href="https://wa.me/16582177952"
-                  className="rounded-2xl bg-fuchsia-500 px-6 py-3 text-center font-semibold shadow-xl shadow-fuchsia-500/30 transition hover:scale-[1.02]"
+                  className="rounded-2xl bg-fuchsia-500 px-6 py-3 text-center font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
                 >
                   Book a Consultation
                 </a>
@@ -89,7 +86,7 @@ export default function App() {
                 </a>
               </div>
 
-              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 {[
                   ['Fast Response', 'Quick support when you need help'],
                   ['Secure Process', 'Guided, simple and professional'],
@@ -103,14 +100,32 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid gap-5">
-              <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-7 shadow-2xl shadow-black/30">
+            <div className="grid gap-4 xl:gap-5">
+              <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
+                <img
+                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
+                  alt="Jamaican travel support"
+                  className="h-72 w-full object-cover lg:h-[22rem]"
+                />
+                <div className="grid gap-4 p-5 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+                    <div className="text-sm uppercase tracking-wider text-sky-300">Travel Services</div>
+                    <div className="mt-2 text-lg font-bold">Visa applications, renewals and travel support</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+                    <div className="text-sm uppercase tracking-wider text-fuchsia-300">Admin Services</div>
+                    <div className="mt-2 text-lg font-bold">Property tax, traffic tickets and registrations</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-7 shadow-2xl shadow-black/30 lg:-mt-2">
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <div className="text-sm uppercase tracking-widest text-sky-300">Featured Service</div>
                     <div className="mt-1 text-xl font-bold sm:text-2xl">Traffic Ticket Payment</div>
                   </div>
-                  <div className="rounded-2xl bg-yellow-400 px-3 py-2 text-sm font-bold text-slate-950">Popular</div>
+                  <div className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/20 px-3 py-1 text-xs font-semibold text-yellow-300">Popular</div>
                 </div>
                 <p className="text-slate-300">
                   Lost your ticket? Don’t worry. We can help find the details for you and assist with payment once the due date has not passed.
@@ -121,19 +136,33 @@ export default function App() {
               </div>
 
               <div className="grid gap-5 md:grid-cols-2">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-xl shadow-black/20">
-                  <div className="text-sm uppercase tracking-wider text-fuchsia-300">Property Tax</div>
-                  <div className="mt-2 text-2xl font-bold">Easy Payment Support</div>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">
-                    We assist with property tax payment requests and provide support with the details needed to complete the process properly.
-                  </p>
+                <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-0 shadow-xl shadow-black/20">
+                  <img
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80"
+                    alt="Property tax support for homes"
+                    className="h-48 w-full object-cover"
+                  />
+                  <div className="p-7">
+                    <div className="text-sm uppercase tracking-wider text-fuchsia-300">Property Tax</div>
+                    <div className="mt-2 text-2xl font-bold">Easy Payment Support</div>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">
+                      We assist with property tax payment requests and provide support with the details needed to complete the process properly.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-7 shadow-xl shadow-black/20">
-                  <div className="text-sm uppercase tracking-wider text-sky-300">Visa Services</div>
-                  <div className="mt-2 text-2xl font-bold">Application & Renewal Help</div>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">
-                    Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.
-                  </p>
+                <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-0 shadow-xl shadow-black/20">
+                  <img
+                    src="https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?auto=format&fit=crop&w=900&q=80"
+                    alt="Visa services with destination flags"
+                    className="h-48 w-full object-cover"
+                  />
+                  <div className="p-7">
+                    <div className="text-sm uppercase tracking-wider text-sky-300">Visa Services</div>
+                    <div className="mt-2 text-2xl font-bold">USA, Canada, UK & Schengen Support</div>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">
+                      Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -215,7 +244,7 @@ export default function App() {
               <div className="mt-3 text-4xl font-black tracking-tight">(658) 217-7952</div>
               <a
                 href="https://wa.me/16582177952"
-                className="mt-5 inline-block rounded-2xl bg-fuchsia-500 px-6 py-3 font-semibold shadow-xl shadow-fuchsia-500/30 transition hover:scale-[1.02]"
+                className="mt-5 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
               >
                 Message Now
               </a>
