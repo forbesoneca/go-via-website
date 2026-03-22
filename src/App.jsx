@@ -656,11 +656,11 @@ export default function App() {
                 ]}
                 prices={[
                   { label: 'First Time Applicant', price: 'J$39,000' },
-                  { label: 'Renewal', price: 'J$25,000' },
+                  { label: 'Renewal', price: 'J$41,000' },
                 ]}
                 formButtons={[
-                  { label: 'USA Visa First Time Applicant', href: '#' },
-                  { label: 'USA Visa Renewal', href: '#' },
+                  { label: 'USA Visa First Time Applicant', href: 'https://forms.gle/Z1Y7xnGtJyDhGXx5A' },
+                  { label: 'USA Visa Renewal', href: 'https://forms.gle/Wobbo4sFAWc7LcKW9' },
                 ]}
                 checklist={[
                   'First-time or renewal request',
@@ -689,12 +689,13 @@ export default function App() {
                   'Direct form buttons for each Canada visa option',
                 ]}
                 prices={[
-                  { label: 'First Time Applicant', price: 'J$35,000' },
-                  { label: 'Renewal', price: 'J$22,000' },
+                  { label: 'First Time Applicant', price: 'J$33,000' },
+                  { label: 'Renewal', price: 'J$34,000' },
                 ]}
                 formButtons={[
-                  { label: 'CA Visa First Time Applicant', href: '#' },
-                  { label: 'CA Visa Renewal', href: '#' },
+                  { label: 'CA Visa First Time Applicant', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
+                  { label: 'CA Visa Renewal', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
+                  { label: 'CA Visa (Minor)', href: 'https://forms.gle/DiRfoUQ1CxS5Q6ry6' },
                 ]}
                 checklist={[
                   'Type of visa support needed',
@@ -730,7 +731,7 @@ export default function App() {
                   { label: '5 Years Visa Fee', price: 'J$162,631' },
                   { label: '10 Years Visa Fee', price: 'J$203,093' },
                 ]}
-                formButtons={[{ label: 'UK Visa Form', href: '#' }]}
+                formButtons={[{ label: 'UK Visa Form', href: 'https://forms.gle/R9sqxTgWsKGEsmEb6' }]}
                 checklist={[
                   'First-time or renewal support',
                   'Passport status',
@@ -835,7 +836,7 @@ export default function App() {
                   'Direct form submission for faster processing',
                 ]}
                 formButtons={[
-                  { label: 'Property Tax Payment Form', href: 'https://forms.gle/qe4qzHCDGGgFs3Hg9' },
+                  { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
                 ]}
                 checklist={[
                   'Valuation number',
