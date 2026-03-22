@@ -12,11 +12,6 @@ const services = {
         'https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?auto=format&fit=crop&w=900&q=80',
       description:
         'Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.',
-      details: [
-        'First-time and renewal guidance',
-        'Document checklist support',
-        'Travel planning assistance',
-      ],
       countries: [
         { title: 'USA Visa', path: '/visa-services/usa', flag: '🇺🇸' },
         { title: 'Canada Visa', path: '/visa-services/canada', flag: '🇨🇦' },
@@ -32,7 +27,6 @@ const services = {
         'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80',
       description:
         'Guidance on the renewal process and the details needed before you submit your passport request.',
-      details: ['Required documents', 'Renewal guidance', 'General preparation support'],
     },
   ],
   admin: [
@@ -44,7 +38,6 @@ const services = {
         'https://images.unsplash.com/photo-1516908205727-40afad9449a0?auto=format&fit=crop&w=900&q=80',
       description:
         'Lost your ticket? We can help find the details for you and assist with payment once the due date has not passed.',
-      details: ['Ticket lookup support', 'Payment guidance', 'Quick assistance before due date'],
     },
     {
       title: 'Property Tax Payment',
@@ -54,7 +47,6 @@ const services = {
         'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80',
       description:
         'We assist with property tax payment requests and provide support with the details needed to complete the process properly.',
-      details: ['Valuation number guidance', 'Payment request preparation', 'Receipt support'],
     },
     {
       title: 'Motor Vehicle Registration',
@@ -64,7 +56,6 @@ const services = {
         'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
       description:
         'Support with understanding the information and steps needed before moving ahead with your registration process.',
-      details: ['Document guidance', 'Preparation support', 'Practical assistance'],
     },
     {
       title: 'Consultation',
@@ -74,7 +65,6 @@ const services = {
         'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
       description:
         'Book a consultation if you need help choosing the right service or understanding what is required before getting started.',
-      details: ['Service selection help', 'General questions', 'Next-step guidance'],
     },
   ],
 };
@@ -95,6 +85,40 @@ const highlights = [
 ];
 
 const visaPaymentMethods = ['Bank Transfer', 'Western Union', 'MoneyGram', 'LYNK'];
+
+function PaymentButtons() {
+  const options = [
+    { label: 'Bank Transfer', icon: Landmark },
+    { label: 'Western Union', icon: Send },
+    { label: 'MoneyGram', icon: DollarSign },
+    { label: 'LYNK', icon: Smartphone },
+  ];
+
+  return (
+    <div className="mt-4 rounded-3xl border border-emerald-400/10 bg-gradient-to-br from-emerald-500/5 via-slate-900 to-slate-900 p-5 shadow-xl shadow-black/20">
+      <div className="text-sm uppercase tracking-widest text-emerald-300">How You Can Pay</div>
+      <div className="mt-2 text-xl font-bold">Flexible Payment Options</div>
+      <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
+        Choose your preferred method and message us to get started.
+      </p>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        {options.map(({ label, icon: Icon }) => (
+          <a
+            key={label}
+            href={`https://wa.me/16582177952?text=Hi,%20I%20would%20like%20to%20pay%20using%20${encodeURIComponent(label)}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10 hover:scale-[1.02]"
+          >
+            <Icon className="h-5 w-5 text-emerald-300" />
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function Layout({ children }) {
   return (
@@ -119,6 +143,7 @@ function Layout({ children }) {
                 </div>
               </div>
             </Link>
+
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 to="/"
@@ -134,6 +159,7 @@ function Layout({ children }) {
               </a>
             </div>
           </nav>
+
           {children}
         </div>
       </header>
@@ -171,14 +197,14 @@ function Layout({ children }) {
 function ServiceCard({ service }) {
   return (
     <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-0 shadow-xl shadow-black/20 transition hover:-translate-y-1">
-      <img src={service.image} alt={service.title} className="h-44 w-full object-cover" />
-      <div className="p-6">
+      <img src={service.image} alt={service.title} className="h-36 w-full object-cover" />
+      <div className="p-5">
         <div className="text-sm uppercase tracking-wider text-sky-300">{service.title}</div>
-        <div className="mt-2 text-xl font-bold">{service.subtitle}</div>
-        <p className="mt-3 text-sm leading-6 text-slate-300">{service.description}</p>
+        <div className="mt-2 text-lg font-bold">{service.subtitle}</div>
+        <p className="mt-2 line-clamp-4 text-sm leading-6 text-slate-300">{service.description}</p>
         <Link
           to={service.path}
-          className="mt-4 inline-block rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+          className="mt-3 inline-flex items-center justify-center rounded-2xl bg-sky-500/20 px-4 py-2 text-sm font-semibold text-sky-300 transition hover:bg-sky-500/30"
         >
           View Details
         </Link>
@@ -257,63 +283,7 @@ function HomePage() {
             ))}
           </div>
 
-          <div className="mt-4 rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/20">
-            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              <div>
-                <div className="text-sm uppercase tracking-widest text-emerald-300">Why Choose Go Via</div>
-                <div className="mt-2 text-2xl font-bold">Fast, simple and reliable support</div>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
-                  We make travel and admin services easier with responsive communication, guided support,
-                  and flexible payment options.
-                </p>
-              </div>
-              <a
-                href="https://wa.me/16582177952"
-                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                Contact Us
-              </a>
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {[
-                'Fast response times',
-                'Trusted step-by-step support',
-                'Professional and reliable service',
-                'Travel and admin services in one place',
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-4 rounded-3xl border border-emerald-400/10 bg-gradient-to-br from-emerald-500/5 via-slate-900 to-slate-900 p-5 shadow-xl shadow-black/20">
-  <div className="text-sm uppercase tracking-widest text-emerald-300">Payment Options</div>
-  <div className="mt-2 text-xl font-bold">Flexible Ways to Pay</div>
-
-  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-    {[
-      { label: 'Bank Transfer', icon: Landmark },
-      { label: 'Western Union', icon: Send },
-      { label: 'MoneyGram', icon: DollarSign },
-      { label: 'LYNK', icon: Smartphone },
-    ].map(({ label, icon: Icon }) => (
-      <a
-        key={label}
-        href={`https://wa.me/16582177952?text=Hi,%20I%20would%20like%20to%20pay%20using%20${encodeURIComponent(label)}`}
-        target="_blank"
-        rel="noreferrer"
-        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10 hover:scale-[1.02]"
-      >
-        <Icon className="h-5 w-5 text-emerald-300" />
-        {label}
-      </a>
-    ))}
-  </div>
-</div>
+          <PaymentButtons />
         </div>
 
         <div className="grid gap-4">
@@ -321,48 +291,59 @@ function HomePage() {
             <img
               src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
               alt="Travel support"
-              className="h-64 w-full object-cover lg:h-[19rem]"
+              className="h-52 w-full object-cover lg:h-[15rem]"
             />
-            <div className="grid gap-3 p-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+            <div className="grid gap-3 p-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-3">
                 <div className="text-sm uppercase tracking-wider text-sky-300">Travel Services</div>
                 <div className="mt-2 text-lg font-bold">Visa applications, renewals and travel support</div>
+                <Link
+                  to="/visa-services"
+                  className="mt-3 inline-flex items-center justify-center rounded-2xl bg-sky-500/20 px-4 py-2 text-sm font-semibold text-sky-300 transition hover:bg-sky-500/30"
+                >
+                  Learn More
+                </Link>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-3">
                 <div className="text-sm uppercase tracking-wider text-fuchsia-300">Admin Services</div>
                 <div className="mt-2 text-lg font-bold">Property tax, traffic tickets and registrations</div>
+                <a
+                  href="#services"
+                  className="mt-3 inline-flex items-center justify-center rounded-2xl bg-fuchsia-500/20 px-4 py-2 text-sm font-semibold text-fuchsia-300 transition hover:bg-fuchsia-500/30"
+                >
+                  Learn More
+                </a>
               </div>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-6 shadow-2xl shadow-black/30">
-            <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-2xl shadow-black/30">
+            <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <div className="text-sm uppercase tracking-widest text-sky-300">Featured Service</div>
-                <div className="mt-1 text-xl font-bold sm:text-2xl">Traffic Ticket Payment</div>
+                <div className="mt-1 text-lg font-bold sm:text-xl">Traffic Ticket Payment</div>
               </div>
               <div className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/20 px-3 py-1 text-xs font-semibold text-yellow-300">
                 Popular
               </div>
             </div>
-            <p className="text-slate-300">
-              Lost your ticket? Don’t worry. We can help find the details for you and assist with payment
-              once the due date has not passed.
+            <p className="text-sm leading-6 text-slate-300">
+              Lost your ticket? We can help find the details and assist with payment before the due date passes.
             </p>
-            <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-4 text-yellow-100">
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-3 text-sm text-yellow-100">
                 Avoid the stress of a court date by taking action early.
               </div>
               <Link
                 to="/traffic-ticket-payment"
-                className="rounded-2xl bg-white/10 px-5 py-3 text-center font-semibold text-white transition hover:bg-white/15"
+                className="rounded-2xl bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-white/15"
               >
                 Learn More
               </Link>
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-3 md:grid-cols-2">
             <ServiceCard service={services.admin[1]} />
             <ServiceCard service={services.travel[0]} />
           </div>
@@ -394,8 +375,11 @@ function HomePage() {
                 <div key={item.path} className="rounded-2xl bg-slate-950/30 p-4">
                   <div className="font-semibold text-slate-100">{item.title}</div>
                   <div className="mt-1 text-sm text-slate-300">{item.subtitle}</div>
-                  <Link to={item.path} className="mt-3 inline-block text-sm font-semibold text-sky-300">
-                    View page →
+                  <Link
+                    to={item.path}
+                    className="mt-3 inline-flex items-center justify-center rounded-2xl bg-sky-500/20 px-4 py-2 text-sm font-semibold text-sky-300 transition hover:bg-sky-500/30"
+                  >
+                    View Page
                   </Link>
                 </div>
               ))}
@@ -415,8 +399,11 @@ function HomePage() {
                 <div key={item.path} className="rounded-2xl bg-slate-950/30 p-4">
                   <div className="font-semibold text-slate-100">{item.title}</div>
                   <div className="mt-1 text-sm text-slate-300">{item.subtitle}</div>
-                  <Link to={item.path} className="mt-3 inline-block text-sm font-semibold text-fuchsia-300">
-                    View page →
+                  <Link
+                    to={item.path}
+                    className="mt-3 inline-flex items-center justify-center rounded-2xl bg-fuchsia-500/20 px-4 py-2 text-sm font-semibold text-fuchsia-300 transition hover:bg-fuchsia-500/30"
+                  >
+                    View Page
                   </Link>
                 </div>
               ))}
@@ -456,18 +443,23 @@ function ServicePage({
   children,
 }) {
   return (
-    <section className="grid items-start gap-6 lg:grid-cols-[1fr_0.92fr] xl:gap-8">
-      <div>
-        <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
-        <h1 className="mt-3 text-4xl font-black leading-none tracking-tight sm:text-6xl">{title}</h1>
-        <p className="mt-3 text-xl font-semibold text-fuchsia-300">{subtitle}</p>
-        <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{description}</p>
+    <section className="grid items-start gap-6 lg:grid-cols-[1.08fr_0.92fr] xl:gap-8">
+      <div className="grid gap-5">
+        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
+          <img src={image} alt={title} className="h-56 w-full object-cover lg:h-[20rem]" />
+        </div>
 
-        {children}
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
+          <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
+          <h1 className="mt-3 text-4xl font-black leading-none tracking-tight sm:text-6xl">{title}</h1>
+          <p className="mt-3 text-xl font-semibold text-fuchsia-300">{subtitle}</p>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{description}</p>
+          {children}
+        </div>
 
-        <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
-          <div className="text-2xl font-bold">What this page will include</div>
-          <div className="mt-5 grid gap-3">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
+          <div className="text-2xl font-bold">What this page includes</div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {details.map((item) => (
               <div
                 key={item}
@@ -479,13 +471,20 @@ function ServicePage({
             ))}
           </div>
         </div>
+
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
+          <div className="text-xl font-bold">Suggested details</div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {checklist.map((item) => (
+              <div key={item} className="rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-200">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="grid gap-5">
-        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
-          <img src={image} alt={title} className="h-72 w-full object-cover lg:h-[24rem]" />
-        </div>
-
         {prices?.length ? (
           <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 p-6 shadow-2xl shadow-black/30">
             <div className="text-sm uppercase tracking-widest text-fuchsia-300">Pricing</div>
@@ -536,43 +535,31 @@ function ServicePage({
             <div className="text-sm uppercase tracking-widest text-emerald-300">Accepted Payment Methods</div>
             <div className="mt-2 text-2xl font-bold">How You Can Pay</div>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {[
-                { label: 'Bank Transfer', icon: Landmark },
-                { label: 'Western Union', icon: Send },
-                { label: 'MoneyGram', icon: DollarSign },
-                { label: 'LYNK', icon: Smartphone },
-              ].map(({ label, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={`https://wa.me/16582177952?text=Hi,%20I%20would%20like%20to%20pay%20using%20${encodeURIComponent(label)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10 hover:scale-[1.02]"
-                >
-                  <Icon className="h-5 w-5 text-emerald-300" />
-                  {label}
-                </a>
-              ))}
+              {paymentMethods.map((method) => {
+                const iconMap = {
+                  'Bank Transfer': Landmark,
+                  'Western Union': Send,
+                  MoneyGram: DollarSign,
+                  LYNK: Smartphone,
+                };
+                const Icon = iconMap[method] || Landmark;
+
+                return (
+                  <a
+                    key={method}
+                    href={`https://wa.me/16582177952?text=Hi,%20I%20would%20like%20to%20pay%20using%20${encodeURIComponent(method)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10 hover:scale-[1.02]"
+                  >
+                    <Icon className="h-5 w-5 text-emerald-300" />
+                    {method}
+                  </a>
+                );
+              })}
             </div>
           </div>
         ) : null}
-
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
-          <div className="text-xl font-bold">Suggested details</div>
-          <div className="mt-4 grid gap-3">
-            {checklist.map((item) => (
-              <div key={item} className="rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-200">
-                {item}
-              </div>
-            ))}
-          </div>
-          <Link
-            to="/"
-            className="mt-5 inline-block rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-          >
-            Back to Home
-          </Link>
-        </div>
       </div>
     </section>
   );
@@ -638,7 +625,11 @@ export default function App() {
                       >
                         <div className="text-2xl">{country.flag}</div>
                         <div className="mt-2 text-lg font-bold text-white">{country.title}</div>
-                        <div className="mt-1 text-sm text-slate-300">View details →</div>
+                        <div className="mt-2">
+                          <span className="inline-flex items-center justify-center rounded-2xl bg-white/10 px-3 py-1.5 text-xs font-semibold text-white">
+                            View details
+                          </span>
+                        </div>
                       </Link>
                     ))}
                   </div>
