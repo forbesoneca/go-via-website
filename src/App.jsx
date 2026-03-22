@@ -1,4 +1,4 @@
-export default function GoViaWebsite() {
+export default function App()  {
   const services = {
     travel: [
       'Visa Application Assistance',
