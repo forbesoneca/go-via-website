@@ -92,8 +92,6 @@ const highlights = [
   },
 ];
 
-const allPages = [...services.travel, ...services.admin];
-
 function Layout({ children }) {
   return (
     <div className="min-h-screen bg-[#030712] text-white">
@@ -140,10 +138,13 @@ function Layout({ children }) {
         <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 lg:px-12">
           <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
             <div>
-              <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Ready to get started?</div>
+              <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">
+                Ready to get started?
+              </div>
               <h3 className="mt-3 text-4xl font-black md:text-5xl">Book a Consultation Today</h3>
               <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-                Reach out for assistance with traffic ticket payment, property tax support, visa services, passport renewal, and more.
+                Reach out for assistance with traffic ticket payment, property tax support, visa services,
+                passport renewal, and more.
               </p>
             </div>
             <div className="rounded-3xl border border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 p-7 text-center shadow-2xl shadow-fuchsia-950/20">
@@ -189,10 +190,11 @@ function HomePage() {
         <div>
           <h1 className="max-w-4xl text-4xl font-black leading-none tracking-tight sm:text-6xl md:text-7xl xl:text-[5.2rem]">
             Reliable <span className="text-sky-400">Travel</span> and{' '}
-            <span className="text-fuchsia-400">Admin</span> Services, All in One Place.
+            <span className="text-fuchsia-400">Admin</span> Services.
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
-            From visa support and passport renewal to traffic ticket payment and property tax assistance, Go Via Travel Services + helps you handle important tasks quickly and confidently.
+            From visa support and passport renewal to traffic ticket payment and property tax assistance,
+            Go Via Travel Services + helps you handle important tasks quickly and confidently.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
@@ -257,7 +259,8 @@ function HomePage() {
               </div>
             </div>
             <p className="text-slate-300">
-              Lost your ticket? Don’t worry. We can help find the details for you and assist with payment once the due date has not passed.
+              Lost your ticket? Don’t worry. We can help find the details for you and assist with payment
+              once the due date has not passed.
             </p>
             <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-4 text-yellow-100">
@@ -284,7 +287,8 @@ function HomePage() {
           <div className="text-sm font-semibold uppercase tracking-widest text-fuchsia-300">Our Services</div>
           <h2 className="mt-3 text-4xl font-black md:text-5xl">Everything You Need, Handled in One Place</h2>
           <p className="mx-auto mt-4 max-w-3xl text-slate-300">
-            Browse each service page for details, what you may need, and the next steps before we add your Google Forms.
+            Browse each service page for details, what you may need, and the next steps before we add your
+            Google Forms.
           </p>
         </div>
 
@@ -336,7 +340,10 @@ function HomePage() {
       <section className="mx-auto max-w-7xl px-1 pb-20 md:px-0">
         <div className="grid gap-6 lg:grid-cols-3">
           {highlights.map((item) => (
-            <div key={item.title} className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20">
+            <div
+              key={item.title}
+              className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20"
+            >
               <div className="text-2xl font-bold">{item.title}</div>
               <p className="mt-3 leading-7 text-slate-300">{item.text}</p>
             </div>
@@ -347,7 +354,17 @@ function HomePage() {
   );
 }
 
-function ServicePage({ title, subtitle, image, description, details, checklist, children }) {
+function ServicePage({
+  title,
+  subtitle,
+  image,
+  description,
+  details,
+  checklist,
+  prices,
+  formButtons,
+  children,
+}) {
   return (
     <section className="grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] xl:gap-10">
       <div>
@@ -362,7 +379,10 @@ function ServicePage({ title, subtitle, image, description, details, checklist, 
           <div className="text-2xl font-bold">What this page will include</div>
           <div className="mt-5 grid gap-3">
             {details.map((item) => (
-              <div key={item} className="flex items-start gap-3 rounded-2xl bg-slate-950/40 px-4 py-3 text-slate-100">
+              <div
+                key={item}
+                className="flex items-start gap-3 rounded-2xl bg-slate-950/40 px-4 py-3 text-slate-100"
+              >
                 <span>✔️</span>
                 <span>{item}</span>
               </div>
@@ -376,12 +396,47 @@ function ServicePage({ title, subtitle, image, description, details, checklist, 
           <img src={image} alt={title} className="h-72 w-full object-cover lg:h-[24rem]" />
         </div>
 
+        {prices?.length ? (
+          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 p-7 shadow-2xl shadow-black/30">
+            <div className="text-sm uppercase tracking-widest text-fuchsia-300">Pricing</div>
+            <div className="mt-2 text-2xl font-bold">Service Fees</div>
+            <div className="mt-5 grid gap-3">
+              {prices.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4"
+                >
+                  <div className="text-sm font-medium text-slate-200">{item.label}</div>
+                  <div className="text-lg font-black text-white sm:text-xl">{item.price}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
         <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-7 shadow-2xl shadow-black/30">
-          <div className="text-sm uppercase tracking-widest text-sky-300">Coming Next</div>
-          <div className="mt-2 text-2xl font-bold">Google Form Integration</div>
-          <p className="mt-3 leading-7 text-slate-300">
-            This page is ready for a service-specific Google Form button. Once your form is created, we can place it here along with custom instructions.
-          </p>
+          <div className="text-sm uppercase tracking-widest text-sky-300">Google Forms</div>
+          <div className="mt-2 text-2xl font-bold">Apply Here</div>
+          <p className="mt-3 leading-7 text-slate-300">Select the matching form below to get started.</p>
+          <div className="mt-5 grid gap-3">
+            {formButtons?.length ? (
+              formButtons.map((button) => (
+                <a
+                  key={button.label}
+                  href={button.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-2xl bg-green-500 px-5 py-3 text-center font-semibold text-white shadow-xl shadow-green-500/20 transition hover:scale-[1.01]"
+                >
+                  {button.label}
+                </a>
+              ))
+            ) : (
+              <div className="rounded-2xl border border-dashed border-white/15 bg-white/5 px-4 py-4 text-sm text-slate-300">
+                Form link coming soon.
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
@@ -417,6 +472,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/visa-services"
           element={
@@ -439,7 +495,9 @@ export default function App() {
                 ]}
               >
                 <div className="mt-8 rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-6 shadow-xl shadow-black/20">
-                  <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Choose a visa page</div>
+                  <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">
+                    Choose a visa page
+                  </div>
                   <div className="mt-4 grid gap-4 sm:grid-cols-2">
                     {services.travel[0].countries.map((country) => (
                       <Link
@@ -458,6 +516,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/visa-services/usa"
           element={
@@ -470,7 +529,15 @@ export default function App() {
                 details={[
                   'USA visa application overview',
                   'First-time and renewal guidance',
-                  'Space for your future USA visa form button',
+                  'Direct form buttons for each USA visa option',
+                ]}
+                prices={[
+                  { label: 'First Time Applicant', price: 'J$39,000' },
+                  { label: 'Renewal', price: 'J$25,000' },
+                ]}
+                formButtons={[
+                  { label: 'USA Visa First Time Applicant', href: '#' },
+                  { label: 'USA Visa Renewal', href: '#' },
                 ]}
                 checklist={[
                   'First-time or renewal request',
@@ -482,6 +549,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/visa-services/canada"
           element={
@@ -494,7 +562,15 @@ export default function App() {
                 details={[
                   'Canada visa application overview',
                   'Guidance for preparing before submission',
-                  'Space for your future Canada visa form button',
+                  'Direct form buttons for each Canada visa option',
+                ]}
+                prices={[
+                  { label: 'First Time Applicant', price: 'J$35,000' },
+                  { label: 'Renewal', price: 'J$22,000' },
+                ]}
+                formButtons={[
+                  { label: 'CA Visa First Time Applicant', href: '#' },
+                  { label: 'CA Visa Renewal', href: '#' },
                 ]}
                 checklist={[
                   'Type of visa support needed',
@@ -506,6 +582,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/visa-services/uk"
           element={
@@ -518,8 +595,17 @@ export default function App() {
                 details={[
                   'UK visa support overview',
                   'Preparation guidance before submitting a request',
-                  'Space for your future UK visa form button',
+                  'Full fee breakdown transparency',
                 ]}
+                prices={[
+                  { label: 'Mandatory Form', price: 'J$1,500' },
+                  { label: 'Processing Fee', price: 'J$10,000' },
+                  { label: '6 Months Visa Fee', price: 'J$25,000' },
+                  { label: '2 Years Visa Fee', price: 'J$91,117' },
+                  { label: '5 Years Visa Fee', price: 'J$162,631' },
+                  { label: '10 Years Visa Fee', price: 'J$203,093' },
+                ]}
+                formButtons={[{ label: 'UK Visa Form', href: '#' }]}
                 checklist={[
                   'First-time or renewal support',
                   'Passport status',
@@ -530,6 +616,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/visa-services/schengen"
           element={
@@ -542,8 +629,10 @@ export default function App() {
                 details={[
                   'Schengen visa support overview',
                   'Guidance on what to prepare',
-                  'Space for your future Schengen visa form button',
+                  'Dedicated Schengen visa form button area',
                 ]}
+                prices={[{ label: 'Schengen Visa', price: 'Prices Coming Soon' }]}
+                formButtons={[{ label: 'Schengen Visa Form', href: '#' }]}
                 checklist={[
                   'Country of main destination',
                   'Travel dates or intended timeline',
@@ -554,6 +643,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/passport-renewal"
           element={
@@ -578,6 +668,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/traffic-ticket-payment"
           element={
@@ -602,6 +693,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/property-tax-payment"
           element={
@@ -626,6 +718,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/motor-vehicle-registration"
           element={
@@ -650,6 +743,7 @@ export default function App() {
             </Layout>
           }
         />
+
         <Route
           path="/consultation"
           element={
