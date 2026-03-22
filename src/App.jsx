@@ -42,7 +42,7 @@ export default function App() {
               <img
                 src="/logo.png"
                 alt="Go Via Logo"
-                className="h-12 w-12 rounded-xl object-contain bg-white p-1"
+                className="h-16 w-16 object-contain"
               />
               <div>
                 <div className="text-xl font-extrabold tracking-wide">
