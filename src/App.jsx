@@ -264,7 +264,7 @@ function HomePage() {
                 <div className="mt-2 text-2xl font-bold">Fast, simple and reliable support</div>
                 <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
                   We make travel and admin services easier with responsive communication, guided support,
-                  and flexible, easy payment options.
+                  and flexible payment options.
                 </p>
               </div>
               <a
