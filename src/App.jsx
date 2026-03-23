@@ -2,14 +2,32 @@ import React from 'react';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
 import { Landmark, Send, DollarSign, Smartphone } from 'lucide-react';
 
+const images = {
+  visa: '/visa-services.png',
+  passport: '/passport-renewal.png',
+  traffic: '/traffic-ticket.png',
+  property: '/property-tax.png',
+  registration: '/registration.png',
+  consultation: '/consultation.png',
+  hero: '/main-hero.png',
+  logo: '/logo.png',
+};
+
+const contact = {
+  phoneDisplay: '(658) 217-7952',
+  phoneRaw: '16582177952',
+  whatsappBase: 'https://wa.me/16582177952',
+};
+
+const visaPaymentMethods = ['Bank Transfer', 'Western Union', 'MoneyGram', 'LYNK'];
+
 const services = {
   travel: [
     {
       title: 'Visa Services',
       subtitle: 'Application & Renewal Help',
       path: '/visa-services',
-      image:
-        '/visa-services.png',
+      image: images.visa,
       description:
         'Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.',
       countries: [
@@ -23,8 +41,7 @@ const services = {
       title: 'Passport Renewal',
       subtitle: 'Jamaican Passport Support',
       path: '/passport-renewal',
-      image:
-        '/passport-renewal.png',
+      image: images.passport,
       description:
         'Guidance on the renewal process and the details needed before you submit your passport request.',
     },
@@ -34,8 +51,7 @@ const services = {
       title: 'Traffic Ticket Payment',
       subtitle: 'Avoid the stress of a court date',
       path: '/traffic-ticket-payment',
-      image:
-        '/Traffic-ticket.png',
+      image: images.traffic,
       description:
         'Lost your ticket? We can help find the details for you and assist with payment once the due date has not passed.',
     },
@@ -43,8 +59,7 @@ const services = {
       title: 'Property Tax Payment',
       subtitle: 'Easy Payment Support',
       path: '/property-tax-payment',
-      image:
-        '/Property-tax.png',
+      image: images.property,
       description:
         'We assist with property tax payment requests and provide support with the details needed to complete the process properly.',
     },
@@ -52,8 +67,7 @@ const services = {
       title: 'Motor Vehicle Registration',
       subtitle: 'Simple Registration Guidance',
       path: '/motor-vehicle-registration',
-      image:
-        '/Registration.png',
+      image: images.registration,
       description:
         'Support with understanding the information and steps needed before moving ahead with your registration process.',
     },
@@ -61,8 +75,7 @@ const services = {
       title: 'Consultation',
       subtitle: 'Speak With Us First',
       path: '/consultation',
-      image:
-        '/Consultation.png',
+      image: images.consultation,
       description:
         'Book a consultation if you need help choosing the right service or understanding what is required before getting started.',
     },
@@ -84,7 +97,116 @@ const highlights = [
   },
 ];
 
-const visaPaymentMethods = ['Bank Transfer', 'Western Union', 'MoneyGram', 'LYNK'];
+const visaCountryPages = [
+  {
+    path: '/visa-services/usa',
+    title: 'USA Visa',
+    subtitle: 'Application & Renewal Help',
+    image: images.visa,
+    description:
+      'Use this page for clients interested in USA visa support, whether it is a first-time application or a renewal.',
+    details: [
+      'USA visa application overview',
+      'First-time and renewal guidance',
+      'Direct form buttons for each USA visa option',
+    ],
+    prices: [
+      { label: 'First Time Applicant', price: 'J$39,000' },
+      { label: 'Renewal', price: 'J$41,000' },
+    ],
+    formButtons: [
+      { label: 'USA Visa First Time Applicant', href: 'https://forms.gle/Z1Y7xnGtJyDhGXx5A' },
+      { label: 'USA Visa Renewal', href: 'https://forms.gle/Wobbo4sFAWc7LcKW9' },
+    ],
+    checklist: [
+      'First-time or renewal request',
+      'Current passport status',
+      'Intended travel timing',
+      'Basic contact details',
+    ],
+  },
+  {
+    path: '/visa-services/canada',
+    title: 'Canada Visa',
+    subtitle: 'Application & Renewal Help',
+    image: images.visa,
+    description:
+      'Use this page for Canada visa inquiries so clients can understand the support available before filling out a form.',
+    details: [
+      'Canada visa application overview',
+      'Guidance for preparing before submission',
+      'Direct form buttons for each Canada visa option',
+    ],
+    prices: [
+      { label: 'First Time Applicant', price: 'J$33,000' },
+      { label: 'Renewal', price: 'J$34,000' },
+    ],
+    formButtons: [
+      { label: 'CA Visa First Time Applicant', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
+      { label: 'CA Visa Renewal', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
+      { label: 'CA Visa (Minor)', href: 'https://forms.gle/DiRfoUQ1CxS5Q6ry6' },
+    ],
+    checklist: [
+      'Type of visa support needed',
+      'Passport status',
+      'Travel timeline',
+      'Contact details for follow-up',
+    ],
+  },
+  {
+    path: '/visa-services/uk',
+    title: 'UK Visa',
+    subtitle: 'Application & Renewal Help',
+    image: images.visa,
+    description:
+      'Use this page for UK visa support so clients can review the general process and prepare the right information.',
+    details: [
+      'UK visa support overview',
+      'Preparation guidance before submitting a request',
+      'Full fee breakdown transparency',
+    ],
+    prices: [
+      { label: 'Mandatory Form', price: 'J$1,500' },
+      { label: 'Processing Fee', price: 'J$10,000' },
+      { label: '6 Months Visa Fee', price: 'J$25,000' },
+      { label: '2 Years Visa Fee', price: 'J$91,117' },
+      { label: '5 Years Visa Fee', price: 'J$162,631' },
+      { label: '10 Years Visa Fee', price: 'J$203,093' },
+    ],
+    formButtons: [{ label: 'UK Visa Form', href: 'https://forms.gle/R9sqxTgWsKGEsmEb6' }],
+    checklist: [
+      'First-time or renewal support',
+      'Passport status',
+      'Expected travel date',
+      'Contact details',
+    ],
+  },
+  {
+    path: '/visa-services/schengen',
+    title: 'Schengen Visa',
+    subtitle: 'Application & Renewal Help',
+    image: images.visa,
+    description:
+      'Use this page for Schengen visa support so clients can review the process and get ready before submitting a request.',
+    details: [
+      'Schengen visa support overview',
+      'Guidance on what to prepare',
+      'Dedicated Schengen visa form button area',
+    ],
+    prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
+    formButtons: [{ label: 'Schengen Visa Form', href: '#' }],
+    checklist: [
+      'Country of main destination',
+      'Travel dates or intended timeline',
+      'Passport status',
+      'Best contact information',
+    ],
+  },
+];
+
+function buildWhatsAppLink(message) {
+  return `${contact.whatsappBase}?text=${encodeURIComponent(message)}`;
+}
 
 function PaymentButtons() {
   const options = [
@@ -106,10 +228,11 @@ function PaymentButtons() {
         {options.map(({ label, icon: Icon }) => (
           <a
             key={label}
-            href={`https://wa.me/16582177952?text=Hi,%20I%20would%20like%20to%20pay%20using%20${encodeURIComponent(label)}`}
+            href={buildWhatsAppLink(`Hi, I would like to pay using ${label}`)}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10 hover:scale-[1.02]"
+            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:scale-[1.02] hover:bg-white/10"
+            aria-label={`Pay using ${label}`}
           >
             <Icon className="h-5 w-5 text-emerald-300" />
             {label}
@@ -126,9 +249,9 @@ function Layout({ children }) {
       <header className="relative overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#0f172a_60%,#3b0764_100%)]">
         <div className="relative mx-auto max-w-7xl px-5 py-8 md:px-10 lg:px-12">
           <nav className="mb-8 flex flex-col gap-4 rounded-3xl border border-sky-400/15 bg-slate-900/80 px-5 py-4 shadow-2xl shadow-fuchsia-950/20 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <Link to="/" className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <Link to="/" className="flex min-w-0 items-center gap-3 sm:gap-4" aria-label="Go to home page">
               <img
-                src="/logo.png"
+                src={images.logo}
                 alt="Go Via Logo"
                 className="h-16 w-16 flex-none object-contain drop-shadow-lg sm:h-24 sm:w-24"
               />
@@ -152,7 +275,7 @@ function Layout({ children }) {
                 Home
               </Link>
               <a
-                href="https://wa.me/16582177952"
+                href={contact.whatsappBase}
                 className="inline-flex w-full items-center justify-center rounded-full bg-green-500 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.03] sm:w-auto"
               >
                 WhatsApp Us
@@ -179,9 +302,9 @@ function Layout({ children }) {
             </div>
             <div className="rounded-3xl border border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 p-6 text-center shadow-2xl shadow-fuchsia-950/20">
               <div className="text-sm uppercase tracking-wider text-fuchsia-300">Call or WhatsApp</div>
-              <div className="mt-2 text-3xl font-black tracking-tight">(658) 217-7952</div>
+              <div className="mt-2 text-3xl font-black tracking-tight">{contact.phoneDisplay}</div>
               <a
-                href="https://wa.me/16582177952"
+                href={contact.whatsappBase}
                 className="mt-4 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
               >
                 Message Now
@@ -197,10 +320,15 @@ function Layout({ children }) {
 function ServiceCard({ service }) {
   return (
     <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-0 shadow-xl shadow-black/20 transition hover:-translate-y-1">
-      <img src={service.image} alt={service.title} className="h-36 w-full object-cover" />
+      <img
+        src={service.image}
+        alt={service.title}
+        loading="lazy"
+        className="h-36 w-full object-cover"
+      />
       <div className="p-5">
-        <div className="text-sm uppercase tracking-wider text-sky-300">{service.title}</div>
-        <div className="mt-2 text-lg font-bold">{service.subtitle}</div>
+        <div className="text-lg font-bold">{service.title}</div>
+        <div className="mt-1 text-sm text-sky-300">{service.subtitle}</div>
         <p className="mt-2 line-clamp-4 text-sm leading-6 text-slate-300">{service.description}</p>
         <Link
           to={service.path}
@@ -254,7 +382,7 @@ function HomePage() {
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <a
-              href="https://wa.me/16582177952"
+              href={contact.whatsappBase}
               className="rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
             >
               Book a Consultation
@@ -289,8 +417,9 @@ function HomePage() {
         <div className="grid gap-4">
           <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
             <img
-              src="/main-hero.jpeg"
-              alt="Travel support"
+              src={images.hero}
+              alt="Tropical vacation destination"
+              fetchPriority="high"
               className="h-52 w-full object-cover lg:h-[15rem]"
             />
             <div className="grid gap-3 p-3 sm:grid-cols-2">
@@ -446,7 +575,12 @@ function ServicePage({
     <section className="grid items-start gap-6 lg:grid-cols-[1.08fr_0.92fr] xl:gap-8">
       <div className="grid gap-5">
         <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
-          <img src={image} alt={title} className="h-56 w-full object-cover lg:h-[20rem]" />
+          <img
+            src={image}
+            alt={title}
+            loading="lazy"
+            className="h-56 w-full object-cover lg:h-[20rem]"
+          />
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
@@ -547,10 +681,10 @@ function ServicePage({
                 return (
                   <a
                     key={method}
-                    href={`https://wa.me/16582177952?text=Hi,%20I%20would%20like%20to%20pay%20using%20${encodeURIComponent(method)}`}
+                    href={buildWhatsAppLink(`Hi, I would like to pay using ${method}`)}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10 hover:scale-[1.02]"
+                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:scale-[1.02] hover:bg-white/10"
                   >
                     <Icon className="h-5 w-5 text-emerald-300" />
                     {method}
@@ -598,7 +732,7 @@ export default function App() {
                 paymentMethods={visaPaymentMethods}
                 title="Visa Services"
                 subtitle="Application & Renewal Help"
-                image={services.travel[0].image}
+                image={images.visa}
                 description="Choose the visa page that matches your destination so clients can get country-specific information before submitting a request."
                 details={[
                   'Separate pages for USA, Canada, UK and Schengen visas',
@@ -639,137 +773,27 @@ export default function App() {
           }
         />
 
-        <Route
-          path="/visa-services/usa"
-          element={
-            <Layout>
-              <ServicePage
-                paymentMethods={visaPaymentMethods}
-                title="USA Visa"
-                subtitle="Application & Renewal Help"
-                image={services.travel[0].image}
-                description="Use this page for clients interested in USA visa support, whether it is a first-time application or a renewal."
-                details={[
-                  'USA visa application overview',
-                  'First-time and renewal guidance',
-                  'Direct form buttons for each USA visa option',
-                ]}
-                prices={[
-                  { label: 'First Time Applicant', price: 'J$39,000' },
-                  { label: 'Renewal', price: 'J$41,000' },
-                ]}
-                formButtons={[
-                  { label: 'USA Visa First Time Applicant', href: 'https://forms.gle/Z1Y7xnGtJyDhGXx5A' },
-                  { label: 'USA Visa Renewal', href: 'https://forms.gle/Wobbo4sFAWc7LcKW9' },
-                ]}
-                checklist={[
-                  'First-time or renewal request',
-                  'Current passport status',
-                  'Intended travel timing',
-                  'Basic contact details',
-                ]}
-              />
-            </Layout>
-          }
-        />
-
-        <Route
-          path="/visa-services/canada"
-          element={
-            <Layout>
-              <ServicePage
-                paymentMethods={visaPaymentMethods}
-                title="Canada Visa"
-                subtitle="Application & Renewal Help"
-                image={services.travel[0].image}
-                description="Use this page for Canada visa inquiries so clients can understand the support available before filling out a form."
-                details={[
-                  'Canada visa application overview',
-                  'Guidance for preparing before submission',
-                  'Direct form buttons for each Canada visa option',
-                ]}
-                prices={[
-                  { label: 'First Time Applicant', price: 'J$33,000' },
-                  { label: 'Renewal', price: 'J$34,000' },
-                ]}
-                formButtons={[
-                  { label: 'CA Visa First Time Applicant', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
-                  { label: 'CA Visa Renewal', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
-                  { label: 'CA Visa (Minor)', href: 'https://forms.gle/DiRfoUQ1CxS5Q6ry6' },
-                ]}
-                checklist={[
-                  'Type of visa support needed',
-                  'Passport status',
-                  'Travel timeline',
-                  'Contact details for follow-up',
-                ]}
-              />
-            </Layout>
-          }
-        />
-
-        <Route
-          path="/visa-services/uk"
-          element={
-            <Layout>
-              <ServicePage
-                paymentMethods={visaPaymentMethods}
-                title="UK Visa"
-                subtitle="Application & Renewal Help"
-                image={services.travel[0].image}
-                description="Use this page for UK visa support so clients can review the general process and prepare the right information."
-                details={[
-                  'UK visa support overview',
-                  'Preparation guidance before submitting a request',
-                  'Full fee breakdown transparency',
-                ]}
-                prices={[
-                  { label: 'Mandatory Form', price: 'J$1,500' },
-                  { label: 'Processing Fee', price: 'J$10,000' },
-                  { label: '6 Months Visa Fee', price: 'J$25,000' },
-                  { label: '2 Years Visa Fee', price: 'J$91,117' },
-                  { label: '5 Years Visa Fee', price: 'J$162,631' },
-                  { label: '10 Years Visa Fee', price: 'J$203,093' },
-                ]}
-                formButtons={[{ label: 'UK Visa Form', href: 'https://forms.gle/R9sqxTgWsKGEsmEb6' }]}
-                checklist={[
-                  'First-time or renewal support',
-                  'Passport status',
-                  'Expected travel date',
-                  'Contact details',
-                ]}
-              />
-            </Layout>
-          }
-        />
-
-        <Route
-          path="/visa-services/schengen"
-          element={
-            <Layout>
-              <ServicePage
-                paymentMethods={visaPaymentMethods}
-                title="Schengen Visa"
-                subtitle="Application & Renewal Help"
-                image={services.travel[0].image}
-                description="Use this page for Schengen visa support so clients can review the process and get ready before submitting a request."
-                details={[
-                  'Schengen visa support overview',
-                  'Guidance on what to prepare',
-                  'Dedicated Schengen visa form button area',
-                ]}
-                prices={[{ label: 'Schengen Visa', price: 'Prices Coming Soon' }]}
-                formButtons={[{ label: 'Schengen Visa Form', href: '#' }]}
-                checklist={[
-                  'Country of main destination',
-                  'Travel dates or intended timeline',
-                  'Passport status',
-                  'Best contact information',
-                ]}
-              />
-            </Layout>
-          }
-        />
+        {visaCountryPages.map((page) => (
+          <Route
+            key={page.path}
+            path={page.path}
+            element={
+              <Layout>
+                <ServicePage
+                  paymentMethods={visaPaymentMethods}
+                  title={page.title}
+                  subtitle={page.subtitle}
+                  image={page.image}
+                  description={page.description}
+                  details={page.details}
+                  prices={page.prices}
+                  formButtons={page.formButtons}
+                  checklist={page.checklist}
+                />
+              </Layout>
+            }
+          />
+        ))}
 
         <Route
           path="/passport-renewal"
@@ -778,7 +802,7 @@ export default function App() {
               <ServicePage
                 title="Passport Renewal"
                 subtitle="Jamaican Passport Support"
-                image={services.travel[1].image}
+                image={images.passport}
                 description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
                 details={[
                   'Renewal guidance and preparation support',
@@ -803,7 +827,7 @@ export default function App() {
               <ServicePage
                 title="Traffic Ticket Payment"
                 subtitle="Avoid the Stress of a Court Date"
-                image={services.admin[0].image}
+                image={images.traffic}
                 description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
                 details={[
                   'Clear explanation of how the service works',
@@ -828,7 +852,7 @@ export default function App() {
               <ServicePage
                 title="Property Tax Payment"
                 subtitle="Easy Payment Support"
-                image={services.admin[1].image}
+                image={images.property}
                 description="This page can walk clients through the information needed for property tax payment support before they submit a request."
                 details={[
                   'Property tax payment overview',
@@ -856,7 +880,7 @@ export default function App() {
               <ServicePage
                 title="Motor Vehicle Registration"
                 subtitle="Simple Registration Guidance"
-                image={services.admin[2].image}
+                image={images.registration}
                 description="Use this page for clients who need guidance on what to prepare before moving ahead with motor vehicle registration support."
                 details={[
                   'A brief explanation of the registration support offered',
@@ -881,7 +905,7 @@ export default function App() {
               <ServicePage
                 title="Consultation"
                 subtitle="Speak With Us First"
-                image={services.admin[3].image}
+                image={images.consultation}
                 description="This page is for clients who want to ask questions first or need help identifying the right service before proceeding."
                 details={[
                   'A simple consultation overview',
