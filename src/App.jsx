@@ -3,19 +3,18 @@ import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-do
 import { Landmark, Send, DollarSign, Smartphone } from 'lucide-react';
 
 const images = {
-  visa: '/visa-services.png',
-  passport: '/passport-renewal.png',
-  traffic: '/traffic-ticket.png',
-  property: '/property-tax.png',
-  registration: '/registration.png',
-  consultation: '/consultation.png',
-  hero: '/main-hero.png',
-  logo: '/logo.png',
+  visa: `${import.meta.env.BASE_URL}visa-services.png`,
+  passport: `${import.meta.env.BASE_URL}passport-renewal.png`,
+  traffic: `${import.meta.env.BASE_URL}traffic-ticket.png`,
+  property: `${import.meta.env.BASE_URL}property-tax.png`,
+  registration: `${import.meta.env.BASE_URL}registration.png`,
+  consultation: `${import.meta.env.BASE_URL}consultation.png`,
+  hero: `${import.meta.env.BASE_URL}main-hero.png`,
+  logo: `${import.meta.env.BASE_URL}logo.png`,
 };
 
 const contact = {
   phoneDisplay: '(658) 217-7952',
-  phoneRaw: '16582177952',
   whatsappBase: 'https://wa.me/16582177952',
 };
 
@@ -217,9 +216,9 @@ function PaymentButtons() {
   ];
 
   return (
-    <div className="mt-4 rounded-3xl border border-emerald-400/10 bg-gradient-to-br from-emerald-500/5 via-slate-900 to-slate-900 p-5 shadow-xl shadow-black/20">
+    <div className="mt-4 rounded-3xl border border-emerald-400/10 bg-gradient-to-br from-emerald-500/5 via-slate-900 to-slate-900 p-4 shadow-xl shadow-black/20">
       <div className="text-sm uppercase tracking-widest text-emerald-300">How You Can Pay</div>
-      <div className="mt-2 text-xl font-bold">Flexible Payment Options</div>
+      <div className="mt-1 text-lg font-bold">Flexible Payment Options</div>
       <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
         Choose your preferred method and message us to get started.
       </p>
@@ -231,7 +230,7 @@ function PaymentButtons() {
             href={buildWhatsAppLink(`Hi, I would like to pay using ${label}`)}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:scale-[1.02] hover:bg-white/10"
+            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
             aria-label={`Pay using ${label}`}
           >
             <Icon className="h-5 w-5 text-emerald-300" />
@@ -247,13 +246,13 @@ function Layout({ children }) {
   return (
     <div className="min-h-screen bg-[#030712] text-white">
       <header className="relative overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#0f172a_60%,#3b0764_100%)]">
-        <div className="relative mx-auto max-w-7xl px-5 py-8 md:px-10 lg:px-12">
-          <nav className="mb-8 flex flex-col gap-4 rounded-3xl border border-sky-400/15 bg-slate-900/80 px-5 py-4 shadow-2xl shadow-fuchsia-950/20 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-5 py-6 md:px-10 lg:px-12">
+          <nav className="mb-6 flex flex-col gap-4 rounded-3xl border border-sky-400/15 bg-slate-900/80 px-5 py-4 shadow-2xl shadow-fuchsia-950/20 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <Link to="/" className="flex min-w-0 items-center gap-3 sm:gap-4" aria-label="Go to home page">
               <img
                 src={images.logo}
                 alt="Go Via Logo"
-                className="h-16 w-16 flex-none object-contain drop-shadow-lg sm:h-24 sm:w-24"
+                className="h-16 w-16 flex-none object-contain drop-shadow-lg sm:h-22 sm:w-22"
               />
               <div className="min-w-0">
                 <div className="text-xl font-black leading-none tracking-tight sm:text-4xl">
@@ -261,7 +260,7 @@ function Layout({ children }) {
                   <span className="text-fuchsia-400">Travel Services</span>{' '}
                   <span className="text-fuchsia-400">+</span>
                 </div>
-                <div className="mt-2 text-sm italic leading-relaxed text-slate-300 sm:text-lg">
+                <div className="mt-1 text-sm italic leading-relaxed text-slate-300 sm:text-base">
                   One Service. Every Step Covered.
                 </div>
               </div>
@@ -276,7 +275,7 @@ function Layout({ children }) {
               </Link>
               <a
                 href={contact.whatsappBase}
-                className="inline-flex w-full items-center justify-center rounded-full bg-green-500 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.03] sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full bg-green-500 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.02] sm:w-auto"
               >
                 WhatsApp Us
               </a>
@@ -288,8 +287,8 @@ function Layout({ children }) {
       </header>
 
       <footer className="border-t border-white/10 bg-slate-900/60">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:px-10 lg:px-12">
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-12">
+          <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">
                 Ready to get started?
@@ -300,9 +299,10 @@ function Layout({ children }) {
                 passport renewal, and more.
               </p>
             </div>
-            <div className="rounded-3xl border border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 p-6 text-center shadow-2xl shadow-fuchsia-950/20">
+
+            <div className="rounded-3xl border border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 p-5 text-center shadow-2xl shadow-fuchsia-950/20">
               <div className="text-sm uppercase tracking-wider text-fuchsia-300">Call or WhatsApp</div>
-              <div className="mt-2 text-3xl font-black tracking-tight">{contact.phoneDisplay}</div>
+              <div className="mt-2 text-3xl font-black tracking-tight">(658) 217-7952</div>
               <a
                 href={contact.whatsappBase}
                 className="mt-4 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
@@ -319,14 +319,9 @@ function Layout({ children }) {
 
 function ServiceCard({ service }) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-0 shadow-xl shadow-black/20 transition hover:-translate-y-1">
-      <img
-        src={service.image}
-        alt={service.title}
-        loading="lazy"
-        className="h-36 w-full object-cover"
-      />
-      <div className="p-5">
+    <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-black/20 transition hover:-translate-y-1">
+      <img src={service.image} alt={service.title} loading="lazy" className="h-32 w-full object-cover" />
+      <div className="p-4">
         <div className="text-lg font-bold">{service.title}</div>
         <div className="mt-1 text-sm text-sky-300">{service.subtitle}</div>
         <p className="mt-2 line-clamp-4 text-sm leading-6 text-slate-300">{service.description}</p>
@@ -349,7 +344,7 @@ function ProcessStrip() {
   ];
 
   return (
-    <section className="mt-6 grid gap-3 md:grid-cols-3">
+    <section className="mt-5 grid gap-3 md:grid-cols-3">
       {steps.map(([number, title, text]) => (
         <div
           key={title}
@@ -369,18 +364,19 @@ function ProcessStrip() {
 function HomePage() {
   return (
     <>
-      <section className="grid items-start gap-6 lg:grid-cols-[0.95fr_1.05fr] xl:gap-8">
+      <section className="grid items-start gap-4 lg:grid-cols-[0.97fr_1.03fr] xl:gap-6">
         <div>
-          <h1 className="max-w-4xl text-4xl font-black leading-none tracking-tight sm:text-6xl md:text-7xl xl:text-[5.2rem]">
+          <h1 className="max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-6xl xl:text-[4.5rem]">
             Reliable <span className="text-sky-400">Travel</span> and{' '}
             <span className="text-fuchsia-400">Admin</span> Services.
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+
+          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
             From visa support and passport renewal to traffic ticket payment and property tax assistance,
             Go Via Travel Services + helps you handle important tasks quickly and confidently.
           </p>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href={contact.whatsappBase}
               className="rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
@@ -395,7 +391,7 @@ function HomePage() {
             </a>
           </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {[
               ['Fast Response', 'Quick support when you need help'],
               ['Secure Process', 'Guided, simple and professional'],
@@ -414,16 +410,17 @@ function HomePage() {
           <PaymentButtons />
         </div>
 
-        <div className="grid gap-4">
+        <div className="grid gap-3">
           <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
             <img
               src={images.hero}
               alt="Tropical vacation destination"
               fetchPriority="high"
-              className="h-52 w-full object-cover lg:h-[15rem]"
+              className="h-64 w-full object-cover lg:h-[18rem]"
             />
-            <div className="grid gap-3 p-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-3">
+
+            <div className="grid gap-3 p-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
                 <div className="text-sm uppercase tracking-wider text-sky-300">Travel Services</div>
                 <div className="mt-2 text-lg font-bold">Visa applications, renewals and travel support</div>
                 <Link
@@ -433,7 +430,8 @@ function HomePage() {
                   Learn More
                 </Link>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-3">
+
+              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
                 <div className="text-sm uppercase tracking-wider text-fuchsia-300">Admin Services</div>
                 <div className="mt-2 text-lg font-bold">Property tax, traffic tickets and registrations</div>
                 <a
@@ -446,19 +444,21 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-2xl shadow-black/30">
+          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-4 shadow-2xl shadow-black/30">
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <div className="text-sm uppercase tracking-widest text-sky-300">Featured Service</div>
-                <div className="mt-1 text-lg font-bold sm:text-xl">Traffic Ticket Payment</div>
+                <div className="mt-1 text-lg font-bold">Traffic Ticket Payment</div>
               </div>
               <div className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/20 px-3 py-1 text-xs font-semibold text-yellow-300">
                 Popular
               </div>
             </div>
+
             <p className="text-sm leading-6 text-slate-300">
               Lost your ticket? We can help find the details and assist with payment before the due date passes.
             </p>
+
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-3 text-sm text-yellow-100">
                 Avoid the stress of a court date by taking action early.
@@ -481,8 +481,8 @@ function HomePage() {
 
       <ProcessStrip />
 
-      <section id="services" className="mx-auto max-w-7xl px-1 py-16 md:px-0">
-        <div className="mb-8 text-center">
+      <section id="services" className="mx-auto max-w-7xl px-1 py-12 md:px-0">
+        <div className="mb-7 text-center">
           <div className="text-sm font-semibold uppercase tracking-widest text-fuchsia-300">Our Services</div>
           <h2 className="mt-3 text-4xl font-black md:text-5xl">Everything You Need, Handled in One Place</h2>
           <p className="mx-auto mt-3 max-w-3xl text-slate-300">
@@ -490,16 +490,17 @@ function HomePage() {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-3xl border border-sky-400/20 bg-gradient-to-b from-sky-500/15 to-slate-900/50 p-6 shadow-2xl shadow-sky-950/10">
-            <div className="mb-5 flex items-center gap-3">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-3xl border border-sky-400/20 bg-gradient-to-b from-sky-500/15 to-slate-900/50 p-5 shadow-2xl shadow-sky-950/10">
+            <div className="mb-4 flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-400/20 text-2xl">🌍</div>
               <div>
                 <div className="text-sm uppercase tracking-wider text-sky-200">Travel Services</div>
                 <div className="text-2xl font-bold">Visa, Passport & Travel Support</div>
               </div>
             </div>
-            <div className="grid gap-4">
+
+            <div className="grid gap-3">
               {services.travel.map((item) => (
                 <div key={item.path} className="rounded-2xl bg-slate-950/30 p-4">
                   <div className="font-semibold text-slate-100">{item.title}</div>
@@ -515,15 +516,16 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-b from-fuchsia-500/15 to-slate-900/50 p-6 shadow-2xl shadow-fuchsia-950/10">
-            <div className="mb-5 flex items-center gap-3">
+          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-b from-fuchsia-500/15 to-slate-900/50 p-5 shadow-2xl shadow-fuchsia-950/10">
+            <div className="mb-4 flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-fuchsia-400/20 text-2xl">🗂️</div>
               <div>
                 <div className="text-sm uppercase tracking-wider text-fuchsia-200">Admin Services</div>
                 <div className="text-2xl font-bold">Payments & Practical Support</div>
               </div>
             </div>
-            <div className="grid gap-4">
+
+            <div className="grid gap-3">
               {services.admin.map((item) => (
                 <div key={item.path} className="rounded-2xl bg-slate-950/30 p-4">
                   <div className="font-semibold text-slate-100">{item.title}</div>
@@ -541,14 +543,14 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-1 pb-14 md:px-0">
+      <section className="mx-auto max-w-7xl px-1 pb-10 md:px-0">
         <div className="grid gap-4 lg:grid-cols-3">
           {highlights.map((item) => (
             <div
               key={item.title}
               className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/20"
             >
-              <div className="text-2xl font-bold">{item.title}</div>
+              <div className="text-xl font-bold">{item.title}</div>
               <p className="mt-3 leading-7 text-slate-300">{item.text}</p>
             </div>
           ))}
@@ -572,28 +574,23 @@ function ServicePage({
   children,
 }) {
   return (
-    <section className="grid items-start gap-6 lg:grid-cols-[1.08fr_0.92fr] xl:gap-8">
-      <div className="grid gap-5">
+    <section className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr] xl:gap-6">
+      <div className="grid gap-4">
         <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
-          <img
-            src={image}
-            alt={title}
-            loading="lazy"
-            className="h-56 w-full object-cover lg:h-[20rem]"
-          />
+          <img src={image} alt={title} loading="lazy" className="h-56 w-full object-cover lg:h-[19rem]" />
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
           <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
-          <h1 className="mt-3 text-4xl font-black leading-none tracking-tight sm:text-6xl">{title}</h1>
-          <p className="mt-3 text-xl font-semibold text-fuchsia-300">{subtitle}</p>
-          <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{description}</p>
+          <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
+          <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
           {children}
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20">
-          <div className="text-2xl font-bold">What this page includes</div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
+          <div className="text-xl font-bold">What this page includes</div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {details.map((item) => (
               <div
                 key={item}
@@ -618,12 +615,12 @@ function ServicePage({
         </div>
       </div>
 
-      <div className="grid gap-5">
+      <div className="grid gap-4">
         {prices?.length ? (
-          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 p-6 shadow-2xl shadow-black/30">
+          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/30">
             <div className="text-sm uppercase tracking-widest text-fuchsia-300">Pricing</div>
             <div className="mt-2 text-2xl font-bold">Service Fees</div>
-            <div className="mt-5 grid gap-3">
+            <div className="mt-4 grid gap-3">
               {prices.map((item) => (
                 <div
                   key={item.label}
@@ -638,11 +635,11 @@ function ServicePage({
         ) : null}
 
         {showFormSection ? (
-          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-7 shadow-2xl shadow-black/30">
+          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-2xl shadow-black/30">
             <div className="text-sm uppercase tracking-widest text-sky-300">Google Forms</div>
             <div className="mt-2 text-2xl font-bold">Apply Here</div>
             <p className="mt-3 leading-7 text-slate-300">Select the matching form below to get started.</p>
-            <div className="mt-5 grid gap-3">
+            <div className="mt-4 grid gap-3">
               {formButtons?.length ? (
                 formButtons.map((button) => (
                   <a
@@ -665,10 +662,10 @@ function ServicePage({
         ) : null}
 
         {paymentMethods?.length ? (
-          <div className="rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 p-7 shadow-2xl shadow-black/30">
+          <div className="rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/30">
             <div className="text-sm uppercase tracking-widest text-emerald-300">Accepted Payment Methods</div>
             <div className="mt-2 text-2xl font-bold">How You Can Pay</div>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {paymentMethods.map((method) => {
                 const iconMap = {
                   'Bank Transfer': Landmark,
@@ -676,6 +673,7 @@ function ServicePage({
                   MoneyGram: DollarSign,
                   LYNK: Smartphone,
                 };
+
                 const Icon = iconMap[method] || Landmark;
 
                 return (
@@ -684,7 +682,7 @@ function ServicePage({
                     href={buildWhatsAppLink(`Hi, I would like to pay using ${method}`)}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:scale-[1.02] hover:bg-white/10"
+                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
                   >
                     <Icon className="h-5 w-5 text-emerald-300" />
                     {method}
@@ -746,16 +744,17 @@ export default function App() {
                   'Travel date or intended timeline',
                 ]}
               >
-                <div className="mt-8 rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-6 shadow-xl shadow-black/20">
+                <div className="mt-6 rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-xl shadow-black/20">
                   <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">
                     Choose a visa page
                   </div>
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     {services.travel[0].countries.map((country) => (
                       <Link
                         key={country.path}
                         to={country.path}
-                        className="rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
+                        className="rounded-2xl border border-white/10 bg-white/5 p-3 transition hover:bg-white/10"
                       >
                         <div className="text-2xl">{country.flag}</div>
                         <div className="mt-2 text-lg font-bold text-white">{country.title}</div>
@@ -796,70 +795,42 @@ export default function App() {
         ))}
 
         <Route
-  path="/passport-renewal"
-  element={
-    <Layout>
-      <ServicePage
-        title="Passport Renewal"
-        subtitle="Jamaican Passport Support"
-        image={images.passport}
-        description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
-        details={[
-          'Renewal guidance and preparation support',
-          'What information clients should submit',
-          'Direct form submission for faster processing',
-        ]}
-        formButtons={[
-          {
-            label: 'Passport Renewal Form',
-            href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
-          },
-        ]}
-        checklist={[
-          'Current passport status',
-          'Full name and contact details',
-          'Timeline for renewal',
-          'Any special concerns or questions',
-        ]}
-      />
-    </Layout>
-  }
-/><Route
-  path="/passport-renewal"
-  element={
-    <Layout>
-      <ServicePage
-        title="Passport Renewal"
-        subtitle="Jamaican Passport Support"
-        image={images.passport}
-        description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
-        details={[
-          'Renewal guidance and preparation support',
-          'What information clients should submit',
-          'Direct form submission for faster processing',
-        ]}
-        formButtons={[
-          {
-            label: 'Passport Renewal Form',
-            href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
-          },
-        ]}
-        checklist={[
-          'Current passport status',
-          'Full name and contact details',
-          'Timeline for renewal',
-          'Any special concerns or questions',
-        ]}
-      />
-    </Layout>
-  }
-/>
+          path="/passport-renewal"
+          element={
+            <Layout>
+              <ServicePage
+                title="Passport Renewal"
+                subtitle="Jamaican Passport Support"
+                image={images.passport}
+                description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+                details={[
+                  'Renewal guidance and preparation support',
+                  'What information clients should submit',
+                  'Direct form submission for faster processing',
+                ]}
+                formButtons={[
+                  {
+                    label: 'Passport Renewal Form',
+                    href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
+                  },
+                ]}
+                checklist={[
+                  'Current passport status',
+                  'Full name and contact details',
+                  'Timeline for renewal',
+                  'Any special concerns or questions',
+                ]}
+              />
+            </Layout>
+          }
+        />
 
         <Route
           path="/traffic-ticket-payment"
           element={
             <Layout>
               <ServicePage
+                showFormSection={false}
                 title="Traffic Ticket Payment"
                 subtitle="Avoid the Stress of a Court Date"
                 image={images.traffic}
@@ -867,7 +838,7 @@ export default function App() {
                 details={[
                   'Clear explanation of how the service works',
                   'Lost ticket support messaging',
-                  'Future form area for ticket submission',
+                  'Support before due date passes',
                 ]}
                 checklist={[
                   'Ticket number if available',
@@ -913,6 +884,7 @@ export default function App() {
           element={
             <Layout>
               <ServicePage
+                showFormSection={false}
                 title="Motor Vehicle Registration"
                 subtitle="Simple Registration Guidance"
                 image={images.registration}
@@ -920,7 +892,7 @@ export default function App() {
                 details={[
                   'A brief explanation of the registration support offered',
                   'Preparation guidance before starting',
-                  'Future Google Form CTA area',
+                  'Simple guidance on what to have ready',
                 ]}
                 checklist={[
                   'Vehicle details',
@@ -938,6 +910,7 @@ export default function App() {
           element={
             <Layout>
               <ServicePage
+                showFormSection={false}
                 title="Consultation"
                 subtitle="Speak With Us First"
                 image={images.consultation}
@@ -945,7 +918,7 @@ export default function App() {
                 details={[
                   'A simple consultation overview',
                   'Space for clients to explain what they need',
-                  'Future consultation request form button',
+                  'Guidance before they choose a service',
                 ]}
                 checklist={[
                   'Service of interest',
