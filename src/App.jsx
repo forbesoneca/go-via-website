@@ -796,29 +796,64 @@ export default function App() {
         ))}
 
         <Route
-          path="/passport-renewal"
-          element={
-            <Layout>
-              <ServicePage
-                title="Passport Renewal"
-                subtitle="Jamaican Passport Support"
-                image={images.passport}
-                description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
-                details={[
-                  'Renewal guidance and preparation support',
-                  'What information clients should submit',
-                  'Space for a future Google Form button',
-                ]}
-                checklist={[
-                  'Current passport status',
-                  'Full name and contact details',
-                  'Timeline for renewal',
-                  'Any special concerns or questions',
-                ]}
-              />
-            </Layout>
-          }
-        />
+  path="/passport-renewal"
+  element={
+    <Layout>
+      <ServicePage
+        title="Passport Renewal"
+        subtitle="Jamaican Passport Support"
+        image={images.passport}
+        description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+        details={[
+          'Renewal guidance and preparation support',
+          'What information clients should submit',
+          'Direct form submission for faster processing',
+        ]}
+        formButtons={[
+          {
+            label: 'Passport Renewal Form',
+            href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
+          },
+        ]}
+        checklist={[
+          'Current passport status',
+          'Full name and contact details',
+          'Timeline for renewal',
+          'Any special concerns or questions',
+        ]}
+      />
+    </Layout>
+  }
+/><Route
+  path="/passport-renewal"
+  element={
+    <Layout>
+      <ServicePage
+        title="Passport Renewal"
+        subtitle="Jamaican Passport Support"
+        image={images.passport}
+        description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+        details={[
+          'Renewal guidance and preparation support',
+          'What information clients should submit',
+          'Direct form submission for faster processing',
+        ]}
+        formButtons={[
+          {
+            label: 'Passport Renewal Form',
+            href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
+          },
+        ]}
+        checklist={[
+          'Current passport status',
+          'Full name and contact details',
+          'Timeline for renewal',
+          'Any special concerns or questions',
+        ]}
+      />
+    </Layout>
+  }
+/>
 
         <Route
           path="/traffic-ticket-payment"
