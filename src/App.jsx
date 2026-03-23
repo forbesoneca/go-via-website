@@ -9,7 +9,7 @@ const services = {
       subtitle: 'Application & Renewal Help',
       path: '/visa-services',
       image:
-        'https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?auto=format&fit=crop&w=900&q=80',
+        '/visa-services.png',
       description:
         'Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.',
       countries: [
@@ -24,7 +24,7 @@ const services = {
       subtitle: 'Jamaican Passport Support',
       path: '/passport-renewal',
       image:
-        'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80',
+        '/passport-renewal.png',
       description:
         'Guidance on the renewal process and the details needed before you submit your passport request.',
     },
@@ -35,7 +35,7 @@ const services = {
       subtitle: 'Avoid the stress of a court date',
       path: '/traffic-ticket-payment',
       image:
-        'https://images.unsplash.com/photo-1516908205727-40afad9449a0?auto=format&fit=crop&w=900&q=80',
+        '/Traffic-ticket.png',
       description:
         'Lost your ticket? We can help find the details for you and assist with payment once the due date has not passed.',
     },
@@ -44,7 +44,7 @@ const services = {
       subtitle: 'Easy Payment Support',
       path: '/property-tax-payment',
       image:
-        'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80',
+        '/Property-tax.png',
       description:
         'We assist with property tax payment requests and provide support with the details needed to complete the process properly.',
     },
@@ -53,7 +53,7 @@ const services = {
       subtitle: 'Simple Registration Guidance',
       path: '/motor-vehicle-registration',
       image:
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
+        '/Registration.png',
       description:
         'Support with understanding the information and steps needed before moving ahead with your registration process.',
     },
@@ -62,7 +62,7 @@ const services = {
       subtitle: 'Speak With Us First',
       path: '/consultation',
       image:
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
+        '/Consultation.png',
       description:
         'Book a consultation if you need help choosing the right service or understanding what is required before getting started.',
     },
@@ -289,7 +289,7 @@ function HomePage() {
         <div className="grid gap-4">
           <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
             <img
-              src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
+              src="/main-hero.jpeg"
               alt="Travel support"
               className="h-52 w-full object-cover lg:h-[15rem]"
             />
