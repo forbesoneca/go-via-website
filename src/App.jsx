@@ -879,7 +879,7 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
             After making your payment, send your screenshot, receipt, or reference number on WhatsApp so we can confirm receipt.
           </p>
           <a
-            href={buildWhatsAppLink(`Hi, I have completed my payment`)}
+            href={buildWhatsAppLink(`Hi, I have completed my payment via ${title}`)}
             className="mt-4 inline-flex items-center justify-center rounded-2xl bg-green-500 px-5 py-3 text-center font-semibold text-white shadow-xl shadow-green-500/20 transition hover:scale-[1.01]"
           >
             Send Payment Confirmation
