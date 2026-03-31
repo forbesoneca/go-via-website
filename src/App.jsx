@@ -25,8 +25,6 @@ const images = {
   consultation: withBase('consultation.png'),
   hero: withBase('main-hero.png'),
   logo: withBase('logo.png'),
-
-  // payment logos (place these in /public)
   ncb: withBase('NCB.png'),
   scotia: withBase('SCOTIABANK.png'),
   jmmb: withBase('JMMB_Bank.png'),
@@ -39,8 +37,6 @@ const contact = {
   phoneDisplay: '(658) 217-7952',
   whatsappBase: 'https://wa.me/16582177952',
 };
-
-const visaPaymentMethods = ['Bank Transfer', 'Western Union', 'MoneyGram', 'LYNK'];
 
 const paymentPages = [
   {
@@ -259,11 +255,6 @@ const visaCountryPages = [
     image: images.visa,
     description:
       'Use this page for clients interested in USA visa support, whether it is a first-time application or a renewal.',
-    details: [
-      'USA visa application overview',
-      'First-time and renewal guidance',
-      'Direct form buttons for each USA visa option',
-    ],
     prices: [
       { label: 'First Time Applicant', price: 'J$39,000' },
       { label: 'Renewal', price: 'J$41,000' },
@@ -271,12 +262,6 @@ const visaCountryPages = [
     formButtons: [
       { label: 'USA Visa First Time Applicant', href: 'https://forms.gle/Z1Y7xnGtJyDhGXx5A' },
       { label: 'USA Visa Renewal', href: 'https://forms.gle/Wobbo4sFAWc7LcKW9' },
-    ],
-    checklist: [
-      'First-time or renewal request',
-      'Current passport status',
-      'Intended travel timing',
-      'Basic contact details',
     ],
   },
   {
@@ -286,11 +271,6 @@ const visaCountryPages = [
     image: images.visa,
     description:
       'Use this page for Canada visa inquiries so clients can understand the support available before filling out a form.',
-    details: [
-      'Canada visa application overview',
-      'Guidance for preparing before submission',
-      'Direct form buttons for each Canada visa option',
-    ],
     prices: [
       { label: 'First Time Applicant', price: 'J$33,000' },
       { label: 'Renewal', price: 'J$34,000' },
@@ -300,12 +280,6 @@ const visaCountryPages = [
       { label: 'CA Visa Renewal', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
       { label: 'CA Visa (Minor)', href: 'https://forms.gle/DiRfoUQ1CxS5Q6ry6' },
     ],
-    checklist: [
-      'Type of visa support needed',
-      'Passport status',
-      'Travel timeline',
-      'Contact details for follow-up',
-    ],
   },
   {
     path: '/visa-services/uk',
@@ -314,11 +288,6 @@ const visaCountryPages = [
     image: images.visa,
     description:
       'Use this page for UK visa support so clients can review the general process and prepare the right information.',
-    details: [
-      'UK visa support overview',
-      'Preparation guidance before submitting a request',
-      'Full fee breakdown transparency',
-    ],
     prices: [
       { label: 'Mandatory Form', price: 'J$1,500' },
       { label: 'Processing Fee', price: 'J$10,000' },
@@ -328,12 +297,6 @@ const visaCountryPages = [
       { label: '10 Years Visa Fee', price: 'J$203,093' },
     ],
     formButtons: [{ label: 'UK Visa Form', href: 'https://forms.gle/R9sqxTgWsKGEsmEb6' }],
-    checklist: [
-      'First-time or renewal support',
-      'Passport status',
-      'Expected travel date',
-      'Contact details',
-    ],
   },
   {
     path: '/visa-services/schengen',
@@ -342,19 +305,8 @@ const visaCountryPages = [
     image: images.visa,
     description:
       'Use this page for Schengen visa support so clients can review the process and get ready before submitting a request.',
-    details: [
-      'Schengen visa support overview',
-      'Guidance on what to prepare',
-      'Dedicated Schengen visa form button area',
-    ],
     prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
     formButtons: [{ label: 'Schengen Visa Form', href: '#' }],
-    checklist: [
-      'Country of main destination',
-      'Travel dates or intended timeline',
-      'Passport status',
-      'Best contact information',
-    ],
   },
 ];
 
@@ -493,7 +445,7 @@ function Layout({ children }) {
 
             <div className="rounded-3xl border border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 p-5 text-center shadow-2xl shadow-fuchsia-950/20">
               <div className="text-sm uppercase tracking-wider text-fuchsia-300">Call or WhatsApp</div>
-              <div className="mt-2 text-3xl font-black tracking-tight">(658) 217-7952</div>
+              <div className="mt-2 text-3xl font-black tracking-tight">{contact.phoneDisplay}</div>
               <a
                 href={contact.whatsappBase}
                 className="mt-4 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
@@ -756,12 +708,9 @@ function ServicePage({
   subtitle,
   image,
   description,
-  details,
-  checklist,
   prices,
   formButtons,
   showFormSection = true,
-  paymentMethods,
   children,
 }) {
   return (
@@ -774,36 +723,9 @@ function ServicePage({
         <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
           <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
-
           <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
-          {children}
-        </div>
-
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
-          <div className="text-xl font-bold">What this page includes</div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {details.map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-3 rounded-2xl bg-slate-950/40 px-4 py-3 text-slate-100"
-              >
-                <span>✔️</span>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
-          <div className="text-xl font-bold">Suggested details</div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {checklist.map((item) => (
-              <div key={item} className="rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-200">
-                {item}
-              </div>
-            ))}
-          </div>
+          {children ? <div className="mt-6">{children}</div> : null}
         </div>
       </div>
 
@@ -879,12 +801,7 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
           {logos.length ? (
             <div className="mt-4 flex flex-wrap items-center gap-4">
               {logos.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt={`${title} logo ${i + 1}`}
-                  className="h-12 w-auto object-contain"
-                />
+                <img key={i} src={src} alt={`${title} logo ${i + 1}`} className="h-12 w-auto object-contain" />
               ))}
             </div>
           ) : null}
@@ -914,11 +831,7 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
               >
                 {accountLogo ? (
                   <div className="flex items-center justify-start rounded-2xl bg-slate-950/40 px-4 py-4">
-                    <img
-                      src={accountLogo}
-                      alt={account.heading}
-                      className="h-10 w-auto object-contain sm:h-12"
-                    />
+                    <img src={accountLogo} alt={account.heading} className="h-10 w-auto object-contain sm:h-12" />
                   </div>
                 ) : (
                   <div className="text-lg font-bold text-white">{account.heading}</div>
@@ -931,7 +844,9 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
                       className="flex flex-col gap-1 rounded-2xl bg-slate-950/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
                     >
                       <div className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</div>
-                      <div className="break-all text-sm font-medium text-slate-100 sm:max-w-[60%] sm:text-right">{value}</div>
+                      <div className="break-all text-sm font-medium text-slate-100 sm:max-w-[60%] sm:text-right">
+                        {value}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1024,11 +939,7 @@ export default function App() {
                         aria-label={`View ${title} payment details`}
                       >
                         {paymentLogo ? (
-                          <img
-                            src={paymentLogo}
-                            alt={title}
-                            className="max-h-12 w-auto object-contain sm:max-h-14"
-                          />
+                          <img src={paymentLogo} alt={title} className="max-h-12 w-auto object-contain sm:max-h-14" />
                         ) : (
                           <div className="flex items-center gap-3 text-sm font-semibold text-slate-100">
                             <Icon className="h-5 w-5 text-emerald-300" />
@@ -1062,28 +973,13 @@ export default function App() {
             <Layout>
               <ServicePage
                 showFormSection={false}
-                paymentMethods={visaPaymentMethods}
                 title="Visa Services"
                 subtitle="Application & Renewal Help"
                 image={images.visa}
                 description="Choose the visa page that matches your destination so clients can get country-specific information before submitting a request."
-                details={[
-                  'Separate pages for USA, Canada, UK and Schengen visas',
-                  'Country-specific requirements and next steps',
-                  'Quick access to each visa option',
-                ]}
-                checklist={[
-                  'Destination country',
-                  'First-time or renewal request',
-                  'Passport status',
-                  'Travel date or intended timeline',
-                ]}
               >
-                <div className="mt-6 rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-xl shadow-black/20">
-                  <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">
-                    Choose a visa page
-                  </div>
-
+                <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-xl shadow-black/20">
+                  <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Choose a visa page</div>
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     {services.travel[0].countries.map((country) => (
                       <Link
@@ -1114,15 +1010,12 @@ export default function App() {
             element={
               <Layout>
                 <ServicePage
-                  paymentMethods={visaPaymentMethods}
                   title={page.title}
                   subtitle={page.subtitle}
                   image={page.image}
                   description={page.description}
-                  details={page.details}
                   prices={page.prices}
                   formButtons={page.formButtons}
-                  checklist={page.checklist}
                 />
               </Layout>
             }
@@ -1139,22 +1032,11 @@ export default function App() {
                 image={images.passport}
                 description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
                 prices={[{ label: 'Passport Renewal', price: 'J$5,000' }]}
-                details={[
-                  'Renewal guidance and preparation support',
-                  'What information clients should submit',
-                  'Direct form submission for faster processing',
-                ]}
                 formButtons={[
                   {
                     label: 'Passport Renewal Form',
                     href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
                   },
-                ]}
-                checklist={[
-                  'Current passport status',
-                  'Full name and contact details',
-                  'Timeline for renewal',
-                  'Any special concerns or questions',
                 ]}
               />
             </Layout>
@@ -1172,17 +1054,6 @@ export default function App() {
                 image={images.traffic}
                 description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
                 prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
-                details={[
-                  'Clear explanation of how the service works',
-                  'Lost ticket support messaging',
-                  'Support before due date passes',
-                ]}
-                checklist={[
-                  'Ticket number if available',
-                  'Plate number or identifying details',
-                  'Due date',
-                  'Contact number for follow-up',
-                ]}
               />
             </Layout>
           }
@@ -1198,19 +1069,8 @@ export default function App() {
                 image={images.property}
                 description="This page can walk clients through the information needed for property tax payment support before they submit a request."
                 prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
-                details={[
-                  'Property tax payment overview',
-                  'Details needed before processing',
-                  'Direct form submission for faster processing',
-                ]}
                 formButtons={[
                   { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
-                ]}
-                checklist={[
-                  'Valuation number',
-                  'Strata lot number if applicable',
-                  'Fiscal year to be paid',
-                  'Payer name and contact info',
                 ]}
               />
             </Layout>
@@ -1226,19 +1086,8 @@ export default function App() {
                 title="Motor Vehicle Registration"
                 subtitle="Simple Registration Guidance"
                 image={images.registration}
-                prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 description="Use this page for clients who need guidance on what to prepare before moving ahead with motor vehicle registration support."
-                details={[
-                  'A brief explanation of the registration support offered',
-                  'Preparation guidance before starting',
-                  'Simple guidance on what to have ready',
-                ]}
-                checklist={[
-                  'Vehicle details',
-                  'Registration-related documents',
-                  'Owner contact information',
-                  'Questions or special notes',
-                ]}
+                prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
               />
             </Layout>
           }
@@ -1254,17 +1103,6 @@ export default function App() {
                 subtitle="Speak With Us First"
                 image={images.consultation}
                 description="This page is for clients who want to ask questions first or need help identifying the right service before proceeding."
-                details={[
-                  'A simple consultation overview',
-                  'Space for clients to explain what they need',
-                  'Guidance before they choose a service',
-                ]}
-                checklist={[
-                  'Service of interest',
-                  'Preferred contact method',
-                  'Summary of what help is needed',
-                  'Best time to follow up',
-                ]}
               />
             </Layout>
           }
