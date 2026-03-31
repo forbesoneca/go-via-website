@@ -254,7 +254,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for clients interested in USA visa support, whether it is a first-time application or a renewal.',
+      'Use this page for USA visa support, whether it is a first-time application or a renewal.',
     prices: [
       { label: 'First Time Applicant', price: 'J$39,000' },
       { label: 'Renewal', price: 'J$41,000' },
@@ -270,7 +270,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for Canada visa inquiries so clients can understand the support available before filling out a form.',
+      'Use this page for Canada visa inquiries so you can understand the support available before filling out a form.',
     prices: [
       { label: 'First Time Applicant', price: 'J$33,000' },
       { label: 'Renewal', price: 'J$34,000' },
@@ -287,7 +287,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for UK visa support so clients can review the general process and prepare the right information.',
+      'Use this page for UK visa support so you can review the fees expected and prepare the right information.',
     prices: [
       { label: 'Mandatory Form', price: 'J$1,500' },
       { label: 'Processing Fee', price: 'J$10,000' },
@@ -304,7 +304,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for Schengen visa support so clients can review the process and get ready before submitting a request.',
+      'Use this page for Schengen visa support so you can review the process and get ready before submitting a request.',
     prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
     formButtons: [{ label: 'Coming Soon', href: '#' }],
   },
@@ -976,7 +976,7 @@ export default function App() {
                 title="Visa Services"
                 subtitle="Application & Renewal Help"
                 image={images.visa}
-                description="Choose the visa page that matches your destination so clients can get country-specific information before submitting a request."
+                description="Choose the visa page that matches your destination so you can get country-specific information before submitting a request."
               >
                 <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-xl shadow-black/20">
                   <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Choose a visa page</div>
@@ -1067,7 +1067,7 @@ export default function App() {
                 title="Property Tax Payment"
                 subtitle="Easy Payment Support"
                 image={images.property}
-                description="This page can walk clients through the information needed for property tax payment support before they submit a request."
+                description="This is where you submit the form needed to start the process for us to pay your property taxes on your behalf"
                 prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
                 formButtons={[
                   { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
@@ -1086,7 +1086,7 @@ export default function App() {
                 title="Motor Vehicle Registration"
                 subtitle="Simple Registration Guidance"
                 image={images.registration}
-                description="Use this page for clients who need guidance on what to prepare before moving ahead with motor vehicle registration support."
+                description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
                 prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
               />
             </Layout>
