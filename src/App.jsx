@@ -25,6 +25,14 @@ const images = {
   consultation: withBase('consultation.png'),
   hero: withBase('main-hero.png'),
   logo: withBase('logo.png'),
+
+  // payment logos (place these in /public)
+  ncb: withBase('NCB.png'),
+  scotia: withBase('SCOTIABANK.png'),
+  jmmb: withBase('JMMB_Bank.png'),
+  lynk: withBase('LYNK.png'),
+  westernUnion: withBase('WESTERN_UNION.png'),
+  moneygram: withBase('moneygram.png'),
 };
 
 const contact = {
@@ -436,6 +444,12 @@ function Layout({ children }) {
           </nav>
 
           {children}
+
+          {pathname !== '/' ? (
+            <div className="mt-6">
+              <PaymentButtons />
+            </div>
+          ) : null}
         </div>
       </header>
 
@@ -736,6 +750,7 @@ function ServicePage({
         <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
           <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
+         
           <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
           {children}
@@ -814,41 +829,23 @@ function ServicePage({
           </div>
         ) : null}
 
-        {paymentMethods?.length ? (
-          <div className="rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/30">
-            <div className="text-sm uppercase tracking-widest text-emerald-300">Accepted Payment Methods</div>
-            <div className="mt-2 text-2xl font-bold">How You Can Pay</div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {paymentMethods.map((method) => {
-                const iconMap = {
-                  'Bank Transfer': Landmark,
-                  'Western Union': Send,
-                  MoneyGram: DollarSign,
-                  LYNK: Smartphone,
-                };
-
-                const Icon = iconMap[method] || Landmark;
-
-                return (
-                  <Link
-                    key={method}
-                    to={paymentPathForMethod(method)}
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
-                  >
-                    <Icon className="h-5 w-5 text-emerald-300" />
-                    {method}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ) : null}
+        {/* Removed duplicate payment methods section since PaymentButtons is now global */}
       </div>
     </section>
   );
-}
+}  
 
 function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, steps, accounts }) {
+  const logoMap = {
+    'Bank Transfer': [images.ncb, images.scotia, images.jmmb],
+    LYNK: [images.lynk],
+    'Western Union': [images.westernUnion],
+    MoneyGram: [images.moneygram],
+  };
+
+  const logos = logoMap[title] || [];
+
+  
   return (
     <section className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr] xl:gap-6">
       <div className="grid gap-4">
