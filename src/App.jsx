@@ -373,6 +373,29 @@ function paymentPathForMethod(method) {
   return pathMap[method] || '/payments';
 }
 
+function getPaymentLogo(title) {
+  const logoMap = {
+    'Bank Transfer': images.ncb,
+    'Western Union': images.westernUnion,
+    MoneyGram: images.moneygram,
+    LYNK: images.lynk,
+  };
+
+  return logoMap[title] || null;
+}
+
+function getAccountLogo(heading) {
+  const logoMap = {
+    'National Commercial Bank': images.ncb,
+    Scotiabank: images.scotia,
+    JMMB: images.jmmb,
+    'LYNK Details': images.lynk,
+    'Receiver Details': null,
+  };
+
+  return logoMap[heading] || null;
+}
+
 function PaymentButtons() {
   const options = [
     { label: 'Bank Transfer', icon: Landmark },
@@ -751,7 +774,7 @@ function ServicePage({
         <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
           <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
-          
+
           <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
           {children}
@@ -829,8 +852,6 @@ function ServicePage({
             </div>
           </div>
         ) : null}
-
-        {/* Removed duplicate payment methods section since PaymentButtons is now global */}
       </div>
     </section>
   );
@@ -846,7 +867,6 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
 
   const logos = logoMap[title] || [];
 
-  
   return (
     <section className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr] xl:gap-6">
       <div className="grid gap-4">
@@ -884,22 +904,40 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
         </div>
 
         <div className="grid gap-4">
-          {accounts.map((account) => (
-            <div key={account.heading} className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
-              <div className="text-lg font-bold text-white">{account.heading}</div>
-              <div className="mt-4 grid gap-3">
-                {account.fields.map(([label, value]) => (
-                  <div
-                    key={`${account.heading}-${label}`}
-                    className="flex flex-col gap-1 rounded-2xl bg-slate-950/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
-                  >
-                    <div className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</div>
-                    <div className="break-all text-sm font-medium text-slate-100 sm:max-w-[60%] sm:text-right">{value}</div>
+          {accounts.map((account) => {
+            const accountLogo = getAccountLogo(account.heading);
+
+            return (
+              <div
+                key={account.heading}
+                className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20"
+              >
+                {accountLogo ? (
+                  <div className="flex items-center justify-start rounded-2xl bg-slate-950/40 px-4 py-4">
+                    <img
+                      src={accountLogo}
+                      alt={account.heading}
+                      className="h-10 w-auto object-contain sm:h-12"
+                    />
                   </div>
-                ))}
+                ) : (
+                  <div className="text-lg font-bold text-white">{account.heading}</div>
+                )}
+
+                <div className="mt-4 grid gap-3">
+                  {account.fields.map(([label, value]) => (
+                    <div
+                      key={`${account.heading}-${label}`}
+                      className="flex flex-col gap-1 rounded-2xl bg-slate-950/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                    >
+                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</div>
+                      <div className="break-all text-sm font-medium text-slate-100 sm:max-w-[60%] sm:text-right">{value}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -974,17 +1012,32 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {paymentPages.map(({ title, icon: Icon, path }) => (
-                    <Link
-                      key={path}
-                      to={path}
-                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
-                    >
-                      <Icon className="h-5 w-5 text-emerald-300" />
-                      {title}
-                    </Link>
-                  ))}
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {paymentPages.map(({ title, icon: Icon, path }) => {
+                    const paymentLogo = getPaymentLogo(title);
+
+                    return (
+                      <Link
+                        key={path}
+                        to={path}
+                        className="group flex min-h-[110px] items-center justify-center rounded-3xl border border-white/10 bg-white/5 px-5 py-5 transition hover:-translate-y-0.5 hover:bg-white/10"
+                        aria-label={`View ${title} payment details`}
+                      >
+                        {paymentLogo ? (
+                          <img
+                            src={paymentLogo}
+                            alt={title}
+                            className="max-h-12 w-auto object-contain sm:max-h-14"
+                          />
+                        ) : (
+                          <div className="flex items-center gap-3 text-sm font-semibold text-slate-100">
+                            <Icon className="h-5 w-5 text-emerald-300" />
+                            {title}
+                          </div>
+                        )}
+                      </Link>
+                    );
+                  })}
                 </div>
               </section>
             </Layout>
@@ -1216,18 +1269,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-/*
-Manual test checklist:
-1. Home page keeps the original service-focused layout.
-2. Payment buttons on the home page now open payment detail pages instead of WhatsApp.
-3. Payment buttons on visa and country service pages also open payment detail pages.
-4. /payments shows all four payment methods.
-5. /payments/bank-transfer shows NCB, Scotiabank, and JMMB details.
-6. /payments/western-union and /payments/moneygram show receiver details.
-7. /payments/lynk shows the LYNK handle.
-8. Existing service pages still render correctly.
-9. Header no longer shows the Home and WhatsApp buttons.
-10. App renders in both Vite and non-Vite preview environments.
-11.
-*/
