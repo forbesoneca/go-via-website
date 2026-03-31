@@ -1228,4 +1228,5 @@ Manual test checklist:
 8. Existing service pages still render correctly.
 9. Header no longer shows the Home and WhatsApp buttons.
 10. App renders in both Vite and non-Vite preview environments.
+11.
 */
