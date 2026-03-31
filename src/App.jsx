@@ -409,6 +409,7 @@ function PaymentButtons() {
 function Layout({ children }) {
   const { pathname } = useLocation();
   const showHomeButton = pathname !== '/';
+  const isPaymentMethodPage = paymentPages.some((page) => page.path === pathname);
 
   return (
     <div className="min-h-screen bg-[#030712] text-white">
@@ -445,7 +446,7 @@ function Layout({ children }) {
 
           {children}
 
-          {pathname !== '/' ? (
+          {pathname !== '/' && !isPaymentMethodPage ? (
             <div className="mt-6">
               <PaymentButtons />
             </div>
@@ -750,7 +751,18 @@ function ServicePage({
         <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
           <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
-         
+          {logos.length ? (
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+              {logos.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={`${title} logo ${i + 1}`}
+                  className="h-12 w-auto object-contain"
+                />
+              ))}
+            </div>
+          ) : null}
           <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
           {children}
@@ -833,7 +845,7 @@ function ServicePage({
       </div>
     </section>
   );
-}  
+}
 
 function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, steps, accounts }) {
   const logoMap = {
