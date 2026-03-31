@@ -75,10 +75,10 @@ const paymentPages = [
         heading: 'Scotiabank',
         fields: [
           ['Bank Name', 'Scotiabank'],
-          ['Bank Branch', 'Constant Spring'],
+          ['Bank Branch', 'Constant Spring 21725'],
           ['Account Type', 'JMD Chequing'],
           ['Account Holder', 'Shinel Lattibeaudiere-Henry'],
-          ['Account Number', '21725000008073'],
+          ['Account Number', '000008073'],
         ],
       },
       {
@@ -751,6 +751,18 @@ function ServicePage({
         <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
           <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
+          {logos.length ? (
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+              {logos.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  alt={`${title} logo ${i + 1}`}
+                  className="h-12 w-auto object-contain"
+                />
+              ))}
+            </div>
+          ) : null}
           <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
           {children}
