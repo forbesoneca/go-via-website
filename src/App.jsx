@@ -2,15 +2,29 @@ import React from 'react';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
 import { Landmark, Send, DollarSign, Smartphone } from 'lucide-react';
 
+const baseUrl =
+  typeof import.meta !== 'undefined' &&
+  import.meta &&
+  import.meta.env &&
+  typeof import.meta.env.BASE_URL === 'string'
+    ? import.meta.env.BASE_URL
+    : '/';
+
+function withBase(path) {
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${cleanBase}${cleanPath}`;
+}
+
 const images = {
-  visa: `${import.meta.env.BASE_URL}visa-services.png`,
-  passport: `${import.meta.env.BASE_URL}passport-renewal.png`,
-  traffic: `${import.meta.env.BASE_URL}traffic-ticket.png`,
-  property: `${import.meta.env.BASE_URL}property-tax.png`,
-  registration: `${import.meta.env.BASE_URL}registration.png`,
-  consultation: `${import.meta.env.BASE_URL}consultation.png`,
-  hero: `${import.meta.env.BASE_URL}main-hero.png`,
-  logo: `${import.meta.env.BASE_URL}logo.png`,
+  visa: withBase('visa-services.png'),
+  passport: withBase('passport-renewal.png'),
+  traffic: withBase('traffic-ticket.png'),
+  property: withBase('property-tax.png'),
+  registration: withBase('registration.png'),
+  consultation: withBase('consultation.png'),
+  hero: withBase('main-hero.png'),
+  logo: withBase('logo.png'),
 };
 
 const contact = {
@@ -19,6 +33,139 @@ const contact = {
 };
 
 const visaPaymentMethods = ['Bank Transfer', 'Western Union', 'MoneyGram', 'LYNK'];
+
+const paymentPages = [
+  {
+    path: '/payments/bank-transfer',
+    title: 'Bank Transfer',
+    subtitle: 'Direct bank payment option',
+    icon: Landmark,
+    description:
+      'Choose one of the bank accounts below, then send your proof of payment on WhatsApp so we can confirm receipt quickly.',
+    details: [
+      'Use the exact account details shown below',
+      'Double-check the amount and account number before sending',
+      'Send your proof of payment after transfer',
+    ],
+    steps: [
+      'Choose the bank account you want to use',
+      'Complete the transfer using your banking app or at branch',
+      'Send your payment confirmation on WhatsApp',
+    ],
+    accounts: [
+      {
+        heading: 'National Commercial Bank',
+        fields: [
+          ['Bank Name', 'National Commercial Bank'],
+          ['Bank Branch', 'Constant Spring'],
+          ['Account Type', 'JMD Savings'],
+          ['Account Holder', 'Shinel Lattibeaudiere-Henry'],
+          ['Account Number', '334546551'],
+        ],
+      },
+      {
+        heading: 'Scotiabank',
+        fields: [
+          ['Bank Name', 'Scotiabank'],
+          ['Bank Branch', 'Constant Spring'],
+          ['Account Type', 'JMD Chequing'],
+          ['Account Holder', 'Shinel Lattibeaudiere-Henry'],
+          ['Account Number', '21725000008073'],
+        ],
+      },
+      {
+        heading: 'JMMB',
+        fields: [
+          ['Bank Name', 'JMMB'],
+          ['Bank Branch', 'Knutsford Boulevard'],
+          ['Account Type', 'JMD Savings'],
+          ['Account Holder', 'Shinel Lattibeaudiere-Henry'],
+          ['Account Number', '000300231752'],
+        ],
+      },
+    ],
+  },
+  {
+    path: '/payments/western-union',
+    title: 'Western Union',
+    subtitle: 'Send funds through Western Union',
+    icon: Send,
+    description:
+      'Use the receiver details below when sending by Western Union, then share your receipt and transfer reference with us.',
+    details: [
+      'Use the exact receiver name shown below',
+      'Keep your transfer receipt and reference number',
+      'Send confirmation after payment is completed',
+    ],
+    steps: [
+      'Use the receiver details below when making payment',
+      'Make the payment at a Western Union location or online',
+      'Share the transfer number and receipt with us',
+    ],
+    accounts: [
+      {
+        heading: 'Receiver Details',
+        fields: [
+          ['Name', 'Shinel Lattibeaudiere Henry'],
+          ['Mobile', '658-217-7952'],
+          ['Address', 'Twenty-Nine Auburn Avenue'],
+        ],
+      },
+    ],
+  },
+  {
+    path: '/payments/moneygram',
+    title: 'MoneyGram',
+    subtitle: 'Quick transfer with reference tracking',
+    icon: DollarSign,
+    description:
+      'Use the receiver details below for MoneyGram payments, then send the receipt and reference number to us for confirmation.',
+    details: [
+      'Use the exact receiver details shown below',
+      'Hold on to your MoneyGram reference number',
+      'Send proof of payment for faster confirmation',
+    ],
+    steps: [
+      'Use the receiver details below when sending funds',
+      'Send the payment through MoneyGram',
+      'WhatsApp the reference number and receipt to us',
+    ],
+    accounts: [
+      {
+        heading: 'Receiver Details',
+        fields: [
+          ['Name', 'Shinel Lattibeaudiere Henry'],
+          ['Mobile', '658-217-7952'],
+          ['Address', 'Twenty-Nine Auburn Avenue'],
+        ],
+      },
+    ],
+  },
+  {
+    path: '/payments/lynk',
+    title: 'LYNK',
+    subtitle: 'Fast digital wallet payment',
+    icon: Smartphone,
+    description:
+      'Use the LYNK handle below to send your payment, then share a screenshot of the completed transfer on WhatsApp.',
+    details: [
+      'Confirm the amount before sending',
+      'Use the exact LYNK handle shown below',
+      'Send your screenshot after transfer',
+    ],
+    steps: [
+      'Open the LYNK app and enter the handle below',
+      'Complete the transfer with the correct amount',
+      'Send the payment screenshot on WhatsApp',
+    ],
+    accounts: [
+      {
+        heading: 'LYNK Details',
+        fields: [['Handle', '@shinel-henry']],
+      },
+    ],
+  },
+];
 
 const services = {
   travel: [
@@ -207,6 +354,17 @@ function buildWhatsAppLink(message) {
   return `${contact.whatsappBase}?text=${encodeURIComponent(message)}`;
 }
 
+function paymentPathForMethod(method) {
+  const pathMap = {
+    'Bank Transfer': '/payments/bank-transfer',
+    'Western Union': '/payments/western-union',
+    MoneyGram: '/payments/moneygram',
+    LYNK: '/payments/lynk',
+  };
+
+  return pathMap[method] || '/payments';
+}
+
 function PaymentButtons() {
   const options = [
     { label: 'Bank Transfer', icon: Landmark },
@@ -220,22 +378,20 @@ function PaymentButtons() {
       <div className="text-sm uppercase tracking-widest text-emerald-300">How You Can Pay</div>
       <div className="mt-1 text-lg font-bold">Flexible Payment Options</div>
       <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
-        Choose your preferred method and message us to get started.
+        Choose your preferred method to view payment details.
       </p>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {options.map(({ label, icon: Icon }) => (
-          <a
+          <Link
             key={label}
-            href={buildWhatsAppLink(`Hi, I would like to pay using ${label}`)}
-            target="_blank"
-            rel="noreferrer"
+            to={paymentPathForMethod(label)}
             className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
-            aria-label={`Pay using ${label}`}
+            aria-label={`View ${label} payment details`}
           >
             <Icon className="h-5 w-5 text-emerald-300" />
             {label}
-          </a>
+          </Link>
         ))}
       </div>
     </div>
@@ -265,21 +421,6 @@ function Layout({ children }) {
                 </div>
               </div>
             </Link>
-
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                to="/"
-                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-center text-sm font-medium text-slate-100 transition hover:bg-white/10"
-              >
-                Home
-              </Link>
-              <a
-                href={contact.whatsappBase}
-                className="inline-flex w-full items-center justify-center rounded-full bg-green-500 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.02] sm:w-auto"
-              >
-                WhatsApp Us
-              </a>
-            </div>
           </nav>
 
           {children}
@@ -677,21 +818,98 @@ function ServicePage({
                 const Icon = iconMap[method] || Landmark;
 
                 return (
-                  <a
+                  <Link
                     key={method}
-                    href={buildWhatsAppLink(`Hi, I would like to pay using ${method}`)}
-                    target="_blank"
-                    rel="noreferrer"
+                    to={paymentPathForMethod(method)}
                     className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
                   >
                     <Icon className="h-5 w-5 text-emerald-300" />
                     {method}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
           </div>
         ) : null}
+      </div>
+    </section>
+  );
+}
+
+function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, steps, accounts }) {
+  return (
+    <section className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr] xl:gap-6">
+      <div className="grid gap-4">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15">
+            <Icon className="h-6 w-6 text-emerald-300" />
+          </div>
+          <div className="mt-4 text-sm font-semibold uppercase tracking-widest text-emerald-300">Payment Method</div>
+          <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
+          <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
+        </div>
+
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
+          <div className="text-xl font-bold">Important details</div>
+          <div className="mt-4 grid gap-3">
+            {details.map((item) => (
+              <div key={item} className="rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-200">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-4">
+          {accounts.map((account) => (
+            <div key={account.heading} className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
+              <div className="text-lg font-bold text-white">{account.heading}</div>
+              <div className="mt-4 grid gap-3">
+                {account.fields.map(([label, value]) => (
+                  <div
+                    key={`${account.heading}-${label}`}
+                    className="flex flex-col gap-1 rounded-2xl bg-slate-950/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <div className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</div>
+                    <div className="break-all text-sm font-medium text-slate-100 sm:max-w-[60%] sm:text-right">{value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4">
+        <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-2xl shadow-black/30">
+          <div className="text-sm uppercase tracking-widest text-sky-300">How it works</div>
+          <div className="mt-2 text-2xl font-bold">Payment Steps</div>
+          <div className="mt-4 grid gap-3">
+            {steps.map((step, index) => (
+              <div key={step} className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-400/20 text-sm font-bold text-sky-300">
+                  {index + 1}
+                </div>
+                <div className="text-sm leading-6 text-slate-200">{step}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/30">
+          <div className="text-sm uppercase tracking-widest text-emerald-300">After Payment</div>
+          <div className="mt-2 text-2xl font-bold">Send Confirmation</div>
+          <p className="mt-3 leading-7 text-slate-300">
+            After making your payment, send your screenshot, receipt, or reference number on WhatsApp so we can confirm receipt.
+          </p>
+          <a
+            href={buildWhatsAppLink(`Hi, I have completed my payment for ${title}`)}
+            className="mt-4 inline-flex items-center justify-center rounded-2xl bg-green-500 px-5 py-3 text-center font-semibold text-white shadow-xl shadow-green-500/20 transition hover:scale-[1.01]"
+          >
+            Send Payment Confirmation
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -720,6 +938,48 @@ export default function App() {
             </Layout>
           }
         />
+
+        <Route
+          path="/payments"
+          element={
+            <Layout>
+              <section className="mx-auto max-w-6xl py-4">
+                <div className="mb-8 max-w-3xl">
+                  <div className="text-sm uppercase tracking-widest text-emerald-300">Payment Options</div>
+                  <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">Choose a payment method</h1>
+                  <p className="mt-3 text-base leading-7 text-slate-300">
+                    Select a payment option below to view the payment details and next steps.
+                  </p>
+                </div>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {paymentPages.map(({ title, icon: Icon, path }) => (
+                    <Link
+                      key={path}
+                      to={path}
+                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+                    >
+                      <Icon className="h-5 w-5 text-emerald-300" />
+                      {title}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            </Layout>
+          }
+        />
+
+        {paymentPages.map((page) => (
+          <Route
+            key={page.path}
+            path={page.path}
+            element={
+              <Layout>
+                <PaymentMethodPage {...page} />
+              </Layout>
+            }
+          />
+        ))}
 
         <Route
           path="/visa-services"
@@ -934,3 +1194,17 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+/*
+Manual test checklist:
+1. Home page keeps the original service-focused layout.
+2. Payment buttons on the home page now open payment detail pages instead of WhatsApp.
+3. Payment buttons on visa and country service pages also open payment detail pages.
+4. /payments shows all four payment methods.
+5. /payments/bank-transfer shows NCB, Scotiabank, and JMMB details.
+6. /payments/western-union and /payments/moneygram show receiver details.
+7. /payments/lynk shows the LYNK handle.
+8. Existing service pages still render correctly.
+9. Header no longer shows the Home and WhatsApp buttons.
+10. App renders in both Vite and non-Vite preview environments.
+*/
