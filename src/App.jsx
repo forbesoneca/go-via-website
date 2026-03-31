@@ -399,6 +399,9 @@ function PaymentButtons() {
 }
 
 function Layout({ children }) {
+  const { pathname } = useLocation();
+  const showHomeButton = pathname !== '/';
+
   return (
     <div className="min-h-screen bg-[#030712] text-white">
       <header className="relative overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#0f172a_60%,#3b0764_100%)]">
@@ -421,6 +424,15 @@ function Layout({ children }) {
                 </div>
               </div>
             </Link>
+
+            {showHomeButton ? (
+              <Link
+                to="/"
+                className="inline-flex items-center justify-center self-start rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:bg-white/10 sm:self-auto"
+              >
+                Home
+              </Link>
+            ) : null}
           </nav>
 
           {children}
