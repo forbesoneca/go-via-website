@@ -306,7 +306,7 @@ const visaCountryPages = [
     description:
       'Use this page for Schengen visa support so clients can review the process and get ready before submitting a request.',
     prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
-    formButtons: [{ label: 'Schengen Visa Form', href: '#' }],
+    formButtons: [{ label: 'Coming Soon', href: '#' }],
   },
 ];
 
