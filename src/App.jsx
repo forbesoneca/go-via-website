@@ -1138,6 +1138,7 @@ export default function App() {
                 subtitle="Jamaican Passport Support"
                 image={images.passport}
                 description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+                prices={[{ label: 'Passport Renewal', price: 'J$5,000' }]}
                 details={[
                   'Renewal guidance and preparation support',
                   'What information clients should submit',
@@ -1170,6 +1171,7 @@ export default function App() {
                 subtitle="Avoid the Stress of a Court Date"
                 image={images.traffic}
                 description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
+                prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
                 details={[
                   'Clear explanation of how the service works',
                   'Lost ticket support messaging',
@@ -1195,6 +1197,7 @@ export default function App() {
                 subtitle="Easy Payment Support"
                 image={images.property}
                 description="This page can walk clients through the information needed for property tax payment support before they submit a request."
+                prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
                 details={[
                   'Property tax payment overview',
                   'Details needed before processing',
@@ -1223,6 +1226,7 @@ export default function App() {
                 title="Motor Vehicle Registration"
                 subtitle="Simple Registration Guidance"
                 image={images.registration}
+                prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 description="Use this page for clients who need guidance on what to prepare before moving ahead with motor vehicle registration support."
                 details={[
                   'A brief explanation of the registration support offered',
