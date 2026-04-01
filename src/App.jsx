@@ -695,8 +695,20 @@ function Layout({ children }) {
           {children}
 
           {pathname !== '/' && !isPaymentMethodPage ? (
-            <div className="mt-6">
+            <div className="mt-6 space-y-6">
               <PaymentButtons />
+              {(() => {
+                const faqMap = {
+                  '/visa-services': serviceFaqs.visaServices,
+                  '/passport-renewal': serviceFaqs.passportRenewal,
+                  '/traffic-ticket-payment': serviceFaqs.trafficTicket,
+                  '/property-tax-payment': serviceFaqs.propertyTax,
+                  '/motor-vehicle-registration': serviceFaqs.vehicleRegistration,
+                  '/consultation': serviceFaqs.consultation,
+                };
+                const faqs = faqMap[pathname];
+                return faqs ? <FaqSection faqs={faqs} /> : null;
+              })()}
             </div>
           ) : null}
         </div>
@@ -1103,7 +1115,7 @@ function ServicePage({
           </div>
         ) : null}
 
-        <FaqSection faqs={faqs} />
+        
       </div>
     </section>
   );
