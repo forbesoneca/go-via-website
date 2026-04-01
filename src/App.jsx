@@ -731,14 +731,14 @@ function HomePage() {
 
   return (
     <>
-      {/* PREMIUM HERO: full-bleed image with overlay + centered content */}
-      <section className="relative">
-        <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden">
+      {/* HERO aligned with page width */}
+      <section className="mx-auto max-w-7xl px-1 md:px-0">
+        <div className="relative overflow-hidden rounded-3xl">
           <img
             src={images.hero}
             alt="Tropical vacation destination"
             fetchPriority="high"
-            className="h-[26rem] w-full object-cover sm:h-[32rem] md:h-[36rem] lg:h-[44rem]"
+            className="h-[22rem] w-full object-cover sm:h-[26rem] md:h-[30rem] lg:h-[34rem]"
           />
 
           {/* gradient overlay */}
@@ -746,28 +746,29 @@ function HomePage() {
             className={clsx(
               'pointer-events-none absolute inset-0',
               isDark
-                ? 'bg-gradient-to-b from-black/50 via-black/40 to-black/60'
-                : 'bg-gradient-to-b from-white/30 via-white/10 to-white/60'
+                ? 'bg-gradient-to-b from-black/60 via-black/45 to-black/70'
+                : 'bg-gradient-to-b from-black/35 via-black/20 to-black/55'
             )}
           />
 
           {/* centered content */}
           <div className="absolute inset-0 flex items-center justify-center px-4">
-            <div className="mx-auto max-w-4xl text-center">
-              <h1 className="text-4xl font-black leading-tight tracking-tight text-white drop-shadow-xl sm:text-5xl md:text-6xl xl:text-[4.5rem]">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="text-3xl font-black leading-tight tracking-tight text-white drop-shadow-xl sm:text-4xl md:text-5xl">
                 Reliable <span className="text-sky-400">Travel</span> and{' '}
                 <span className="text-fuchsia-400">Admin</span> Services.
               </h1>
 
-              <p className={clsx('mx-auto mt-4 max-w-2xl text-base leading-7 sm:text-lg', 'text-white/90')}>
-                From visa support and passport renewal to traffic ticket payment and property tax assistance,
-                Go Via Travel Services + helps you handle important tasks quickly and confidently.
-              </p>
+              <div className="mx-auto mt-3 max-w-2xl rounded-2xl bg-black/45 px-4 py-3 backdrop-blur-sm ring-1 ring-white/15 sm:px-5 sm:py-4 dark:bg-black/45">
+                <p className="text-sm font-medium leading-6 text-white sm:text-base sm:leading-7">
+                  From visa support and passport renewal to traffic ticket payment and property tax assistance, Go Via Travel Services + helps you handle important tasks quickly and confidently.
+                </p>
+              </div>
 
-              <div className="mt-6 flex justify-center">
+              <div className="mt-5 flex justify-center">
                 <a
                   href={contact.whatsappBase}
-                  className="rounded-2xl bg-green-500 px-7 py-3 text-center font-semibold text-white shadow-2xl shadow-green-500/30 transition hover:scale-[1.04]"
+                  className="rounded-2xl bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.04]"
                 >
                   Book a Consultation
                 </a>
