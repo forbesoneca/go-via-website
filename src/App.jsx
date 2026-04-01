@@ -214,7 +214,7 @@ const services = {
       path: '/visa-services',
       image: images.visa,
       description:
-        'Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.',
+        'Support for new visa applications and renewals with a smooth guided process.',
       countries: [
         { title: 'USA Visa', path: '/visa-services/usa', flag: '🇺🇸' },
         { title: 'Canada Visa', path: '/visa-services/canada', flag: '🇨🇦' },
@@ -224,7 +224,7 @@ const services = {
     },
     {
       title: 'Passport Renewal',
-      subtitle: 'Jamaican Passport Support',
+      subtitle: 'Jamaican Adult Passport Renewal',
       path: '/passport-renewal',
       image: images.passport,
       description:
@@ -459,7 +459,7 @@ const visaCountryPages = [
   {
     path: '/visa-services/usa',
     title: 'USA Visa',
-    subtitle: 'Application & Renewal Help',
+    subtitle: 'Application & Renewal Support',
     image: images.visa,
     description:
       'Use this page for USA visa support, whether it is a first-time application or a renewal.',
@@ -1487,7 +1487,8 @@ export default function App() {
                   title="Passport Renewal"
                   subtitle="Jamaican Passport Support"
                   image={images.passport}
-                  description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+                  description="Renew your Jamaican passport quickly and stress-free with our guided service. We handle your application, review your documents, and ensure everything is properly prepared to avoid delays.
+Our process is fully online, secure, and designed for your convenience. From start to finish, we provide clear guidance and reliable support every step of the way."
                   prices={[
                     { label: 'Standard Renewal (7 Days)', price: 'J$11,500' },
                     { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' },
@@ -1515,7 +1516,8 @@ export default function App() {
                   title="Traffic Ticket Payment"
                   subtitle="Avoid the Stress of a Court Date"
                   image={images.traffic}
-                  description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
+                  description="Pay your traffic ticket quickly and hassle-free without the long lines. We handle the process for you, ensuring your payment is completed accurately and on time.
+Our service is simple, secure, and fully online, giving you a convenient way to settle your ticket with confidence."
                   prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
                 />
               </Layout>
@@ -1549,7 +1551,8 @@ export default function App() {
                   title="Motor Vehicle Registration"
                   subtitle="Simple Registration Guidance"
                   image={images.registration}
-                  description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
+                  description="Renew your vehicle registration quickly and hassle-free without the long lines. We handle the process for you, ensuring everything is completed accurately and on time.
+Our service is simple, secure, and fully online, giving you a convenient way to stay compliant with ease."
                   prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 />
               </Layout>
