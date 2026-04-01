@@ -26,18 +26,14 @@ function ThemeProvider({ children }) {
     document.body.style.backgroundColor = theme === 'dark' ? '#030712' : '#f8fafc';
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 }
 
 function useTheme() {
   const context = React.useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within ThemeProvider');
-  }
+  if (!context) throw new Error('useTheme must be used within ThemeProvider');
   return context;
 }
 
@@ -391,6 +387,7 @@ function runDevTests() {
   console.assert(buildWhatsAppLink('hello world').includes('hello%20world'), 'WhatsApp link should encode spaces');
   console.assert(withBase('logo.png').includes('logo.png'), 'withBase should preserve file name');
   console.assert(getPaymentLogo('LYNK')?.includes('LYNK.png'), 'LYNK logo should resolve');
+  console.assert(getAccountLogo('JMMB')?.includes('JMMB_Bank.png'), 'JMMB logo should resolve');
 }
 
 runDevTests();
@@ -452,7 +449,12 @@ function Layout({ children }) {
   const isDark = theme === 'dark';
 
   return (
-    <div className={clsx('min-h-screen transition-colors duration-300', isDark ? 'bg-[#030712] text-white' : 'bg-slate-50 text-slate-900')}>
+    <div
+      className={clsx(
+        'min-h-screen transition-colors duration-300',
+        isDark ? 'bg-[#030712] text-white' : 'bg-slate-50 text-slate-900'
+      )}
+    >
       <header
         className={clsx(
           'relative overflow-hidden transition-colors duration-300',
@@ -482,7 +484,12 @@ function Layout({ children }) {
                   <span className="text-fuchsia-400">Travel Services</span>{' '}
                   <span className="text-fuchsia-400">+</span>
                 </div>
-                <div className={clsx('mt-1 text-sm italic leading-relaxed sm:text-base', isDark ? 'text-slate-300' : 'text-slate-600')}>
+                <div
+                  className={clsx(
+                    'mt-1 text-sm italic leading-relaxed sm:text-base',
+                    isDark ? 'text-slate-300' : 'text-slate-600'
+                  )}
+                >
                   One Service. Every Step Covered.
                 </div>
               </div>
@@ -530,11 +537,21 @@ function Layout({ children }) {
         </div>
       </header>
 
-      <footer className={clsx('border-t transition-colors duration-300', isDark ? 'border-white/10 bg-slate-900/60' : 'border-slate-200 bg-white')}>
+      <footer
+        className={clsx(
+          'border-t transition-colors duration-300',
+          isDark ? 'border-white/10 bg-slate-900/60' : 'border-slate-200 bg-white'
+        )}
+      >
         <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-12">
           <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
-              <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
+              <div
+                className={clsx(
+                  'text-sm font-semibold uppercase tracking-widest',
+                  isDark ? 'text-sky-300' : 'text-sky-700'
+                )}
+              >
                 Ready to get started?
               </div>
               <h3 className="mt-2 text-3xl font-black md:text-4xl">Book a Consultation Today</h3>
@@ -579,7 +596,9 @@ function ServiceCard({ service }) {
       <img src={service.image} alt={service.title} loading="lazy" className="h-32 w-full object-cover" />
       <div className="p-4">
         <div className="text-lg font-bold">{service.title}</div>
-        <div className={clsx('mt-1 text-sm', isDark ? 'text-sky-300' : 'text-sky-700')}>{service.subtitle}</div>
+        <div className={clsx('mt-1 text-sm', isDark ? 'text-sky-300' : 'text-sky-700')}>
+          {service.subtitle}
+        </div>
         <p className={clsx('mt-2 line-clamp-4 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
           {service.description}
         </p>
@@ -708,25 +727,6 @@ function HomePage() {
   return (
     <>
       <section className="mx-auto max-w-7xl px-1 md:px-0">
-        <div className="mb-6 text-center">
-          <h1 className="text-3xl font-black leading-tight tracking-tight sm:text-4xl md:text-5xl">
-            Reliable <span className="text-sky-400">Travel</span> and{' '}
-            <span className="text-fuchsia-400">Admin</span> Services.
-          </h1>
-
-          <p
-            className={clsx(
-              'mx-auto mt-3 max-w-2xl text-sm font-medium leading-6 sm:text-base sm:leading-7',
-              isDark ? 'text-slate-300' : 'text-slate-600'
-            )}
-          >
-            From visa support and passport renewal to traffic ticket payment and property tax assistance,
-            Go Via Travel Services + helps you handle important tasks quickly and confidently.
-          </p>
-
-          
-        </div>
-
         <div className="relative overflow-hidden rounded-3xl">
           <img
             src={images.hero}
@@ -738,10 +738,24 @@ function HomePage() {
             className={clsx(
               'pointer-events-none absolute inset-0',
               isDark
-                ? 'bg-gradient-to-b from-black/60 via-black/45 to-black/70'
-                : 'bg-gradient-to-b from-black/35 via-black/20 to-black/55'
+                ? 'bg-gradient-to-b from-black/40 via-black/30 to-black/70'
+                : 'bg-gradient-to-b from-black/20 via-black/10 to-black/60'
             )}
           />
+
+          <div className="absolute inset-x-0 bottom-0 px-4 pb-6">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="text-2xl font-black leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
+                Reliable <span className="text-sky-400">Travel</span> and{' '}
+                <span className="text-fuchsia-400">Admin</span> Services.
+              </h1>
+
+              <p className="mx-auto mt-2 max-w-2xl text-xs text-white/90 sm:text-sm md:text-base">
+                From visa support and passport renewal to traffic ticket payment and property tax assistance,
+                Go Via Travel Services + helps you handle important tasks quickly and confidently.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -904,7 +918,6 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
     'Western Union': [images.westernUnion],
     MoneyGram: [images.moneygram],
   };
-
   const logos = logoMap[title] || [];
 
   return (
@@ -950,7 +963,6 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
         <div className="grid gap-4">
           {accounts.map((account) => {
             const accountLogo = getAccountLogo(account.heading);
-
             return (
               <div key={account.heading} className={clsx(sectionCardClasses(isDark), 'p-5')}>
                 {accountLogo ? (
@@ -1071,7 +1083,6 @@ function PaymentsOverviewPage() {
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {paymentPages.map(({ title, icon: Icon, path }) => {
           const paymentLogo = getPaymentLogo(title);
-
           return (
             <Link
               key={path}
