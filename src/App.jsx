@@ -1,7 +1,10 @@
 import React from 'react';
-import clsx from 'clsx';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
 import { Landmark, Send, DollarSign, Smartphone, Sun, Moon } from 'lucide-react';
+
+function clsx(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
 const ThemeContext = React.createContext(null);
 
