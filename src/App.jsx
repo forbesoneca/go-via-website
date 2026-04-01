@@ -210,7 +210,7 @@ const services = {
   travel: [
     {
       title: 'Visa Services',
-      subtitle: 'Application & Renewal Help',
+      subtitle: 'Application & Renewal',
       path: '/visa-services',
       image: images.visa,
       description:
@@ -1487,8 +1487,7 @@ export default function App() {
                   title="Passport Renewal"
                   subtitle="Jamaican Passport Support"
                   image={images.passport}
-                  description="Renew your Jamaican passport quickly and stress-free with our guided service. We handle your application, review your documents, and ensure everything is properly prepared to avoid delays.
-Our process is fully online, secure, and designed for your convenience. From start to finish, we provide clear guidance and reliable support every step of the way."
+                  description="Renew your Jamaican passport quickly and stress-free with our guided service. We handle your application, review your documents, and ensure everything is properly prepared to avoid delays."
                   prices={[
                     { label: 'Standard Renewal (7 Days)', price: 'J$11,500' },
                     { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' },
@@ -1516,8 +1515,7 @@ Our process is fully online, secure, and designed for your convenience. From sta
                   title="Traffic Ticket Payment"
                   subtitle="Avoid the Stress of a Court Date"
                   image={images.traffic}
-                  description="Pay your traffic ticket quickly and hassle-free without the long lines. We handle the process for you, ensuring your payment is completed accurately and on time.
-Our service is simple, secure, and fully online, giving you a convenient way to settle your ticket with confidence."
+                  description="Pay your traffic ticket quickly and hassle-free without the long lines. We handle the process for you, ensuring your payment is completed accurately and on time."
                   prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
                 />
               </Layout>
@@ -1551,8 +1549,7 @@ Our service is simple, secure, and fully online, giving you a convenient way to 
                   title="Motor Vehicle Registration"
                   subtitle="Simple Registration Guidance"
                   image={images.registration}
-                  description="Renew your vehicle registration quickly and hassle-free without the long lines. We handle the process for you, ensuring everything is completed accurately and on time.
-Our service is simple, secure, and fully online, giving you a convenient way to stay compliant with ease."
+                  description="Renew your vehicle registration quickly and hassle-free without the long lines. We handle the process for you, ensuring everything is completed accurately and on time."
                   prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 />
               </Layout>
