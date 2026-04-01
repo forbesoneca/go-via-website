@@ -325,7 +325,7 @@ const serviceFaqs = {
     },
     {
       question: 'What if I don’t meet these requirements?',
-      answer: 'Unfortunately your renewal has to be done by visiting a PICA location',
+      answer: 'Unfortunately your renewal has to be done by visiting a PICA location.',
     },
     {
       question: 'How do I begin?',
