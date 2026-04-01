@@ -271,21 +271,6 @@ const services = {
   ],
 };
 
-const highlights = [
-  {
-    title: 'Traffic Ticket Payment',
-    text: 'Lost your ticket? We can help find the details and assist with payment once the due date has not passed.',
-  },
-  {
-    title: 'Property Tax Payment',
-    text: 'Fast and convenient assistance with property tax lookup, payment support, and digital payment receipt guidance.',
-  },
-  {
-    title: 'Visa & Travel Support',
-    text: 'Support for visa applications, renewals, passport renewal, and travel planning from start to finish.',
-  },
-];
-
 const visaCountryPages = [
   {
     path: '/visa-services/usa',
@@ -407,7 +392,8 @@ function runDevTests() {
   }
 
   console.assert(paymentPathForMethod('LYNK') === '/payments/lynk', 'LYNK route should resolve');
-  console.assert(buildWhatsAppLink('hello').includes('hello'), 'WhatsApp link should include encoded message');
+  console.assert(paymentPathForMethod('Other') === '/payments', 'Unknown payment methods should fall back');
+  console.assert(buildWhatsAppLink('hello world').includes('hello%20world'), 'WhatsApp link should encode spaces');
   console.assert(withBase('logo.png').includes('logo.png'), 'withBase should preserve file name');
 }
 
@@ -745,68 +731,45 @@ function HomePage() {
 
   return (
     <>
-      <section className="grid items-start gap-4 lg:grid-cols-[0.97fr_1.03fr] xl:gap-6">
-        <div>
-          <h1 className="max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-6xl xl:text-[4.5rem]">
-            Reliable <span className="text-sky-400">Travel</span> and{' '}
-            <span className="text-fuchsia-400">Admin</span> Services.
-          </h1>
+      {/* PREMIUM HERO: full-bleed image with overlay + centered content */}
+      <section className="relative">
+        <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen overflow-hidden">
+          <img
+            src={images.hero}
+            alt="Tropical vacation destination"
+            fetchPriority="high"
+            className="h-[26rem] w-full object-cover sm:h-[32rem] md:h-[36rem] lg:h-[44rem]"
+          />
 
-          <p className={clsx('mt-4 max-w-2xl text-base leading-7 sm:text-lg', isDark ? 'text-slate-300' : 'text-slate-700')}>
-            From visa support and passport renewal to traffic ticket payment and property tax assistance,
-            Go Via Travel Services + helps you handle important tasks quickly and confidently.
-          </p>
+          {/* gradient overlay */}
+          <div
+            className={clsx(
+              'pointer-events-none absolute inset-0',
+              isDark
+                ? 'bg-gradient-to-b from-black/50 via-black/40 to-black/60'
+                : 'bg-gradient-to-b from-white/30 via-white/10 to-white/60'
+            )}
+          />
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
-              href={contact.whatsappBase}
-              className="rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
-            >
-              Book a Consultation
-            </a>
-            
-          </div>
-        </div>
+          {/* centered content */}
+          <div className="absolute inset-0 flex items-center justify-center px-4">
+            <div className="mx-auto max-w-4xl text-center">
+              <h1 className="text-4xl font-black leading-tight tracking-tight text-white drop-shadow-xl sm:text-5xl md:text-6xl xl:text-[4.5rem]">
+                Reliable <span className="text-sky-400">Travel</span> and{' '}
+                <span className="text-fuchsia-400">Admin</span> Services.
+              </h1>
 
-        <div className="grid gap-3">
-          <div className={clsx(sectionCardClasses(isDark), 'overflow-hidden shadow-2xl')}>
-            <img
-              src={images.hero}
-              alt="Tropical vacation destination"
-              fetchPriority="high"
-              className="h-64 w-full object-cover lg:h-[18rem]"
-            />
+              <p className={clsx('mx-auto mt-4 max-w-2xl text-base leading-7 sm:text-lg', 'text-white/90')}>
+                From visa support and passport renewal to traffic ticket payment and property tax assistance,
+                Go Via Travel Services + helps you handle important tasks quickly and confidently.
+              </p>
 
-            <div className="grid gap-3 p-4 sm:grid-cols-2">
-              <div className={clsx(subtlePanelClasses(isDark), isDark ? 'bg-slate-950/50 p-4' : 'p-4')}>
-                <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-sky-300' : 'text-sky-700')}>
-                  Travel Services
-                </div>
-                <div className="mt-2 text-lg font-bold">Visa applications, renewals and travel support</div>
+              <div className="mt-6 flex justify-center">
                 <a
-                  href="#services"
-                  className={clsx(
-                    'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
-                    isDark ? 'bg-fuchsia-500/20 text-fuchsia-300 hover:bg-fuchsia-500/30' : 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200'
-                  )}
+                  href={contact.whatsappBase}
+                  className="rounded-2xl bg-green-500 px-7 py-3 text-center font-semibold text-white shadow-2xl shadow-green-500/30 transition hover:scale-[1.04]"
                 >
-                  Learn More
-                </a>
-              </div>
-
-              <div className={clsx(subtlePanelClasses(isDark), isDark ? 'bg-slate-950/50 p-4' : 'p-4')}>
-                <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
-                  Admin Services
-                </div>
-                <div className="mt-2 text-lg font-bold">Property tax, traffic tickets and registrations</div>
-                <a
-                  href="#services"
-                  className={clsx(
-                    'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
-                    isDark ? 'bg-fuchsia-500/20 text-fuchsia-300 hover:bg-fuchsia-500/30' : 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200'
-                  )}
-                >
-                  Learn More
+                  Book a Consultation
                 </a>
               </div>
             </div>
@@ -818,7 +781,6 @@ function HomePage() {
 
       <section className="mx-auto max-w-7xl px-1 pt-2 md:px-0">
         <ProcessStrip />
-
         <PaymentButtons />
 
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -837,7 +799,9 @@ function HomePage() {
               )}
             >
               <div className="text-base font-bold">{title}</div>
-              <div className={clsx('mt-1 text-sm', isDark ? 'text-slate-300' : 'text-slate-600')}>{text}</div>
+              <div className={clsx('mt-1 text-sm', isDark ? 'text-slate-300' : 'text-slate-600')}>
+                {text}
+              </div>
             </div>
           ))}
         </div>
