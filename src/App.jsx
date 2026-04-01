@@ -270,30 +270,82 @@ const services = {
 const serviceFaqs = {
   visaServices: [
     {
+      question: 'What does your visa assistance service include?',
+      answer: 'We guide you through the entire process—application form completion, document review, appointment booking, and submission support to improve your chances of approval.',
+    },
+    {
       question: 'Which visa page should I choose?',
       answer: 'Choose the country page that matches your destination so you can see the correct fees, forms, and next steps.',
+    },
+    {
+      question: 'Do you guarantee visa approval?',
+      answer: 'No. Visa decisions are made by the embassy. However, we ensure your application is accurate, complete, and professionally prepared to maximize your chances',
     },
     {
       question: 'Do I need to complete a form before contacting you?',
       answer: 'The form is the fastest way to get started, but you can also message us on WhatsApp if you need guidance first.',
     },
     {
+      question: 'Do you have a physical location?',
+      answer: 'No, we operate fully online for your convenience. All documents are securely handled through our digital process.',
+    },
+    {
+      question: 'What documents will I need?',
+      answer: 'Requirements vary by country, but generally include valid passport, bank statements, employment letter, travel itinerary. Each visa page will have unique forms with the supporting documents needed for the type of visa you are applying for.',
+    },
+    {
       question: 'Are visa fees included in the prices shown?',
-      answer: 'The page pricing will guide you on the expected cost structure for that service. Contact us if you want confirmation before proceeding.',
+      answer: 'Yes. The page pricing will guide you on the expected cost structure for that service. Contact us if you want confirmation before proceeding.',
+    },
+    {
+      question: 'When should I start my application?',
+      answer: 'We recommend starting at least 2 to 3 months before your intended travel date to allow enough time for processing.',
+    },
+    {
+      question: 'What happens after I submit my documents?',
+      answer: 'We review everything, prepare your application, and guide you through the next steps including appointment booking and submission.',
+    },
+    {
+      question: 'Do you offer refunds if my visa is denied?',
+      answer: 'Service fees are non-refundable once work has started, as they cover time and expertise, not the visa decision.',
+    },
+    {
+      question: 'What is your service turnaround time (SLA)?',
+      answer: 'Our standard turnaround time is 2 to 3 business days after receiving all required documents. This includes reviewing your information and preparing your application. Urgent requests may be accommodated at an additional cost of JMD$5,000.',
+    },
+    {
+      question: 'Can I contact you during the process?',
+      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   passportRenewal: [
     {
-      question: 'What do I need before starting passport renewal?',
-      answer: 'Have your current passport details and any required supporting information ready before submitting the form.',
+      question: 'Who qualifies for our passport renewal service?',
+      answer: 'You qualify for standard passport renewal if your passport number begins with “A”, you have not legally changed your name, your signature remains the same, your passport was issued on or after September 3, 2001, and you are in possession of your current passport.',
     },
     {
-      question: 'Can I ask questions before submitting the form?',
-      answer: 'Yes. You can message us on WhatsApp if you need help understanding the process first.',
+      question: 'What if I don’t meet these requirements?',
+      answer: 'Unfortunately your renewal has to be done by visiting a PICA location',
     },
     {
       question: 'How do I begin?',
       answer: 'Use the Passport Renewal form on the page and we will guide you through the next steps.',
+    },
+     {
+      question: 'What happens after I submit my documents?',
+      answer: 'Once your documents are submitted, we review everything, prepare your application, and guide you through the next steps including submission.',
+    },
+    {
+      question: 'Do you offer delivery services?',
+      answer: 'Yes, we can assist with delivery options to ensure your passport is returned to you safely and conveniently.',
+    },
+    {
+      question: 'What is your service turnaround time (SLA)?',
+      answer: 'Our standard turnaround time is 2 to 3 business days after receiving all required documents. This includes reviewing your information and preparing your application. Urgent requests may be accommodated at an additional cost of JMD$5,000.',
+    },
+    {
+      question: 'Can I contact you during the process?',
+      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   trafficTicket: [
@@ -309,6 +361,14 @@ const serviceFaqs = {
       question: 'How do I start?',
       answer: 'Contact us with the relevant details so we can advise on the next step.',
     },
+    {
+      question: 'What is your service turnaround time (SLA)?',
+      answer: 'Our standard turnaround time is 24 to 48 hours after receiving all required details.',
+    },
+    {
+      question: 'Can I contact you during the process?',
+      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+    },
   ],
   propertyTax: [
     {
@@ -323,19 +383,35 @@ const serviceFaqs = {
       question: 'Will I receive confirmation after payment?',
       answer: 'Yes, we will guide you on confirmation and next steps once your request is processed.',
     },
+    {
+      question: 'What is your service turnaround time (SLA)?',
+      answer: 'Our standard turnaround time is 24 to 48 hours after receiving all required details.',
+    },
+    {
+      question: 'Can I contact you during the process?',
+      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+    },
   ],
   vehicleRegistration: [
     {
-      question: 'What should I prepare before requesting help?',
-      answer: 'Have the relevant vehicle and registration details ready so we can guide you properly.',
+      question: 'What does your service include?',
+      answer: 'Our service includes preparing and submitting your registration documents, paying the required fee and delivering your Electronic Motor Vehicle Registration Certificate(eMVRC) to you',
     },
     {
       question: 'Can I reach out before proceeding?',
       answer: 'Yes, message us if you want to understand the process before moving ahead.',
     },
     {
-      question: 'Is this page for guidance or full processing?',
-      answer: 'This page is mainly for helping you understand the requirements and next steps before proceeding.',
+      question: 'What documents are required to register my vehicle?',
+      answer: 'You will need a valid drivers license, fitness, insurance and a picture of your most recent registration certificate. We will guide you if anything is missing.',
+    },
+    {
+      question: 'What is your service turnaround time (SLA)?',
+      answer: 'Our standard turnaround time is 24 to 48 hours after receiving all required details.',
+    },
+    {
+      question: 'Can I contact you during the process?',
+      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   consultation: [
