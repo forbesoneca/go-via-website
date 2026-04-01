@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { DollarSign, Landmark, Moon, Send, Smartphone, Sun } from 'lucide-react';
+import { DollarSign, FileText, Landmark, Moon, Plane, Send, Smartphone, Sun } from 'lucide-react';
 
 function clsx(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -388,6 +388,8 @@ function runDevTests() {
   console.assert(withBase('logo.png').includes('logo.png'), 'withBase should preserve file name');
   console.assert(getPaymentLogo('LYNK')?.includes('LYNK.png'), 'LYNK logo should resolve');
   console.assert(getAccountLogo('JMMB')?.includes('JMMB_Bank.png'), 'JMMB logo should resolve');
+  console.assert(typeof Plane === 'function', 'Plane icon should be available');
+  console.assert(typeof FileText === 'function', 'FileText icon should be available');
 }
 
 runDevTests();
@@ -671,8 +673,8 @@ function ServicesSection() {
           )}
         >
           <div className="mb-4 flex items-center gap-3">
-            <div className={clsx('flex h-12 w-12 items-center justify-center rounded-2xl text-2xl', isDark ? 'bg-sky-400/20' : 'bg-sky-100')}>
-              🌍
+            <div className={clsx('flex h-12 w-12 items-center justify-center rounded-2xl', isDark ? 'bg-sky-400/20' : 'bg-sky-100')}>
+              <Plane className={clsx('h-6 w-6', isDark ? 'text-sky-300' : 'text-sky-700')} />
             </div>
             <div>
               <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-sky-200' : 'text-sky-700')}>
@@ -698,8 +700,8 @@ function ServicesSection() {
           )}
         >
           <div className="mb-4 flex items-center gap-3">
-            <div className={clsx('flex h-12 w-12 items-center justify-center rounded-2xl text-2xl', isDark ? 'bg-fuchsia-400/20' : 'bg-fuchsia-100')}>
-              🗂️
+            <div className={clsx('flex h-12 w-12 items-center justify-center rounded-2xl', isDark ? 'bg-fuchsia-400/20' : 'bg-fuchsia-100')}>
+              <FileText className={clsx('h-6 w-6', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')} />
             </div>
             <div>
               <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-fuchsia-200' : 'text-fuchsia-700')}>
