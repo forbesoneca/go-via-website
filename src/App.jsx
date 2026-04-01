@@ -1,6 +1,42 @@
 import React from 'react';
+import clsx from 'clsx';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { Landmark, Send, DollarSign, Smartphone } from 'lucide-react';
+import { Landmark, Send, DollarSign, Smartphone, Sun, Moon } from 'lucide-react';
+
+const ThemeContext = React.createContext(null);
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = React.useState(() => {
+    try {
+      return localStorage.getItem('theme') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  React.useEffect(() => {
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {}
+
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.body.style.backgroundColor = theme === 'dark' ? '#030712' : '#f8fafc';
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+}
+
+function useTheme() {
+  const context = React.useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within ThemeProvider');
+  }
+  return context;
+}
 
 const baseUrl =
   typeof import.meta !== 'undefined' &&
@@ -348,7 +384,23 @@ function getAccountLogo(heading) {
   return logoMap[heading] || null;
 }
 
+function sectionCardClasses(isDark) {
+  return clsx(
+    'rounded-3xl border shadow-xl transition-colors duration-300',
+    isDark ? 'border-white/10 bg-white/5 shadow-black/20' : 'border-slate-200 bg-white shadow-slate-200/70'
+  );
+}
+
+function subtlePanelClasses(isDark) {
+  return clsx(
+    'rounded-2xl border transition-colors duration-300',
+    isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-slate-50'
+  );
+}
+
 function PaymentButtons() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const options = [
     { label: 'Bank Transfer', icon: Landmark },
     { label: 'Western Union', icon: Send },
@@ -357,10 +409,19 @@ function PaymentButtons() {
   ];
 
   return (
-    <div className="mt-4 rounded-3xl border border-emerald-400/10 bg-gradient-to-br from-emerald-500/5 via-slate-900 to-slate-900 p-4 shadow-xl shadow-black/20">
-      <div className="text-sm uppercase tracking-widest text-emerald-300">How You Can Pay</div>
+    <div
+      className={clsx(
+        'mt-4 rounded-3xl border p-4 shadow-xl transition-colors duration-300',
+        isDark
+          ? 'border-emerald-400/10 bg-gradient-to-br from-emerald-500/5 via-slate-900 to-slate-900 shadow-black/20'
+          : 'border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-sky-50 shadow-slate-200/70'
+      )}
+    >
+      <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
+        How You Can Pay
+      </div>
       <div className="mt-1 text-lg font-bold">Flexible Payment Options</div>
-      <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">
+      <p className={clsx('mt-2 max-w-xl text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
         Choose your preferred method to view payment details.
       </p>
 
@@ -369,10 +430,15 @@ function PaymentButtons() {
           <Link
             key={label}
             to={paymentPathForMethod(label)}
-            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+            className={clsx(
+              'flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition',
+              isDark
+                ? 'border-white/10 bg-white/5 text-slate-100 hover:bg-white/10'
+                : 'border-slate-200 bg-white text-slate-800 hover:bg-slate-50'
+            )}
             aria-label={`View ${label} payment details`}
           >
-            <Icon className="h-5 w-5 text-emerald-300" />
+            <Icon className={clsx('h-5 w-5', isDark ? 'text-emerald-300' : 'text-emerald-600')} />
             {label}
           </Link>
         ))}
@@ -383,14 +449,35 @@ function PaymentButtons() {
 
 function Layout({ children }) {
   const { pathname } = useLocation();
+  const { theme, toggleTheme } = useTheme();
   const showHomeButton = pathname !== '/';
   const isPaymentMethodPage = paymentPages.some((page) => page.path === pathname);
+  const isDark = theme === 'dark';
 
   return (
-    <div className="min-h-screen bg-[#030712] text-white">
-      <header className="relative overflow-hidden bg-[linear-gradient(135deg,#020617_0%,#0f172a_60%,#3b0764_100%)]">
+    <div
+      className={clsx(
+        'min-h-screen transition-colors duration-300',
+        isDark ? 'bg-[#030712] text-white' : 'bg-slate-50 text-slate-900'
+      )}
+    >
+      <header
+        className={clsx(
+          'relative overflow-hidden transition-colors duration-300',
+          isDark
+            ? 'bg-[linear-gradient(135deg,#020617_0%,#0f172a_60%,#3b0764_100%)]'
+            : 'bg-[linear-gradient(135deg,#ffffff_0%,#e0f2fe_55%,#fae8ff_100%)]'
+        )}
+      >
         <div className="relative mx-auto max-w-7xl px-5 py-6 md:px-10 lg:px-12">
-          <nav className="mb-6 flex flex-col gap-4 rounded-3xl border border-sky-400/15 bg-slate-900/80 px-5 py-4 shadow-2xl shadow-fuchsia-950/20 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <nav
+            className={clsx(
+              'mb-6 flex flex-col gap-4 rounded-3xl border px-5 py-4 shadow-2xl transition-colors duration-300 sm:flex-row sm:items-center sm:justify-between sm:px-6',
+              isDark
+                ? 'border-sky-400/15 bg-slate-900/80 shadow-fuchsia-950/20'
+                : 'border-slate-200 bg-white/90 shadow-slate-300/40'
+            )}
+          >
             <Link to="/" className="flex min-w-0 items-center gap-3 sm:gap-4" aria-label="Go to home page">
               <img
                 src={images.logo}
@@ -403,20 +490,41 @@ function Layout({ children }) {
                   <span className="text-fuchsia-400">Travel Services</span>{' '}
                   <span className="text-fuchsia-400">+</span>
                 </div>
-                <div className="mt-1 text-sm italic leading-relaxed text-slate-300 sm:text-base">
+                <div className={clsx('mt-1 text-sm italic leading-relaxed sm:text-base', isDark ? 'text-slate-300' : 'text-slate-600')}>
                   One Service. Every Step Covered.
                 </div>
               </div>
             </Link>
 
-            {showHomeButton ? (
-              <Link
-                to="/"
-                className="inline-flex items-center justify-center self-start rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:bg-white/10 sm:self-auto"
+            <div className="flex items-center gap-3 self-start sm:self-auto">
+              <button
+                onClick={toggleTheme}
+                className={clsx(
+                  'inline-flex items-center justify-center rounded-2xl border px-4 py-2.5 text-sm font-semibold transition',
+                  isDark
+                    ? 'border-white/15 bg-white/5 text-yellow-300 hover:bg-white/10'
+                    : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-100'
+                )}
+                aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+                title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
               >
-                Home
-              </Link>
-            ) : null}
+                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </button>
+
+              {showHomeButton ? (
+                <Link
+                  to="/"
+                  className={clsx(
+                    'inline-flex items-center justify-center rounded-2xl border px-5 py-2.5 text-sm font-semibold transition',
+                    isDark
+                      ? 'border-white/15 bg-white/5 text-slate-100 hover:bg-white/10'
+                      : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-100'
+                  )}
+                >
+                  Home
+                </Link>
+              ) : null}
+            </div>
           </nav>
 
           {children}
@@ -429,26 +537,40 @@ function Layout({ children }) {
         </div>
       </header>
 
-      <footer className="border-t border-white/10 bg-slate-900/60">
+      <footer
+        className={clsx(
+          'border-t transition-colors duration-300',
+          isDark ? 'border-white/10 bg-slate-900/60' : 'border-slate-200 bg-white'
+        )}
+      >
         <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-12">
           <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
-              <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">
+              <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
                 Ready to get started?
               </div>
               <h3 className="mt-2 text-3xl font-black md:text-4xl">Book a Consultation Today</h3>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-300">
+              <p className={clsx('mt-3 max-w-2xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
                 Reach out for assistance with traffic ticket payment, property tax support, visa services,
                 passport renewal, and more.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 p-5 text-center shadow-2xl shadow-fuchsia-950/20">
-              <div className="text-sm uppercase tracking-wider text-fuchsia-300">Call or WhatsApp</div>
+            <div
+              className={clsx(
+                'rounded-3xl border p-5 text-center shadow-2xl transition-colors duration-300',
+                isDark
+                  ? 'border-fuchsia-400/15 bg-gradient-to-b from-slate-900 to-slate-950 shadow-fuchsia-950/20'
+                  : 'border-fuchsia-200 bg-gradient-to-b from-white to-fuchsia-50 shadow-slate-300/40'
+              )}
+            >
+              <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
+                Call or WhatsApp
+              </div>
               <div className="mt-2 text-3xl font-black tracking-tight">{contact.phoneDisplay}</div>
               <a
                 href={contact.whatsappBase}
-                className="mt-4 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
+                className="mt-4 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
               >
                 Message Now
               </a>
@@ -461,16 +583,24 @@ function Layout({ children }) {
 }
 
 function ServiceCard({ service }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-black/20 transition hover:-translate-y-1">
+    <div className={clsx(sectionCardClasses(isDark), 'overflow-hidden transition hover:-translate-y-1')}>
       <img src={service.image} alt={service.title} loading="lazy" className="h-32 w-full object-cover" />
       <div className="p-4">
         <div className="text-lg font-bold">{service.title}</div>
-        <div className="mt-1 text-sm text-sky-300">{service.subtitle}</div>
-        <p className="mt-2 line-clamp-4 text-sm leading-6 text-slate-300">{service.description}</p>
+        <div className={clsx('mt-1 text-sm', isDark ? 'text-sky-300' : 'text-sky-700')}>{service.subtitle}</div>
+        <p className={clsx('mt-2 line-clamp-4 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
+          {service.description}
+        </p>
         <Link
           to={service.path}
-          className="mt-3 inline-flex items-center justify-center rounded-2xl bg-sky-500/20 px-4 py-2 text-sm font-semibold text-sky-300 transition hover:bg-sky-500/30"
+          className={clsx(
+            'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
+            isDark ? 'bg-sky-500/20 text-sky-300 hover:bg-sky-500/30' : 'bg-sky-100 text-sky-700 hover:bg-sky-200'
+          )}
         >
           View Details
         </Link>
@@ -480,6 +610,8 @@ function ServiceCard({ service }) {
 }
 
 function ProcessStrip() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const steps = [
     ['1', 'Choose Service', 'Select the service page that matches your need.'],
     ['2', 'Submit Form', 'Complete the form or contact us on WhatsApp.'],
@@ -489,15 +621,17 @@ function ProcessStrip() {
   return (
     <section className="mt-5 grid gap-3 md:grid-cols-3">
       {steps.map(([number, title, text]) => (
-        <div
-          key={title}
-          className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/20"
-        >
-          <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-400/20 text-sm font-bold text-sky-300">
+        <div key={title} className={clsx(subtlePanelClasses(isDark), 'p-4 shadow-lg')}>
+          <div
+            className={clsx(
+              'mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold',
+              isDark ? 'bg-sky-400/20 text-sky-300' : 'bg-sky-100 text-sky-700'
+            )}
+          >
             {number}
           </div>
           <div className="text-base font-bold">{title}</div>
-          <p className="mt-1 text-sm leading-6 text-slate-300">{text}</p>
+          <p className={clsx('mt-1 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>{text}</p>
         </div>
       ))}
     </section>
@@ -505,6 +639,9 @@ function ProcessStrip() {
 }
 
 function HomePage() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <>
       <section className="grid items-start gap-4 lg:grid-cols-[0.97fr_1.03fr] xl:gap-6">
@@ -514,7 +651,7 @@ function HomePage() {
             <span className="text-fuchsia-400">Admin</span> Services.
           </h1>
 
-          <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+          <p className={clsx('mt-4 max-w-2xl text-base leading-7 sm:text-lg', isDark ? 'text-slate-300' : 'text-slate-700')}>
             From visa support and passport renewal to traffic ticket payment and property tax assistance,
             Go Via Travel Services + helps you handle important tasks quickly and confidently.
           </p>
@@ -522,13 +659,16 @@ function HomePage() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
               href={contact.whatsappBase}
-              className="rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
+              className="rounded-2xl bg-green-500 px-6 py-3 text-center font-semibold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
             >
               Book a Consultation
             </a>
             <a
               href="#services"
-              className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center font-semibold text-slate-100 transition hover:bg-white/10"
+              className={clsx(
+                'rounded-2xl border px-6 py-3 text-center font-semibold transition',
+                isDark ? 'border-white/15 bg-white/5 text-slate-100 hover:bg-white/10' : 'border-slate-300 bg-white text-slate-800 hover:bg-slate-100'
+              )}
             >
               View Services
             </a>
@@ -542,10 +682,15 @@ function HomePage() {
             ].map(([title, text]) => (
               <div
                 key={title}
-                className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-slate-900/40 p-4 shadow-xl shadow-black/20"
+                className={clsx(
+                  'rounded-2xl border p-4 shadow-xl transition-colors duration-300',
+                  isDark
+                    ? 'border-white/10 bg-gradient-to-b from-white/10 to-slate-900/40 shadow-black/20'
+                    : 'border-slate-200 bg-gradient-to-b from-white to-slate-100 shadow-slate-200/70'
+                )}
               >
                 <div className="text-base font-bold">{title}</div>
-                <div className="mt-1 text-sm text-slate-300">{text}</div>
+                <div className={clsx('mt-1 text-sm', isDark ? 'text-slate-300' : 'text-slate-600')}>{text}</div>
               </div>
             ))}
           </div>
@@ -554,7 +699,7 @@ function HomePage() {
         </div>
 
         <div className="grid gap-3">
-          <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
+          <div className={clsx(sectionCardClasses(isDark), 'overflow-hidden shadow-2xl')}>
             <img
               src={images.hero}
               alt="Tropical vacation destination"
@@ -563,23 +708,33 @@ function HomePage() {
             />
 
             <div className="grid gap-3 p-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-                <div className="text-sm uppercase tracking-wider text-sky-300">Travel Services</div>
+              <div className={clsx(subtlePanelClasses(isDark), isDark ? 'bg-slate-950/50 p-4' : 'p-4')}>
+                <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-sky-300' : 'text-sky-700')}>
+                  Travel Services
+                </div>
                 <div className="mt-2 text-lg font-bold">Visa applications, renewals and travel support</div>
                 <Link
                   to="/visa-services"
-                  className="mt-3 inline-flex items-center justify-center rounded-2xl bg-sky-500/20 px-4 py-2 text-sm font-semibold text-sky-300 transition hover:bg-sky-500/30"
+                  className={clsx(
+                    'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
+                    isDark ? 'bg-sky-500/20 text-sky-300 hover:bg-sky-500/30' : 'bg-sky-100 text-sky-700 hover:bg-sky-200'
+                  )}
                 >
                   Learn More
                 </Link>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-                <div className="text-sm uppercase tracking-wider text-fuchsia-300">Admin Services</div>
+              <div className={clsx(subtlePanelClasses(isDark), isDark ? 'bg-slate-950/50 p-4' : 'p-4')}>
+                <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
+                  Admin Services
+                </div>
                 <div className="mt-2 text-lg font-bold">Property tax, traffic tickets and registrations</div>
                 <a
                   href="#services"
-                  className="mt-3 inline-flex items-center justify-center rounded-2xl bg-fuchsia-500/20 px-4 py-2 text-sm font-semibold text-fuchsia-300 transition hover:bg-fuchsia-500/30"
+                  className={clsx(
+                    'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
+                    isDark ? 'bg-fuchsia-500/20 text-fuchsia-300 hover:bg-fuchsia-500/30' : 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200'
+                  )}
                 >
                   Learn More
                 </a>
@@ -587,28 +742,54 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-4 shadow-2xl shadow-black/30">
+          <div
+            className={clsx(
+              'rounded-3xl border p-4 shadow-2xl transition-colors duration-300',
+              isDark
+                ? 'border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 shadow-black/30'
+                : 'border-sky-200 bg-gradient-to-br from-white via-sky-50 to-fuchsia-50 shadow-slate-200/70'
+            )}
+          >
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <div className="text-sm uppercase tracking-widest text-sky-300">Featured Service</div>
+                <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
+                  Featured Service
+                </div>
                 <div className="mt-1 text-lg font-bold">Traffic Ticket Payment</div>
               </div>
-              <div className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/20 px-3 py-1 text-xs font-semibold text-yellow-300">
+              <div
+                className={clsx(
+                  'inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold',
+                  isDark
+                    ? 'border-yellow-400/30 bg-yellow-400/20 text-yellow-300'
+                    : 'border-yellow-300 bg-yellow-100 text-yellow-800'
+                )}
+              >
                 Popular
               </div>
             </div>
 
-            <p className="text-sm leading-6 text-slate-300">
+            <p className={clsx('text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
               Lost your ticket? We can help find the details and assist with payment before the due date passes.
             </p>
 
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-3 text-sm text-yellow-100">
+              <div
+                className={clsx(
+                  'rounded-2xl border p-3 text-sm',
+                  isDark
+                    ? 'border-yellow-400/30 bg-yellow-400/10 text-yellow-100'
+                    : 'border-yellow-300 bg-yellow-50 text-yellow-800'
+                )}
+              >
                 Avoid the stress of a court date by taking action early.
               </div>
               <Link
                 to="/traffic-ticket-payment"
-                className="rounded-2xl bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-white/15"
+                className={clsx(
+                  'rounded-2xl px-4 py-2.5 text-center text-sm font-semibold transition',
+                  isDark ? 'bg-white/10 text-white hover:bg-white/15' : 'bg-slate-900 text-white hover:bg-slate-800'
+                )}
               >
                 Learn More
               </Link>
@@ -626,31 +807,47 @@ function HomePage() {
 
       <section id="services" className="mx-auto max-w-7xl px-1 py-12 md:px-0">
         <div className="mb-7 text-center">
-          <div className="text-sm font-semibold uppercase tracking-widest text-fuchsia-300">Our Services</div>
+          <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
+            Our Services
+          </div>
           <h2 className="mt-3 text-4xl font-black md:text-5xl">Everything You Need, Handled in One Place</h2>
-          <p className="mx-auto mt-3 max-w-3xl text-slate-300">
+          <p className={clsx('mx-auto mt-3 max-w-3xl', isDark ? 'text-slate-300' : 'text-slate-600')}>
             Browse each service page for details, pricing, payment methods, and next steps.
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="rounded-3xl border border-sky-400/20 bg-gradient-to-b from-sky-500/15 to-slate-900/50 p-5 shadow-2xl shadow-sky-950/10">
+          <div
+            className={clsx(
+              'rounded-3xl border p-5 shadow-2xl transition-colors duration-300',
+              isDark
+                ? 'border-sky-400/20 bg-gradient-to-b from-sky-500/15 to-slate-900/50 shadow-sky-950/10'
+                : 'border-sky-200 bg-gradient-to-b from-sky-50 to-white shadow-slate-200/70'
+            )}
+          >
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-400/20 text-2xl">🌍</div>
+              <div className={clsx('flex h-12 w-12 items-center justify-center rounded-2xl text-2xl', isDark ? 'bg-sky-400/20' : 'bg-sky-100')}>
+                🌍
+              </div>
               <div>
-                <div className="text-sm uppercase tracking-wider text-sky-200">Travel Services</div>
+                <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-sky-200' : 'text-sky-700')}>
+                  Travel Services
+                </div>
                 <div className="text-2xl font-bold">Visa, Passport & Travel Support</div>
               </div>
             </div>
 
             <div className="grid gap-3">
               {services.travel.map((item) => (
-                <div key={item.path} className="rounded-2xl bg-slate-950/30 p-4">
-                  <div className="font-semibold text-slate-100">{item.title}</div>
-                  <div className="mt-1 text-sm text-slate-300">{item.subtitle}</div>
+                <div key={item.path} className={clsx(subtlePanelClasses(isDark), 'p-4')}>
+                  <div className={clsx('font-semibold', isDark ? 'text-slate-100' : 'text-slate-900')}>{item.title}</div>
+                  <div className={clsx('mt-1 text-sm', isDark ? 'text-slate-300' : 'text-slate-600')}>{item.subtitle}</div>
                   <Link
                     to={item.path}
-                    className="mt-3 inline-flex items-center justify-center rounded-2xl bg-sky-500/20 px-4 py-2 text-sm font-semibold text-sky-300 transition hover:bg-sky-500/30"
+                    className={clsx(
+                      'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
+                      isDark ? 'bg-sky-500/20 text-sky-300 hover:bg-sky-500/30' : 'bg-sky-100 text-sky-700 hover:bg-sky-200'
+                    )}
                   >
                     View Page
                   </Link>
@@ -659,23 +856,37 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-b from-fuchsia-500/15 to-slate-900/50 p-5 shadow-2xl shadow-fuchsia-950/10">
+          <div
+            className={clsx(
+              'rounded-3xl border p-5 shadow-2xl transition-colors duration-300',
+              isDark
+                ? 'border-fuchsia-400/20 bg-gradient-to-b from-fuchsia-500/15 to-slate-900/50 shadow-fuchsia-950/10'
+                : 'border-fuchsia-200 bg-gradient-to-b from-fuchsia-50 to-white shadow-slate-200/70'
+            )}
+          >
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-fuchsia-400/20 text-2xl">🗂️</div>
+              <div className={clsx('flex h-12 w-12 items-center justify-center rounded-2xl text-2xl', isDark ? 'bg-fuchsia-400/20' : 'bg-fuchsia-100')}>
+                🗂️
+              </div>
               <div>
-                <div className="text-sm uppercase tracking-wider text-fuchsia-200">Admin Services</div>
+                <div className={clsx('text-sm uppercase tracking-wider', isDark ? 'text-fuchsia-200' : 'text-fuchsia-700')}>
+                  Admin Services
+                </div>
                 <div className="text-2xl font-bold">Payments & Practical Support</div>
               </div>
             </div>
 
             <div className="grid gap-3">
               {services.admin.map((item) => (
-                <div key={item.path} className="rounded-2xl bg-slate-950/30 p-4">
-                  <div className="font-semibold text-slate-100">{item.title}</div>
-                  <div className="mt-1 text-sm text-slate-300">{item.subtitle}</div>
+                <div key={item.path} className={clsx(subtlePanelClasses(isDark), 'p-4')}>
+                  <div className={clsx('font-semibold', isDark ? 'text-slate-100' : 'text-slate-900')}>{item.title}</div>
+                  <div className={clsx('mt-1 text-sm', isDark ? 'text-slate-300' : 'text-slate-600')}>{item.subtitle}</div>
                   <Link
                     to={item.path}
-                    className="mt-3 inline-flex items-center justify-center rounded-2xl bg-fuchsia-500/20 px-4 py-2 text-sm font-semibold text-fuchsia-300 transition hover:bg-fuchsia-500/30"
+                    className={clsx(
+                      'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
+                      isDark ? 'bg-fuchsia-500/20 text-fuchsia-300 hover:bg-fuchsia-500/30' : 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200'
+                    )}
                   >
                     View Page
                   </Link>
@@ -689,12 +900,9 @@ function HomePage() {
       <section className="mx-auto max-w-7xl px-1 pb-10 md:px-0">
         <div className="grid gap-4 lg:grid-cols-3">
           {highlights.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/20"
-            >
+            <div key={item.title} className={clsx(sectionCardClasses(isDark), 'p-5 shadow-lg')}>
               <div className="text-xl font-bold">{item.title}</div>
-              <p className="mt-3 leading-7 text-slate-300">{item.text}</p>
+              <p className={clsx('mt-3 leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>{item.text}</p>
             </div>
           ))}
         </div>
@@ -713,35 +921,54 @@ function ServicePage({
   showFormSection = true,
   children,
 }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <section className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr] xl:gap-6">
       <div className="grid gap-4">
-        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-black/30">
+        <div className={clsx(sectionCardClasses(isDark), 'overflow-hidden shadow-2xl')}>
           <img src={image} alt={title} loading="lazy" className="h-56 w-full object-cover lg:h-[19rem]" />
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
-          <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Service Details</div>
+        <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
+          <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
+            Service Details
+          </div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
-          <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
+          <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>{subtitle}</p>
+          <p className={clsx('mt-4 max-w-3xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
+            {description}
+          </p>
           {children ? <div className="mt-6">{children}</div> : null}
         </div>
       </div>
 
       <div className="grid gap-4">
         {prices?.length ? (
-          <div className="rounded-3xl border border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/30">
-            <div className="text-sm uppercase tracking-widest text-fuchsia-300">Pricing</div>
+          <div
+            className={clsx(
+              'rounded-3xl border p-5 shadow-2xl transition-colors duration-300',
+              isDark
+                ? 'border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 shadow-black/30'
+                : 'border-fuchsia-200 bg-gradient-to-br from-white via-fuchsia-50 to-white shadow-slate-200/70'
+            )}
+          >
+            <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
+              Pricing
+            </div>
             <div className="mt-2 text-2xl font-bold">Service Fees</div>
             <div className="mt-4 grid gap-3">
               {prices.map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4"
+                  className={clsx(
+                    'flex items-center justify-between gap-4 rounded-2xl border px-4 py-4 transition-colors duration-300',
+                    isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white'
+                  )}
                 >
-                  <div className="text-sm font-medium text-slate-200">{item.label}</div>
-                  <div className="text-lg font-black text-white sm:text-xl">{item.price}</div>
+                  <div className={clsx('text-sm font-medium', isDark ? 'text-slate-200' : 'text-slate-700')}>{item.label}</div>
+                  <div className={clsx('text-lg font-black sm:text-xl', isDark ? 'text-white' : 'text-slate-900')}>{item.price}</div>
                 </div>
               ))}
             </div>
@@ -749,10 +976,21 @@ function ServicePage({
         ) : null}
 
         {showFormSection ? (
-          <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-2xl shadow-black/30">
-            <div className="text-sm uppercase tracking-widest text-sky-300">Google Forms</div>
+          <div
+            className={clsx(
+              'rounded-3xl border p-5 shadow-2xl transition-colors duration-300',
+              isDark
+                ? 'border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 shadow-black/30'
+                : 'border-sky-200 bg-gradient-to-br from-white via-sky-50 to-white shadow-slate-200/70'
+            )}
+          >
+            <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
+              Google Forms
+            </div>
             <div className="mt-2 text-2xl font-bold">Apply Here</div>
-            <p className="mt-3 leading-7 text-slate-300">Select the matching form below to get started.</p>
+            <p className={clsx('mt-3 leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
+              Select the matching form below to get started.
+            </p>
             <div className="mt-4 grid gap-3">
               {formButtons?.length ? (
                 formButtons.map((button) => (
@@ -767,7 +1005,12 @@ function ServicePage({
                   </a>
                 ))
               ) : (
-                <div className="rounded-2xl border border-dashed border-white/15 bg-white/5 px-4 py-4 text-sm text-slate-300">
+                <div
+                  className={clsx(
+                    'rounded-2xl border border-dashed px-4 py-4 text-sm',
+                    isDark ? 'border-white/15 bg-white/5 text-slate-300' : 'border-slate-300 bg-slate-50 text-slate-600'
+                  )}
+                >
                   Form link coming soon.
                 </div>
               )}
@@ -780,6 +1023,8 @@ function ServicePage({
 }
 
 function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, steps, accounts }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const logoMap = {
     'Bank Transfer': [images.ncb, images.scotia, images.jmmb],
     LYNK: [images.lynk],
@@ -792,11 +1037,13 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
   return (
     <section className="grid items-start gap-5 lg:grid-cols-[1.15fr_0.85fr] xl:gap-6">
       <div className="grid gap-4">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15">
-            <Icon className="h-6 w-6 text-emerald-300" />
+        <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
+          <div className={clsx('inline-flex h-12 w-12 items-center justify-center rounded-2xl', isDark ? 'bg-emerald-500/15' : 'bg-emerald-100')}>
+            <Icon className={clsx('h-6 w-6', isDark ? 'text-emerald-300' : 'text-emerald-700')} />
           </div>
-          <div className="mt-4 text-sm font-semibold uppercase tracking-widest text-emerald-300">Payment Method</div>
+          <div className={clsx('mt-4 text-sm font-semibold uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
+            Payment Method
+          </div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
           {logos.length ? (
             <div className="mt-4 flex flex-wrap items-center gap-4">
@@ -805,15 +1052,23 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
               ))}
             </div>
           ) : null}
-          <p className="mt-2 text-lg font-semibold text-fuchsia-300">{subtitle}</p>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">{description}</p>
+          <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>{subtitle}</p>
+          <p className={clsx('mt-4 max-w-3xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
+            {description}
+          </p>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20">
+        <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
           <div className="text-xl font-bold">Important details</div>
           <div className="mt-4 grid gap-3">
             {details.map((item) => (
-              <div key={item} className="rounded-2xl bg-slate-950/40 px-4 py-3 text-sm text-slate-200">
+              <div
+                key={item}
+                className={clsx(
+                  'rounded-2xl px-4 py-3 text-sm',
+                  isDark ? 'bg-slate-950/40 text-slate-200' : 'bg-slate-50 text-slate-700'
+                )}
+              >
                 {item}
               </div>
             ))}
@@ -825,26 +1080,28 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
             const accountLogo = getAccountLogo(account.heading);
 
             return (
-              <div
-                key={account.heading}
-                className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-black/20"
-              >
+              <div key={account.heading} className={clsx(sectionCardClasses(isDark), 'p-5')}>
                 {accountLogo ? (
-                  <div className="flex items-center justify-start rounded-2xl bg-slate-950/40 px-4 py-4">
+                  <div className={clsx('flex items-center justify-start rounded-2xl px-4 py-4', isDark ? 'bg-slate-950/40' : 'bg-slate-50')}>
                     <img src={accountLogo} alt={account.heading} className="h-10 w-auto object-contain sm:h-12" />
                   </div>
                 ) : (
-                  <div className="text-lg font-bold text-white">{account.heading}</div>
+                  <div className={clsx('text-lg font-bold', isDark ? 'text-white' : 'text-slate-900')}>{account.heading}</div>
                 )}
 
                 <div className="mt-4 grid gap-3">
                   {account.fields.map(([label, value]) => (
                     <div
                       key={`${account.heading}-${label}`}
-                      className="flex flex-col gap-1 rounded-2xl bg-slate-950/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                      className={clsx(
+                        'flex flex-col gap-1 rounded-2xl px-4 py-3 sm:flex-row sm:items-center sm:justify-between',
+                        isDark ? 'bg-slate-950/40' : 'bg-slate-50'
+                      )}
                     >
-                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</div>
-                      <div className="break-all text-sm font-medium text-slate-100 sm:max-w-[60%] sm:text-right">
+                      <div className={clsx('text-xs font-semibold uppercase tracking-widest', isDark ? 'text-slate-400' : 'text-slate-500')}>
+                        {label}
+                      </div>
+                      <div className={clsx('break-all text-sm font-medium sm:max-w-[60%] sm:text-right', isDark ? 'text-slate-100' : 'text-slate-800')}>
                         {value}
                       </div>
                     </div>
@@ -857,25 +1114,54 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
       </div>
 
       <div className="grid gap-4">
-        <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-2xl shadow-black/30">
-          <div className="text-sm uppercase tracking-widest text-sky-300">How it works</div>
+        <div
+          className={clsx(
+            'rounded-3xl border p-5 shadow-2xl transition-colors duration-300',
+            isDark
+              ? 'border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 shadow-black/30'
+              : 'border-sky-200 bg-gradient-to-br from-white via-sky-50 to-white shadow-slate-200/70'
+          )}
+        >
+          <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
+            How it works
+          </div>
           <div className="mt-2 text-2xl font-bold">Payment Steps</div>
           <div className="mt-4 grid gap-3">
             {steps.map((step, index) => (
-              <div key={step} className="flex gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-400/20 text-sm font-bold text-sky-300">
+              <div
+                key={step}
+                className={clsx(
+                  'flex gap-3 rounded-2xl border p-4',
+                  isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white'
+                )}
+              >
+                <div
+                  className={clsx(
+                    'inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold',
+                    isDark ? 'bg-sky-400/20 text-sky-300' : 'bg-sky-100 text-sky-700'
+                  )}
+                >
                   {index + 1}
                 </div>
-                <div className="text-sm leading-6 text-slate-200">{step}</div>
+                <div className={clsx('text-sm leading-6', isDark ? 'text-slate-200' : 'text-slate-700')}>{step}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 p-5 shadow-2xl shadow-black/30">
-          <div className="text-sm uppercase tracking-widest text-emerald-300">After Payment</div>
+        <div
+          className={clsx(
+            'rounded-3xl border p-5 shadow-2xl transition-colors duration-300',
+            isDark
+              ? 'border-emerald-400/15 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-900 shadow-black/30'
+              : 'border-emerald-200 bg-gradient-to-br from-white via-emerald-50 to-white shadow-slate-200/70'
+          )}
+        >
+          <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
+            After Payment
+          </div>
           <div className="mt-2 text-2xl font-bold">Send Confirmation</div>
-          <p className="mt-3 leading-7 text-slate-300">
+          <p className={clsx('mt-3 leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
             After making your payment, send your screenshot, receipt, or reference number on WhatsApp so we can confirm receipt.
           </p>
           <a
@@ -902,212 +1188,254 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <HomePage />
-            </Layout>
-          }
-        />
-
-        <Route
-          path="/payments"
-          element={
-            <Layout>
-              <section className="mx-auto max-w-6xl py-4">
-                <div className="mb-8 max-w-3xl">
-                  <div className="text-sm uppercase tracking-widest text-emerald-300">Payment Options</div>
-                  <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">Choose a payment method</h1>
-                  <p className="mt-3 text-base leading-7 text-slate-300">
-                    Select a payment option below to view the payment details and next steps.
-                  </p>
-                </div>
-
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  {paymentPages.map(({ title, icon: Icon, path }) => {
-                    const paymentLogo = getPaymentLogo(title);
-
-                    return (
-                      <Link
-                        key={path}
-                        to={path}
-                        className="group flex min-h-[110px] items-center justify-center rounded-3xl border border-white/10 bg-white/5 px-5 py-5 transition hover:-translate-y-0.5 hover:bg-white/10"
-                        aria-label={`View ${title} payment details`}
-                      >
-                        {paymentLogo ? (
-                          <img src={paymentLogo} alt={title} className="max-h-12 w-auto object-contain sm:max-h-14" />
-                        ) : (
-                          <div className="flex items-center gap-3 text-sm font-semibold text-slate-100">
-                            <Icon className="h-5 w-5 text-emerald-300" />
-                            {title}
-                          </div>
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </section>
-            </Layout>
-          }
-        />
-
-        {paymentPages.map((page) => (
+    <ThemeProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
           <Route
-            key={page.path}
-            path={page.path}
+            path="/"
             element={
               <Layout>
-                <PaymentMethodPage {...page} />
+                <HomePage />
               </Layout>
             }
           />
-        ))}
 
-        <Route
-          path="/visa-services"
-          element={
-            <Layout>
-              <ServicePage
-                showFormSection={false}
-                title="Visa Services"
-                subtitle="Application & Renewal Help"
-                image={images.visa}
-                description="Choose the visa page that matches your destination so you can get country-specific information before submitting a request."
-              >
-                <div className="rounded-3xl border border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-5 shadow-xl shadow-black/20">
-                  <div className="text-sm font-semibold uppercase tracking-widest text-sky-300">Choose a visa page</div>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {services.travel[0].countries.map((country) => (
-                      <Link
-                        key={country.path}
-                        to={country.path}
-                        className="rounded-2xl border border-white/10 bg-white/5 p-3 transition hover:bg-white/10"
-                      >
-                        <div className="text-2xl">{country.flag}</div>
-                        <div className="mt-2 text-lg font-bold text-white">{country.title}</div>
-                        <div className="mt-2">
-                          <span className="inline-flex items-center justify-center rounded-2xl bg-white/10 px-3 py-1.5 text-xs font-semibold text-white">
-                            View details
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </ServicePage>
-            </Layout>
-          }
-        />
-
-        {visaCountryPages.map((page) => (
           <Route
-            key={page.path}
-            path={page.path}
+            path="/payments"
+            element={
+              <Layout>
+                <PaymentsOverviewPage />
+              </Layout>
+            }
+          />
+
+          {paymentPages.map((page) => (
+            <Route
+              key={page.path}
+              path={page.path}
+              element={
+                <Layout>
+                  <PaymentMethodPage {...page} />
+                </Layout>
+              }
+            />
+          ))}
+
+          <Route
+            path="/visa-services"
+            element={
+              <Layout>
+                <VisaServicesPage />
+              </Layout>
+            }
+          />
+
+          {visaCountryPages.map((page) => (
+            <Route
+              key={page.path}
+              path={page.path}
+              element={
+                <Layout>
+                  <ServicePage
+                    title={page.title}
+                    subtitle={page.subtitle}
+                    image={page.image}
+                    description={page.description}
+                    prices={page.prices}
+                    formButtons={page.formButtons}
+                  />
+                </Layout>
+              }
+            />
+          ))}
+
+          <Route
+            path="/passport-renewal"
             element={
               <Layout>
                 <ServicePage
-                  title={page.title}
-                  subtitle={page.subtitle}
-                  image={page.image}
-                  description={page.description}
-                  prices={page.prices}
-                  formButtons={page.formButtons}
+                  title="Passport Renewal"
+                  subtitle="Jamaican Passport Support"
+                  image={images.passport}
+                  description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+                  prices={[{ label: 'Passport Renewal', price: 'J$5,000' }]}
+                  formButtons={[
+                    {
+                      label: 'Passport Renewal Form',
+                      href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
+                    },
+                  ]}
                 />
               </Layout>
             }
           />
-        ))}
 
-        <Route
-          path="/passport-renewal"
-          element={
-            <Layout>
-              <ServicePage
-                title="Passport Renewal"
-                subtitle="Jamaican Passport Support"
-                image={images.passport}
-                description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
-                prices={[{ label: 'Passport Renewal', price: 'J$5,000' }]}
-                formButtons={[
-                  {
-                    label: 'Passport Renewal Form',
-                    href: 'https://forms.gle/GS3us1hDmaj8ydTY9',
-                  },
-                ]}
-              />
-            </Layout>
-          }
-        />
+          <Route
+            path="/traffic-ticket-payment"
+            element={
+              <Layout>
+                <ServicePage
+                  showFormSection={false}
+                  title="Traffic Ticket Payment"
+                  subtitle="Avoid the Stress of a Court Date"
+                  image={images.traffic}
+                  description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
+                  prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
+                />
+              </Layout>
+            }
+          />
 
-        <Route
-          path="/traffic-ticket-payment"
-          element={
-            <Layout>
-              <ServicePage
-                showFormSection={false}
-                title="Traffic Ticket Payment"
-                subtitle="Avoid the Stress of a Court Date"
-                image={images.traffic}
-                description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
-                prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
-              />
-            </Layout>
-          }
-        />
+          <Route
+            path="/property-tax-payment"
+            element={
+              <Layout>
+                <ServicePage
+                  title="Property Tax Payment"
+                  subtitle="Easy Payment Support"
+                  image={images.property}
+                  description="This is where you submit the form needed to start the process for us to pay your property taxes on your behalf"
+                  prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
+                  formButtons={[
+                    { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
+                  ]}
+                />
+              </Layout>
+            }
+          />
 
-        <Route
-          path="/property-tax-payment"
-          element={
-            <Layout>
-              <ServicePage
-                title="Property Tax Payment"
-                subtitle="Easy Payment Support"
-                image={images.property}
-                description="This is where you submit the form needed to start the process for us to pay your property taxes on your behalf"
-                prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
-                formButtons={[
-                  { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
-                ]}
-              />
-            </Layout>
-          }
-        />
+          <Route
+            path="/motor-vehicle-registration"
+            element={
+              <Layout>
+                <ServicePage
+                  showFormSection={false}
+                  title="Motor Vehicle Registration"
+                  subtitle="Simple Registration Guidance"
+                  image={images.registration}
+                  description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
+                  prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
+                />
+              </Layout>
+            }
+          />
 
-        <Route
-          path="/motor-vehicle-registration"
-          element={
-            <Layout>
-              <ServicePage
-                showFormSection={false}
-                title="Motor Vehicle Registration"
-                subtitle="Simple Registration Guidance"
-                image={images.registration}
-                description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
-                prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
-              />
-            </Layout>
-          }
-        />
+          <Route
+            path="/consultation"
+            element={
+              <Layout>
+                <ServicePage
+                  showFormSection={false}
+                  title="Consultation"
+                  subtitle="Speak With Us First"
+                  image={images.consultation}
+                  description="This page is for clients who want to ask questions first or need help identifying the right service before proceeding."
+                />
+              </Layout>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+}
 
-        <Route
-          path="/consultation"
-          element={
-            <Layout>
-              <ServicePage
-                showFormSection={false}
-                title="Consultation"
-                subtitle="Speak With Us First"
-                image={images.consultation}
-                description="This page is for clients who want to ask questions first or need help identifying the right service before proceeding."
-              />
-            </Layout>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+function PaymentsOverviewPage() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  return (
+    <section className="mx-auto max-w-6xl py-4">
+      <div className="mb-8 max-w-3xl">
+        <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
+          Payment Options
+        </div>
+        <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">Choose a payment method</h1>
+        <p className={clsx('mt-3 text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
+          Select a payment option below to view the payment details and next steps.
+        </p>
+      </div>
+
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        {paymentPages.map(({ title, icon: Icon, path }) => {
+          const paymentLogo = getPaymentLogo(title);
+
+          return (
+            <Link
+              key={path}
+              to={path}
+              className={clsx(
+                'group flex min-h-[110px] items-center justify-center rounded-3xl border px-5 py-5 transition hover:-translate-y-0.5',
+                isDark ? 'border-white/10 bg-white/5 hover:bg-white/10' : 'border-slate-200 bg-white hover:bg-slate-50'
+              )}
+              aria-label={`View ${title} payment details`}
+            >
+              {paymentLogo ? (
+                <img src={paymentLogo} alt={title} className="max-h-12 w-auto object-contain sm:max-h-14" />
+              ) : (
+                <div className={clsx('flex items-center gap-3 text-sm font-semibold', isDark ? 'text-slate-100' : 'text-slate-800')}>
+                  <Icon className={clsx('h-5 w-5', isDark ? 'text-emerald-300' : 'text-emerald-700')} />
+                  {title}
+                </div>
+              )}
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function VisaServicesPage() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  return (
+    <ServicePage
+      showFormSection={false}
+      title="Visa Services"
+      subtitle="Application & Renewal Help"
+      image={images.visa}
+      description="Choose the visa page that matches your destination so you can get country-specific information before submitting a request."
+    >
+      <div
+        className={clsx(
+          'rounded-3xl border p-5 shadow-xl transition-colors duration-300',
+          isDark
+            ? 'border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 shadow-black/20'
+            : 'border-sky-200 bg-gradient-to-br from-white via-sky-50 to-white shadow-slate-200/70'
+        )}
+      >
+        <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
+          Choose a visa page
+        </div>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {services.travel[0].countries.map((country) => (
+            <Link
+              key={country.path}
+              to={country.path}
+              className={clsx(
+                'rounded-2xl border p-3 transition',
+                isDark ? 'border-white/10 bg-white/5 hover:bg-white/10' : 'border-slate-200 bg-white hover:bg-slate-50'
+              )}
+            >
+              <div className="text-2xl">{country.flag}</div>
+              <div className={clsx('mt-2 text-lg font-bold', isDark ? 'text-white' : 'text-slate-900')}>{country.title}</div>
+              <div className="mt-2">
+                <span
+                  className={clsx(
+                    'inline-flex items-center justify-center rounded-2xl px-3 py-1.5 text-xs font-semibold',
+                    isDark ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-800'
+                  )}
+                >
+                  View details
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </ServicePage>
   );
 }
