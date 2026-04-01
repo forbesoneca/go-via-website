@@ -321,7 +321,7 @@ const serviceFaqs = {
   passportRenewal: [
     {
       question: 'Who qualifies for our passport renewal service?',
-      answer: 'You qualify for standard passport renewal if your passport number begins with “A”, you have not legally changed your name, your signature remains the same, your passport was issued on or after September 3, 2001, and you are in possession of your current passport.',
+      answer: 'You qualify if your passport number begins with “A”, you have not legally changed your name, your signature remains the same, your passport was issued on or after September 3, 2001, and you are in possession of your current passport.',
     },
     {
       question: 'What if I don’t meet these requirements?',
