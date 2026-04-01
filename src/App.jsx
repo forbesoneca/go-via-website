@@ -345,7 +345,6 @@ function paymentPathForMethod(method) {
     MoneyGram: '/payments/moneygram',
     LYNK: '/payments/lynk',
   };
-
   return pathMap[method] || '/payments';
 }
 
@@ -356,7 +355,6 @@ function getPaymentLogo(title) {
     MoneyGram: images.moneygram,
     LYNK: images.lynk,
   };
-
   return logoMap[title] || null;
 }
 
@@ -368,7 +366,6 @@ function getAccountLogo(heading) {
     'LYNK Details': images.lynk,
     'Receiver Details': null,
   };
-
   return logoMap[heading] || null;
 }
 
@@ -387,14 +384,13 @@ function subtlePanelClasses(isDark) {
 }
 
 function runDevTests() {
-  if (typeof import.meta === 'undefined' || !import.meta.env || !import.meta.env.DEV) {
-    return;
-  }
+  if (typeof import.meta === 'undefined' || !import.meta.env || !import.meta.env.DEV) return;
 
   console.assert(paymentPathForMethod('LYNK') === '/payments/lynk', 'LYNK route should resolve');
   console.assert(paymentPathForMethod('Other') === '/payments', 'Unknown payment methods should fall back');
   console.assert(buildWhatsAppLink('hello world').includes('hello%20world'), 'WhatsApp link should encode spaces');
   console.assert(withBase('logo.png').includes('logo.png'), 'withBase should preserve file name');
+  console.assert(getPaymentLogo('LYNK')?.includes('LYNK.png'), 'LYNK logo should resolve');
 }
 
 runDevTests();
@@ -456,12 +452,7 @@ function Layout({ children }) {
   const isDark = theme === 'dark';
 
   return (
-    <div
-      className={clsx(
-        'min-h-screen transition-colors duration-300',
-        isDark ? 'bg-[#030712] text-white' : 'bg-slate-50 text-slate-900'
-      )}
-    >
+    <div className={clsx('min-h-screen transition-colors duration-300', isDark ? 'bg-[#030712] text-white' : 'bg-slate-50 text-slate-900')}>
       <header
         className={clsx(
           'relative overflow-hidden transition-colors duration-300',
@@ -491,12 +482,7 @@ function Layout({ children }) {
                   <span className="text-fuchsia-400">Travel Services</span>{' '}
                   <span className="text-fuchsia-400">+</span>
                 </div>
-                <div
-                  className={clsx(
-                    'mt-1 text-sm italic leading-relaxed sm:text-base',
-                    isDark ? 'text-slate-300' : 'text-slate-600'
-                  )}
-                >
+                <div className={clsx('mt-1 text-sm italic leading-relaxed sm:text-base', isDark ? 'text-slate-300' : 'text-slate-600')}>
                   One Service. Every Step Covered.
                 </div>
               </div>
@@ -544,21 +530,11 @@ function Layout({ children }) {
         </div>
       </header>
 
-      <footer
-        className={clsx(
-          'border-t transition-colors duration-300',
-          isDark ? 'border-white/10 bg-slate-900/60' : 'border-slate-200 bg-white'
-        )}
-      >
+      <footer className={clsx('border-t transition-colors duration-300', isDark ? 'border-white/10 bg-slate-900/60' : 'border-slate-200 bg-white')}>
         <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 lg:px-12">
           <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
-              <div
-                className={clsx(
-                  'text-sm font-semibold uppercase tracking-widest',
-                  isDark ? 'text-sky-300' : 'text-sky-700'
-                )}
-              >
+              <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>
                 Ready to get started?
               </div>
               <h3 className="mt-2 text-3xl font-black md:text-4xl">Book a Consultation Today</h3>
@@ -731,8 +707,26 @@ function HomePage() {
 
   return (
     <>
-      {/* HERO aligned with page width */}
       <section className="mx-auto max-w-7xl px-1 md:px-0">
+        <div className="mb-6 text-center">
+          <h1 className="text-3xl font-black leading-tight tracking-tight sm:text-4xl md:text-5xl">
+            Reliable <span className="text-sky-400">Travel</span> and{' '}
+            <span className="text-fuchsia-400">Admin</span> Services.
+          </h1>
+
+          <p
+            className={clsx(
+              'mx-auto mt-3 max-w-2xl text-sm font-medium leading-6 sm:text-base sm:leading-7',
+              isDark ? 'text-slate-300' : 'text-slate-600'
+            )}
+          >
+            From visa support and passport renewal to traffic ticket payment and property tax assistance,
+            Go Via Travel Services + helps you handle important tasks quickly and confidently.
+          </p>
+
+          
+        </div>
+
         <div className="relative overflow-hidden rounded-3xl">
           <img
             src={images.hero}
@@ -740,8 +734,6 @@ function HomePage() {
             fetchPriority="high"
             className="h-[22rem] w-full object-cover sm:h-[26rem] md:h-[30rem] lg:h-[34rem]"
           />
-
-          {/* gradient overlay */}
           <div
             className={clsx(
               'pointer-events-none absolute inset-0',
@@ -750,31 +742,6 @@ function HomePage() {
                 : 'bg-gradient-to-b from-black/35 via-black/20 to-black/55'
             )}
           />
-
-          {/* centered content */}
-          <div className="absolute inset-0 flex items-center justify-center px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <h1 className="text-3xl font-black leading-tight tracking-tight text-white drop-shadow-xl sm:text-4xl md:text-5xl">
-                Reliable <span className="text-sky-400">Travel</span> and{' '}
-                <span className="text-fuchsia-400">Admin</span> Services.
-              </h1>
-
-              <div className="mx-auto mt-3 max-w-2xl rounded-2xl bg-black/45 px-4 py-3 backdrop-blur-sm ring-1 ring-white/15 sm:px-5 sm:py-4 dark:bg-black/45">
-                <p className="text-sm font-medium leading-6 text-white sm:text-base sm:leading-7">
-                  From visa support and passport renewal to traffic ticket payment and property tax assistance, Go Via Travel Services + helps you handle important tasks quickly and confidently.
-                </p>
-              </div>
-
-              <div className="mt-5 flex justify-center">
-                <a
-                  href={contact.whatsappBase}
-                  className="rounded-2xl bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.04]"
-                >
-                  Book a Consultation
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -836,7 +803,9 @@ function ServicePage({
             Service Details
           </div>
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
-          <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>{subtitle}</p>
+          <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
+            {subtitle}
+          </p>
           <p className={clsx('mt-4 max-w-3xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
             {description}
           </p>
@@ -867,8 +836,12 @@ function ServicePage({
                     isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white'
                   )}
                 >
-                  <div className={clsx('text-sm font-medium', isDark ? 'text-slate-200' : 'text-slate-700')}>{item.label}</div>
-                  <div className={clsx('text-lg font-black sm:text-xl', isDark ? 'text-white' : 'text-slate-900')}>{item.price}</div>
+                  <div className={clsx('text-sm font-medium', isDark ? 'text-slate-200' : 'text-slate-700')}>
+                    {item.label}
+                  </div>
+                  <div className={clsx('text-lg font-black sm:text-xl', isDark ? 'text-white' : 'text-slate-900')}>
+                    {item.price}
+                  </div>
                 </div>
               ))}
             </div>
@@ -952,7 +925,9 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
               ))}
             </div>
           ) : null}
-          <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>{subtitle}</p>
+          <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
+            {subtitle}
+          </p>
           <p className={clsx('mt-4 max-w-3xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
             {description}
           </p>
@@ -964,10 +939,7 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
             {details.map((item) => (
               <div
                 key={item}
-                className={clsx(
-                  'rounded-2xl px-4 py-3 text-sm',
-                  isDark ? 'bg-slate-950/40 text-slate-200' : 'bg-slate-50 text-slate-700'
-                )}
+                className={clsx('rounded-2xl px-4 py-3 text-sm', isDark ? 'bg-slate-950/40 text-slate-200' : 'bg-slate-50 text-slate-700')}
               >
                 {item}
               </div>
@@ -986,7 +958,9 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
                     <img src={accountLogo} alt={account.heading} className="h-10 w-auto object-contain sm:h-12" />
                   </div>
                 ) : (
-                  <div className={clsx('text-lg font-bold', isDark ? 'text-white' : 'text-slate-900')}>{account.heading}</div>
+                  <div className={clsx('text-lg font-bold', isDark ? 'text-white' : 'text-slate-900')}>
+                    {account.heading}
+                  </div>
                 )}
 
                 <div className="mt-4 grid gap-3">
@@ -1043,7 +1017,9 @@ function PaymentMethodPage({ title, subtitle, icon: Icon, description, details, 
                 >
                   {index + 1}
                 </div>
-                <div className={clsx('text-sm leading-6', isDark ? 'text-slate-200' : 'text-slate-700')}>{step}</div>
+                <div className={clsx('text-sm leading-6', isDark ? 'text-slate-200' : 'text-slate-700')}>
+                  {step}
+                </div>
               </div>
             ))}
           </div>
@@ -1156,7 +1132,9 @@ function VisaServicesPage() {
               )}
             >
               <div className="text-2xl">{country.flag}</div>
-              <div className={clsx('mt-2 text-lg font-bold', isDark ? 'text-white' : 'text-slate-900')}>{country.title}</div>
+              <div className={clsx('mt-2 text-lg font-bold', isDark ? 'text-white' : 'text-slate-900')}>
+                {country.title}
+              </div>
               <div className="mt-2">
                 <span
                   className={clsx(
