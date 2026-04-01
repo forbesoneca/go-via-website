@@ -783,15 +783,15 @@ function HomePage() {
                   Travel Services
                 </div>
                 <div className="mt-2 text-lg font-bold">Visa applications, renewals and travel support</div>
-                <Link
+                <a
                   href="#services"
                   className={clsx(
                     'mt-3 inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition',
-                    isDark ? 'bg-sky-500/20 text-sky-300 hover:bg-sky-500/30' : 'bg-sky-100 text-sky-700 hover:bg-sky-200'
+                    isDark ? 'bg-fuchsia-500/20 text-fuchsia-300 hover:bg-fuchsia-500/30' : 'bg-fuchsia-100 text-fuchsia-700 hover:bg-fuchsia-200'
                   )}
                 >
                   Learn More
-                </Link>
+                </a>
               </div>
 
               <div className={clsx(subtlePanelClasses(isDark), isDark ? 'bg-slate-950/50 p-4' : 'p-4')}>
