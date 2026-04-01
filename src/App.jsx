@@ -267,6 +267,93 @@ const services = {
   ],
 };
 
+const serviceFaqs = {
+  visaServices: [
+    {
+      question: 'Which visa page should I choose?',
+      answer: 'Choose the country page that matches your destination so you can see the correct fees, forms, and next steps.',
+    },
+    {
+      question: 'Do I need to complete a form before contacting you?',
+      answer: 'The form is the fastest way to get started, but you can also message us on WhatsApp if you need guidance first.',
+    },
+    {
+      question: 'Are visa fees included in the prices shown?',
+      answer: 'The page pricing will guide you on the expected cost structure for that service. Contact us if you want confirmation before proceeding.',
+    },
+  ],
+  passportRenewal: [
+    {
+      question: 'What do I need before starting passport renewal?',
+      answer: 'Have your current passport details and any required supporting information ready before submitting the form.',
+    },
+    {
+      question: 'Can I ask questions before submitting the form?',
+      answer: 'Yes. You can message us on WhatsApp if you need help understanding the process first.',
+    },
+    {
+      question: 'How do I begin?',
+      answer: 'Use the Passport Renewal form on the page and we will guide you through the next steps.',
+    },
+  ],
+  trafficTicket: [
+    {
+      question: 'Can you help if I lost my ticket?',
+      answer: 'Yes, we can assist with lookup support once the due date has not already passed.',
+    },
+    {
+      question: 'Can overdue tickets still be handled?',
+      answer: 'Support depends on the ticket status, so message us first if the due date has already passed.',
+    },
+    {
+      question: 'How do I start?',
+      answer: 'Contact us with the relevant details so we can advise on the next step.',
+    },
+  ],
+  propertyTax: [
+    {
+      question: 'How do I start a property tax payment request?',
+      answer: 'Complete the Property Tax form on the page so we can review the details and guide you.',
+    },
+    {
+      question: 'Can I contact you before filling out the form?',
+      answer: 'Yes. You can message us first if you need help understanding what information is required.',
+    },
+    {
+      question: 'Will I receive confirmation after payment?',
+      answer: 'Yes, we will guide you on confirmation and next steps once your request is processed.',
+    },
+  ],
+  vehicleRegistration: [
+    {
+      question: 'What should I prepare before requesting help?',
+      answer: 'Have the relevant vehicle and registration details ready so we can guide you properly.',
+    },
+    {
+      question: 'Can I reach out before proceeding?',
+      answer: 'Yes, message us if you want to understand the process before moving ahead.',
+    },
+    {
+      question: 'Is this page for guidance or full processing?',
+      answer: 'This page is mainly for helping you understand the requirements and next steps before proceeding.',
+    },
+  ],
+  consultation: [
+    {
+      question: 'When should I book a consultation?',
+      answer: 'Book a consultation if you are unsure which service you need or want to ask questions before getting started.',
+    },
+    {
+      question: 'Can the consultation help me choose the right service?',
+      answer: 'Yes, that is one of the main reasons for booking a consultation.',
+    },
+    {
+      question: 'How do I get started?',
+      answer: 'Send us a message on WhatsApp and we will guide you on the best next step.',
+    },
+  ],
+};
+
 const visaCountryPages = [
   {
     path: '/visa-services/usa',
@@ -794,6 +881,38 @@ function HomePage() {
   );
 }
 
+function FaqSection({ faqs = [] }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  if (!faqs.length) return null;
+
+  return (
+    <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
+      <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
+        FAQs
+      </div>
+      <div className="mt-2 text-2xl font-bold">Frequently Asked Questions</div>
+      <div className="mt-4 grid gap-3">
+        {faqs.map((item) => (
+          <div
+            key={item.question}
+            className={clsx(
+              'rounded-2xl border px-4 py-4 transition-colors duration-300',
+              isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white'
+            )}
+          >
+            <div className="text-base font-bold">{item.question}</div>
+            <p className={clsx('mt-2 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
+              {item.answer}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ServicePage({
   title,
   subtitle,
@@ -801,6 +920,7 @@ function ServicePage({
   description,
   prices,
   formButtons,
+  faqs = [],
   showFormSection = true,
   children,
 }) {
@@ -906,6 +1026,8 @@ function ServicePage({
             </div>
           </div>
         ) : null}
+
+        <FaqSection faqs={faqs} />
       </div>
     </section>
   );
@@ -1118,6 +1240,7 @@ function VisaServicesPage() {
   return (
     <ServicePage
       showFormSection={false}
+      faqs={serviceFaqs.visaServices}
       title="Visa Services"
       subtitle="Application & Renewal Help"
       image={images.visa}
@@ -1234,6 +1357,7 @@ export default function App() {
                     description={page.description}
                     prices={page.prices}
                     formButtons={page.formButtons}
+                    faqs={serviceFaqs.visaServices}
                   />
                 </Layout>
               }
@@ -1249,6 +1373,7 @@ export default function App() {
                   subtitle="Jamaican Passport Support"
                   image={images.passport}
                   description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+                  faqs={serviceFaqs.passportRenewal}
                   prices={[{ label: 'Passport Renewal', price: 'J$5,000' }]}
                   formButtons={[
                     {
@@ -1271,6 +1396,7 @@ export default function App() {
                   subtitle="Avoid the Stress of a Court Date"
                   image={images.traffic}
                   description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
+                  faqs={serviceFaqs.trafficTicket}
                   prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
                 />
               </Layout>
@@ -1286,6 +1412,7 @@ export default function App() {
                   subtitle="Easy Payment Support"
                   image={images.property}
                   description="This is where you submit the form needed to start the process for us to pay your property taxes on your behalf"
+                  faqs={serviceFaqs.propertyTax}
                   prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
                   formButtons={[
                     { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
@@ -1305,6 +1432,7 @@ export default function App() {
                   subtitle="Simple Registration Guidance"
                   image={images.registration}
                   description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
+                  faqs={serviceFaqs.vehicleRegistration}
                   prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 />
               </Layout>
