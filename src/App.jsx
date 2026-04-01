@@ -271,57 +271,70 @@ const serviceFaqs = {
   visaServices: [
     {
       question: 'What does your visa assistance service include?',
-      answer: 'We guide you through the entire process—application form completion, document review, appointment booking, and submission support to improve your chances of approval.',
+      answer:
+        'We guide you through the entire process—application form completion, document review, appointment booking, and submission support to improve your chances of approval.',
     },
     {
       question: 'Which visa page should I choose?',
-      answer: 'Choose the country page that matches your destination so you can see the correct fees, forms, and next steps.',
+      answer:
+        'Choose the country page that matches your destination so you can see the correct fees, forms, and next steps.',
     },
     {
       question: 'Do you guarantee visa approval?',
-      answer: 'No. Visa decisions are made by the embassy. However, we ensure your application is accurate, complete, and professionally prepared to maximize your chances',
+      answer:
+        'No. Visa decisions are made by the embassy. However, we ensure your application is accurate, complete, and professionally prepared to maximize your chances.',
     },
     {
       question: 'Do I need to complete a form before contacting you?',
-      answer: 'The form is the fastest way to get started, but you can also message us on WhatsApp if you need guidance first.',
+      answer:
+        'The form is the fastest way to get started, but you can also message us on WhatsApp if you need guidance first.',
     },
     {
       question: 'Do you have a physical location?',
-      answer: 'No, we operate fully online for your convenience. All documents are securely handled through our digital process.',
+      answer:
+        'No, we operate fully online for your convenience. All documents are securely handled through our digital process.',
     },
     {
       question: 'What documents will I need?',
-      answer: 'Requirements vary by country, but generally include valid passport, bank statements, employment letter, travel itinerary. Each visa page will have unique forms with the supporting documents needed for the type of visa you are applying for.',
+      answer:
+        'Requirements vary by country, but generally include valid passport, bank statements, employment letter, and travel itinerary. Each visa page will have the supporting documents needed for that visa type.',
     },
     {
       question: 'Are visa fees included in the prices shown?',
-      answer: 'Yes. The page pricing will guide you on the expected cost structure for that service. Contact us if you want confirmation before proceeding.',
+      answer:
+        'Yes. The page pricing will guide you on the expected cost structure for that service. Contact us if you want confirmation before proceeding.',
     },
     {
       question: 'When should I start my application?',
-      answer: 'We recommend starting at least 2 to 3 months before your intended travel date to allow enough time for processing.',
+      answer:
+        'We recommend starting at least 2 to 3 months before your intended travel date to allow enough time for processing.',
     },
     {
       question: 'What happens after I submit my documents?',
-      answer: 'We review everything, prepare your application, and guide you through the next steps including appointment booking and submission.',
+      answer:
+        'We review everything, prepare your application, and guide you through the next steps including appointment booking and submission.',
     },
     {
       question: 'Do you offer refunds if my visa is denied?',
-      answer: 'Service fees are non-refundable once work has started, as they cover time and expertise, not the visa decision.',
+      answer:
+        'Service fees are non-refundable once work has started, as they cover time and expertise, not the visa decision.',
     },
     {
       question: 'What is your service turnaround time (SLA)?',
-      answer: 'Our standard turnaround time is 2 to 3 business days after receiving all required documents. This includes reviewing your information and preparing your application. Urgent requests may be accommodated at an additional cost of JMD$5,000.',
+      answer:
+        'Our standard turnaround time is 2 to 3 business days after receiving all required documents. Urgent requests may be accommodated at an additional cost of JMD$5,000.',
     },
     {
       question: 'Can I contact you during the process?',
-      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+      answer:
+        'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   passportRenewal: [
     {
       question: 'Who qualifies for our passport renewal service?',
-      answer: 'You qualify if your passport number begins with “A”, you have not legally changed your name, your signature remains the same, your passport was issued on or after September 3, 2001, and you are in possession of your current passport.',
+      answer:
+        'You qualify if your passport number begins with “A”, you have not legally changed your name, your signature remains the same, your passport was issued on or after September 3, 2001, and you are in possession of your current passport.',
     },
     {
       question: 'What if I don’t meet these requirements?',
@@ -331,21 +344,25 @@ const serviceFaqs = {
       question: 'How do I begin?',
       answer: 'Use the Passport Renewal form on the page and we will guide you through the next steps.',
     },
-     {
+    {
       question: 'What happens after I submit my documents?',
-      answer: 'Once your documents are submitted, we review everything, prepare your application, and guide you through the next steps including submission.',
+      answer:
+        'Once your documents are submitted, we review everything, prepare your application, and guide you through the next steps including submission.',
     },
     {
       question: 'Do you offer delivery services?',
-      answer: 'Yes, we can assist with delivery options to ensure your passport is returned to you safely and conveniently.',
+      answer:
+        'Yes, we can assist with delivery options to ensure your passport is returned to you safely and conveniently.',
     },
     {
       question: 'What is your service turnaround time (SLA)?',
-      answer: 'Our standard turnaround time is 2 to 3 business days after receiving all required documents. This includes reviewing your information and preparing your application. Urgent requests may be accommodated at an additional cost of JMD$5,000.',
+      answer:
+        'Our standard turnaround time is 2 to 3 business days after receiving all required documents. Urgent requests may be accommodated at an additional cost of JMD$5,000.',
     },
     {
       question: 'Can I contact you during the process?',
-      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+      answer:
+        'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   trafficTicket: [
@@ -355,7 +372,8 @@ const serviceFaqs = {
     },
     {
       question: 'Can overdue tickets still be handled?',
-      answer: 'Support depends on the ticket status, so message us first if the due date has already passed.',
+      answer:
+        'Support depends on the ticket status, so message us first if the due date has already passed.',
     },
     {
       question: 'How do I start?',
@@ -367,7 +385,8 @@ const serviceFaqs = {
     },
     {
       question: 'Can I contact you during the process?',
-      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+      answer:
+        'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   propertyTax: [
@@ -377,7 +396,8 @@ const serviceFaqs = {
     },
     {
       question: 'Can I contact you before filling out the form?',
-      answer: 'Yes. You can message us first if you need help understanding what information is required.',
+      answer:
+        'Yes. You can message us first if you need help understanding what information is required.',
     },
     {
       question: 'Will I receive confirmation after payment?',
@@ -389,13 +409,15 @@ const serviceFaqs = {
     },
     {
       question: 'Can I contact you during the process?',
-      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+      answer:
+        'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   vehicleRegistration: [
     {
       question: 'What does your service include?',
-      answer: 'Our service includes preparing and submitting your registration documents, paying the required fee and delivering your Electronic Motor Vehicle Registration Certificate(eMVRC) to you',
+      answer:
+        'Our service includes preparing and submitting your registration documents, paying the required fee, and delivering your Electronic Motor Vehicle Registration Certificate (eMVRC) to you.',
     },
     {
       question: 'Can I reach out before proceeding?',
@@ -403,7 +425,8 @@ const serviceFaqs = {
     },
     {
       question: 'What documents are required to register my vehicle?',
-      answer: 'You will need a valid drivers license, fitness, insurance and a picture of your most recent registration certificate. We will guide you if anything is missing.',
+      answer:
+        'You will need a valid driver’s license, fitness, insurance, and a picture of your most recent registration certificate. We will guide you if anything is missing.',
     },
     {
       question: 'What is your service turnaround time (SLA)?',
@@ -411,13 +434,15 @@ const serviceFaqs = {
     },
     {
       question: 'Can I contact you during the process?',
-      answer: 'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
+      answer:
+        'Yes, we remain available throughout the process and provide updates to ensure you are informed every step of the way.',
     },
   ],
   consultation: [
     {
       question: 'When should I book a consultation?',
-      answer: 'Book a consultation if you are unsure which service you need or want to ask questions before getting started.',
+      answer:
+        'Book a consultation if you are unsure which service you need or want to ask questions before getting started.',
     },
     {
       question: 'Can the consultation help me choose the right service?',
@@ -528,6 +553,18 @@ function getAccountLogo(heading) {
   return logoMap[heading] || null;
 }
 
+function getRouteFaqs(pathname) {
+  const faqMap = {
+    '/visa-services': serviceFaqs.visaServices,
+    '/passport-renewal': serviceFaqs.passportRenewal,
+    '/traffic-ticket-payment': serviceFaqs.trafficTicket,
+    '/property-tax-payment': serviceFaqs.propertyTax,
+    '/motor-vehicle-registration': serviceFaqs.vehicleRegistration,
+    '/consultation': serviceFaqs.consultation,
+  };
+  return faqMap[pathname] || null;
+}
+
 function sectionCardClasses(isDark) {
   return clsx(
     'rounded-3xl border shadow-xl transition-colors duration-300',
@@ -553,6 +590,7 @@ function runDevTests() {
   console.assert(getAccountLogo('JMMB')?.includes('JMMB_Bank.png'), 'JMMB logo should resolve');
   console.assert(typeof Plane === 'function', 'Plane icon should be available');
   console.assert(typeof FileText === 'function', 'FileText icon should be available');
+  console.assert(Array.isArray(getRouteFaqs('/passport-renewal')), 'Route FAQs should resolve');
 }
 
 runDevTests();
@@ -606,12 +644,45 @@ function PaymentButtons() {
   );
 }
 
+function FaqSection({ faqs = [] }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  if (!faqs.length) return null;
+
+  return (
+    <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
+      <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
+        FAQs
+      </div>
+      <div className="mt-2 text-2xl font-bold">Frequently Asked Questions</div>
+      <div className="mt-4 grid gap-3">
+        {faqs.map((item) => (
+          <div
+            key={item.question}
+            className={clsx(
+              'rounded-2xl border px-4 py-4 transition-colors duration-300',
+              isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white'
+            )}
+          >
+            <div className="text-base font-bold">{item.question}</div>
+            <p className={clsx('mt-2 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
+              {item.answer}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Layout({ children }) {
   const { pathname } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const showHomeButton = pathname !== '/';
   const isPaymentMethodPage = paymentPages.some((page) => page.path === pathname);
   const isDark = theme === 'dark';
+  const faqs = getRouteFaqs(pathname);
 
   return (
     <div
@@ -697,18 +768,7 @@ function Layout({ children }) {
           {pathname !== '/' && !isPaymentMethodPage ? (
             <div className="mt-6 space-y-6">
               <PaymentButtons />
-              {(() => {
-                const faqMap = {
-                  '/visa-services': serviceFaqs.visaServices,
-                  '/passport-renewal': serviceFaqs.passportRenewal,
-                  '/traffic-ticket-payment': serviceFaqs.trafficTicket,
-                  '/property-tax-payment': serviceFaqs.propertyTax,
-                  '/motor-vehicle-registration': serviceFaqs.vehicleRegistration,
-                  '/consultation': serviceFaqs.consultation,
-                };
-                const faqs = faqMap[pathname];
-                return faqs ? <FaqSection faqs={faqs} /> : null;
-              })()}
+              {faqs ? <FaqSection faqs={faqs} /> : null}
             </div>
           ) : null}
         </div>
@@ -815,7 +875,9 @@ function ProcessStrip() {
             {number}
           </div>
           <div className="text-base font-bold">{title}</div>
-          <p className={clsx('mt-1 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>{text}</p>
+          <p className={clsx('mt-1 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
+            {text}
+          </p>
         </div>
       ))}
     </section>
@@ -969,49 +1031,7 @@ function HomePage() {
   );
 }
 
-function FaqSection({ faqs = [] }) {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-
-  if (!faqs.length) return null;
-
-  return (
-    <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
-      <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-emerald-300' : 'text-emerald-700')}>
-        FAQs
-      </div>
-      <div className="mt-2 text-2xl font-bold">Frequently Asked Questions</div>
-      <div className="mt-4 grid gap-3">
-        {faqs.map((item) => (
-          <div
-            key={item.question}
-            className={clsx(
-              'rounded-2xl border px-4 py-4 transition-colors duration-300',
-              isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white'
-            )}
-          >
-            <div className="text-base font-bold">{item.question}</div>
-            <p className={clsx('mt-2 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-600')}>
-              {item.answer}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ServicePage({
-  title,
-  subtitle,
-  image,
-  description,
-  prices,
-  formButtons,
-  faqs = [],
-  showFormSection = true,
-  children,
-}) {
+function ServicePage({ disclaimer, title, subtitle, image, description, prices, formButtons, showFormSection = true, children }) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -1050,6 +1070,11 @@ function ServicePage({
             <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>
               Pricing
             </div>
+            {disclaimer ? (
+              <div className={clsx('mt-2 text-xs italic', isDark ? 'text-slate-400' : 'text-slate-500')}>
+                {disclaimer}
+              </div>
+            ) : null}
             <div className="mt-2 text-2xl font-bold">Service Fees</div>
             <div className="mt-4 grid gap-3">
               {prices.map((item) => (
@@ -1114,8 +1139,6 @@ function ServicePage({
             </div>
           </div>
         ) : null}
-
-        
       </div>
     </section>
   );
@@ -1328,7 +1351,6 @@ function VisaServicesPage() {
   return (
     <ServicePage
       showFormSection={false}
-      faqs={serviceFaqs.visaServices}
       title="Visa Services"
       subtitle="Application & Renewal Help"
       image={images.visa}
@@ -1445,7 +1467,11 @@ export default function App() {
                     description={page.description}
                     prices={page.prices}
                     formButtons={page.formButtons}
-                    faqs={serviceFaqs.visaServices}
+                    disclaimer={
+                      page.title === 'USA Visa' || page.title === 'Canada Visa'
+                        ? '*Fees listed include our service fee unless otherwise stated.'
+                        : undefined
+                    }
                   />
                 </Layout>
               }
@@ -1457,12 +1483,18 @@ export default function App() {
             element={
               <Layout>
                 <ServicePage
+                  disclaimer="*Fees listed include our service fee unless otherwise stated."
                   title="Passport Renewal"
                   subtitle="Jamaican Passport Support"
                   image={images.passport}
                   description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
-                  faqs={serviceFaqs.passportRenewal}
-                  prices={[{ label: 'Passport Renewal', price: 'J$5,000' }]}
+                  prices={[
+                    { label: 'Standard Renewal (7 Days)', price: 'J$11,500' },
+                    { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' },
+                    { label: 'Overseas Renewal (Shipping Included)', price: 'J$33,880' },
+                    { label: '3-Days Renewal (Delivery)', price: 'J$16,850' },
+                    { label: '3-Days Renewal (Pickup)', price: 'J$14,500' },
+                  ]}
                   formButtons={[
                     {
                       label: 'Passport Renewal Form',
@@ -1484,7 +1516,6 @@ export default function App() {
                   subtitle="Avoid the Stress of a Court Date"
                   image={images.traffic}
                   description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
-                  faqs={serviceFaqs.trafficTicket}
                   prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
                 />
               </Layout>
@@ -1500,7 +1531,6 @@ export default function App() {
                   subtitle="Easy Payment Support"
                   image={images.property}
                   description="This is where you submit the form needed to start the process for us to pay your property taxes on your behalf"
-                  faqs={serviceFaqs.propertyTax}
                   prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]}
                   formButtons={[
                     { label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' },
@@ -1520,7 +1550,6 @@ export default function App() {
                   subtitle="Simple Registration Guidance"
                   image={images.registration}
                   description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
-                  faqs={serviceFaqs.vehicleRegistration}
                   prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 />
               </Layout>
