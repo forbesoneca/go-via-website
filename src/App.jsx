@@ -73,6 +73,39 @@ const contact = {
   whatsappBase: 'https://wa.me/16582177952',
 };
 
+const businessHours = [
+  ['Sunday', '8:00 AM - 4:00 PM'],
+  ['Monday - Thursday', '8:00 AM - 6:00 PM'],
+  ['Friday', '8:00 AM - 4:00 PM'],
+  ['Saturday', 'Closed'],
+];
+
+function getCurrentBusinessStatus() {
+  const now = new Date();
+  const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+  const minutesNow = now.getHours() * 60 + now.getMinutes();
+
+  const ranges = {
+    Sunday: [8 * 60, 16 * 60],
+    Monday: [8 * 60, 18 * 60],
+    Tuesday: [8 * 60, 18 * 60],
+    Wednesday: [8 * 60, 18 * 60],
+    Thursday: [8 * 60, 18 * 60],
+    Friday: [8 * 60, 16 * 60],
+  };
+
+  const range = ranges[day];
+  if (!range) {
+    return { isOpen: false, today: day };
+  }
+
+  const [openMinutes, closeMinutes] = range;
+  return {
+    isOpen: minutesNow >= openMinutes && minutesNow < closeMinutes,
+    today: day,
+  };
+}
+
 const paymentPages = [
   {
     path: '/payments/bank-transfer',
@@ -210,11 +243,11 @@ const services = {
   travel: [
     {
       title: 'Visa Services',
-      subtitle: 'Application & Renewal',
+      subtitle: 'Application & Renewal Help',
       path: '/visa-services',
       image: images.visa,
       description:
-        'Support for new visa applications and renewals with a smooth guided process.',
+        'Support for visa applications, renewals, and Jamaican passport renewal with a smooth guided process.',
       countries: [
         { title: 'USA Visa', path: '/visa-services/usa', flag: '🇺🇸' },
         { title: 'Canada Visa', path: '/visa-services/canada', flag: '🇨🇦' },
@@ -224,7 +257,7 @@ const services = {
     },
     {
       title: 'Passport Renewal',
-      subtitle: 'Jamaican Adult Passport Renewal',
+      subtitle: 'Jamaican Passport Support',
       path: '/passport-renewal',
       image: images.passport,
       description:
@@ -459,7 +492,7 @@ const visaCountryPages = [
   {
     path: '/visa-services/usa',
     title: 'USA Visa',
-    subtitle: 'Application & Renewal Support',
+    subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
       'Use this page for USA visa support, whether it is a first-time application or a renewal.',
@@ -792,10 +825,7 @@ function Layout({ children }) {
                 Ready to get started?
               </div>
               <h3 className="mt-2 text-3xl font-black md:text-4xl">Book a Consultation Today</h3>
-              <p className={clsx('mt-3 max-w-2xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
-                Reach out for assistance with traffic ticket payment, property tax support, visa services,
-                passport renewal, and more.
-              </p>
+             
             </div>
 
             <div
@@ -810,6 +840,64 @@ function Layout({ children }) {
                 <span>Call or WhatsApp</span>
               </div>
               <div className="mt-2 text-3xl font-black tracking-tight">{contact.phoneDisplay}</div>
+              <div
+                className={clsx(
+                  'mt-4 rounded-2xl border px-4 py-4 text-left',
+                  isDark ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white/80'
+                )}
+              >
+                {(() => {
+                  const { isOpen, today } = getCurrentBusinessStatus();
+                  return (
+                    <>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className={clsx('text-xs font-semibold uppercase tracking-widest', isDark ? 'text-slate-300' : 'text-slate-600')}>
+                          Business Hours
+                        </div>
+                        <div
+                          className={clsx(
+                            'rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider',
+                            isOpen
+                              ? 'bg-green-500/15 text-green-500'
+                              : 'bg-red-500/15 text-red-500'
+                          )}
+                        >
+                          {isOpen ? 'Open Now' : 'Closed Now'}
+                        </div>
+                      </div>
+                      <div className="mt-3 space-y-2">
+                        {businessHours.map(([day, hours]) => {
+                          const isToday =
+                            (day === today) ||
+                            (day === 'Monday - Thursday' && ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].includes(today));
+
+                          return (
+                            <div key={day} className="flex items-center justify-between gap-4 text-sm">
+                              <span
+                                className={clsx(
+                                  isDark ? 'text-slate-300' : 'text-slate-600',
+                                  isToday && 'font-bold'
+                                )}
+                              >
+                                {day}
+                              </span>
+                              <span
+                                className={clsx(
+                                  'font-semibold',
+                                  hours === 'Closed' && 'text-red-500',
+                                  isToday && 'font-bold'
+                                )}
+                              >
+                                {hours}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
               <a
                 href={contact.whatsappBase}
                 className="mt-4 inline-block rounded-2xl bg-green-500 px-6 py-3 font-semibold text-white shadow-xl shadow-green-500/30 transition hover:scale-[1.02]"
@@ -1487,7 +1575,7 @@ export default function App() {
                   title="Passport Renewal"
                   subtitle="Jamaican Passport Support"
                   image={images.passport}
-                  description="Renew your Jamaican passport quickly and stress-free with our guided service. We handle your application, review your documents, and ensure everything is properly prepared to avoid delays."
+                  description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
                   prices={[
                     { label: 'Standard Renewal (7 Days)', price: 'J$11,500' },
                     { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' },
@@ -1515,7 +1603,7 @@ export default function App() {
                   title="Traffic Ticket Payment"
                   subtitle="Avoid the Stress of a Court Date"
                   image={images.traffic}
-                  description="Pay your traffic ticket quickly and hassle-free without the long lines. We handle the process for you, ensuring your payment is completed accurately and on time."
+                  description="This page is designed for clients who need traffic ticket payment support, including lost ticket lookups where the due date has not passed."
                   prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]}
                 />
               </Layout>
@@ -1549,7 +1637,7 @@ export default function App() {
                   title="Motor Vehicle Registration"
                   subtitle="Simple Registration Guidance"
                   image={images.registration}
-                  description="Renew your vehicle registration quickly and hassle-free without the long lines. We handle the process for you, ensuring everything is completed accurately and on time."
+                  description="Use this page if you need guidance on what to prepare before moving ahead with motor vehicle registration support."
                   prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]}
                 />
               </Layout>
