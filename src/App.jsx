@@ -1575,7 +1575,7 @@ export default function App() {
                   title="Passport Renewal"
                   subtitle="Jamaican Passport Support"
                   image={images.passport}
-                  description="Use this page to explain passport renewal support, what clients should have ready, and how they can request assistance."
+                  description="This service is only available for Jamaican Adults renewing a passport they received as an adult."
                   prices={[
                     { label: 'Standard Renewal (7 Days)', price: 'J$11,500' },
                     { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' },
