@@ -495,7 +495,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for USA visa support, whether it is a first-time application or a renewal.',
+      '',
     prices: [
       { label: 'First Time Applicant', price: 'J$39,000' },
       { label: 'Renewal', price: 'J$41,000' },
@@ -511,7 +511,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for Canada visa inquiries so you can understand the support available before filling out a form.',
+      '',
     prices: [
       { label: 'First Time Applicant', price: 'J$33,000' },
       { label: 'Renewal', price: 'J$34,000' },
@@ -528,7 +528,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for UK visa support so you can review the fees expected and prepare the right information.',
+      '',
     prices: [
       { label: 'Mandatory Form', price: 'J$1,500' },
       { label: 'Processing Fee', price: 'J$10,000' },
@@ -545,7 +545,7 @@ const visaCountryPages = [
     subtitle: 'Application & Renewal Help',
     image: images.visa,
     description:
-      'Use this page for Schengen visa support so you can review the process and get ready before submitting a request.',
+      '',
     prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
     formButtons: [{ label: 'Coming Soon', href: '#' }],
   },
@@ -1199,7 +1199,7 @@ function ServicePage({ disclaimer, title, subtitle, image, description, prices, 
             </div>
             <div className="mt-2 text-2xl font-bold">Apply Here</div>
             <p className={clsx('mt-3 leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>
-              Select the matching form below to get started.
+              
             </p>
             <div className="mt-4 grid gap-3">
               {formButtons?.length ? (
