@@ -501,7 +501,7 @@ const visaCountryPages = [
       { label: 'Renewal', price: 'J$41,000' },
     ],
     formButtons: [
-      { label: 'USA Visa First Time Applicant- Adults', href: 'https://forms.gle/PEoVbUT8rPmd2TLg8' },
+      { label: 'USA Visa First Time Applicant - Adults', href: 'https://forms.gle/PEoVbUT8rPmd2TLg8' },
       { label: 'USA Visa Renewal - Adults', href: 'https://forms.gle/8AnS25pnb75Ves7a8' },
       { label: 'USA Visa for Minors', href: 'https://forms.gle/BT7QYUL3duyMdQCH9' },
     ],
