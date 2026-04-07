@@ -518,9 +518,9 @@ const visaCountryPages = [
       { label: 'Renewal', price: 'J$34,000' },
     ],
     formButtons: [
-      { label: 'CA Visa First Time Applicant', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
-      { label: 'CA Visa Renewal', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
-      { label: 'CA Visa (Minor)', href: 'https://forms.gle/DiRfoUQ1CxS5Q6ry6' },
+      { label: 'CA Visa First Time Applicant - Adults', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
+      { label: 'CA Visa Renewal- Adults', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
+      { label: 'CA Visa for Minors', href: 'https://forms.gle/DiRfoUQ1CxS5Q6ry6' },
     ],
   },
   {
