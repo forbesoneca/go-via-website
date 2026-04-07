@@ -503,6 +503,7 @@ const visaCountryPages = [
     formButtons: [
       { label: 'USA Visa First Time Applicant', href: 'https://forms.gle/PEoVbUT8rPmd2TLg8' },
       { label: 'USA Visa Renewal', href: 'https://forms.gle/8AnS25pnb75Ves7a8' },
+      { label: 'USA Visa for Minors', href: 'https://forms.gle/BT7QYUL3duyMdQCH9' },
     ],
   },
   {
