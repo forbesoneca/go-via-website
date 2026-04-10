@@ -1095,7 +1095,7 @@ export default function App() {
                     description={page.description}
                     prices={page.prices}
                     formButtons={page.formButtons}
-                    disclaimer={page.title === 'USA Visa' || page.title === 'Canada Visa' ? '*Fees listed include our service fee unless otherwise stated.' : undefined}
+                    disclaimer={page.title === 'USA Visa' || page.title === 'Canada Visa' || page.title === 'UK Visa'  ? '*Fees listed include our service fee unless otherwise stated.' : undefined}
                   />
                 </Layout>
               }
