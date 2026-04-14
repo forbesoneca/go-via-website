@@ -229,7 +229,7 @@ const services = {
   travel: [
     {
       title: 'Visa Services',
-      subtitle: 'Application & Renewal Help',
+      subtitle: 'Visa Application Assistance',
       path: '/visa-services',
       image: images.visa,
       description:
@@ -447,11 +447,11 @@ const visaCountryPages = [
   {
     path: '/visa-services/usa',
     title: 'USA Visa',
-    subtitle: 'Application & Renewal Help',
+    subtitle: 'Visa Application Assistance',
     image: images.visa,
     description: '',
     prices: [
-      { label: 'First Time Applicant', price: 'J$39,000' },
+      { label: 'First Time Applicant', price: 'J$40,000' },
       { label: 'Renewal', price: 'J$41,000' },
     ],
     formButtons: [
@@ -463,7 +463,7 @@ const visaCountryPages = [
   {
     path: '/visa-services/canada',
     title: 'Canada Visa',
-    subtitle: 'Application & Renewal Help',
+    subtitle: 'Visa Application Assistance',
     image: images.visa,
     description: '',
     prices: [
@@ -479,7 +479,7 @@ const visaCountryPages = [
   {
     path: '/visa-services/uk',
     title: 'UK Visa',
-    subtitle: 'Application & Renewal Help',
+    subtitle: 'Visa Application Assistance',
     image: images.visa,
     description: '',
     prices: [
@@ -493,7 +493,7 @@ const visaCountryPages = [
   {
     path: '/visa-services/schengen',
     title: 'Schengen Visa',
-    subtitle: 'Application & Renewal Help',
+    subtitle: 'Visa Application Assistance',
     image: images.visa,
     description: '',
     prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
