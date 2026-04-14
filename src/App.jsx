@@ -452,7 +452,7 @@ const visaCountryPages = [
     description: '',
     prices: [
       { label: 'First Time Applicant', price: 'J$40,000' },
-      { label: 'Renewal', price: 'J$41,000' },
+      { label: 'Renewal', price: 'J$42,000' },
     ],
     formButtons: [
       { label: 'USA Visa First Time Applicant - Adults', href: 'https://forms.gle/PEoVbUT8rPmd2TLg8' },
