@@ -467,8 +467,8 @@ const visaCountryPages = [
     image: images.visa,
     description: '',
     prices: [
-      { label: 'First Time Applicant', price: 'J$33,000' },
-      { label: 'Renewal', price: 'J$34,000' },
+      { label: 'First Time Applicant', price: 'J$35,000' },
+      { label: 'Renewal', price: 'J$36,000' },
     ],
     formButtons: [
       { label: 'CA Visa First Time Applicant - Adults', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
