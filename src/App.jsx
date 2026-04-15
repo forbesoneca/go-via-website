@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { DollarSign, FileText, Landmark, Moon, Plane, Send, Smartphone, Sun } from 'lucide-react';
+import { DollarSign, FileText, Landmark, Moon, Plane, Send, Smartphone, Sun, Briefcase, GraduationCap, Globe, Wrench, Building2, HeartHandshake } from 'lucide-react';
 
 function clsx(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -443,6 +443,51 @@ const serviceFaqs = {
   ],
 };
 
+const usaVisaTypes = [
+  {
+    code: 'B-1 / B-2',
+    title: 'Business & Tourism',
+    icon: Briefcase,
+    description: 'For business trips, conferences, vacation travel, and family visits.',
+  },
+  {
+    code: 'F-1 / M-1',
+    title: 'Students',
+    icon: GraduationCap,
+    description: 'For academic and vocational students pursuing full-time study in the U.S.',
+  },
+  {
+    code: 'J-1',
+    title: 'Exchange Programs',
+    icon: Globe,
+    description: 'For exchange visitors participating in approved cultural, training, teaching, or research programs.',
+  },
+  {
+    code: 'H-1B / H-2A / H-2B',
+    title: 'Workers',
+    icon: Wrench,
+    description: 'For qualified professionals and temporary agricultural or non-agricultural workers.',
+  },
+  {
+    code: 'L-1',
+    title: 'Company Transfer',
+    icon: Building2,
+    description: 'For employees transferred to the U.S. by a multinational company.',
+  },
+  {
+    code: 'K-1',
+    title: 'Fiancé(e)',
+    icon: HeartHandshake,
+    description: 'For foreign fiancé(e)s of U.S. citizens entering the U.S. to marry.',
+  },
+  {
+    code: 'C / D',
+    title: 'Transit & Crew',
+    icon: Plane,
+    description: 'For travelers in transit through the U.S. and qualifying airline or ship crew members.',
+  },
+];
+
 const visaCountryPages = [
   {
     path: '/visa-services/usa',
@@ -454,6 +499,7 @@ const visaCountryPages = [
       { label: 'First Time Applicant', price: 'J$40,000' },
       { label: 'Renewal', price: 'J$42,000' },
     ],
+    disclaimer: '*Fees listed include our service fee unless otherwise stated. Prices are subject to change without notice due to varying exchange rates.',
     formButtons: [
       { label: 'USA Visa First Time Applicant - Adults', href: 'https://forms.gle/PEoVbUT8rPmd2TLg8' },
       { label: 'USA Visa Renewal - Adults', href: 'https://forms.gle/8AnS25pnb75Ves7a8' },
@@ -470,6 +516,7 @@ const visaCountryPages = [
       { label: 'First Time Applicant', price: 'J$35,000' },
       { label: 'Renewal', price: 'J$36,000' },
     ],
+    disclaimer: '*Fees listed include our service fee unless otherwise stated. Prices are subject to change without notice due to varying exchange rates.',
     formButtons: [
       { label: 'CA Visa First Time Applicant - Adults', href: 'https://forms.gle/4GcBMwTbwgjQPPbA7' },
       { label: 'CA Visa Renewal - Adults', href: 'https://forms.gle/hgfjxr6fsSLprgpCA' },
@@ -483,11 +530,12 @@ const visaCountryPages = [
     image: images.visa,
     description: '',
     prices: [
-      { label: '6 Months Visa Fee', price: 'J$41,500' },
-      { label: '2 Years Visa Fee', price: 'J$123,500' },
-      { label: '5 Years Visa Fee', price: 'J$211,500' },
-      { label: '10 Years Visa Fee', price: 'J$260,000' },
+      { label: '6 Months Visa Fee', price: 'J$30,000' },
+      { label: '2 Years Visa Fee', price: 'J$111,000' },
+      { label: '5 Years Visa Fee', price: 'J$199,000' },
+      { label: '10 Years Visa Fee', price: 'J$248,000' },
     ],
+    disclaimer: '*Fees listed include our service fee unless otherwise stated. Prices are subject to change without notice due to varying exchange rates.',
     formButtons: [{ label: 'UK Visa Form', href: 'https://forms.gle/R9sqxTgWsKGEsmEb6' }],
   },
   {
@@ -497,6 +545,7 @@ const visaCountryPages = [
     image: images.visa,
     description: '',
     prices: [{ label: 'Schengen Visa', price: 'Prices Coming Soon' }],
+    disclaimer: 'Prices are subject to change without notice due to varying exchange rates.',
     formButtons: [{ label: 'Coming Soon', href: '#' }],
   },
 ];
@@ -537,8 +586,11 @@ function getAccountLogo(heading) {
 }
 
 function getRouteFaqs(pathname) {
+  if (pathname === '/visa-services' || pathname.startsWith('/visa-services/')) {
+    return serviceFaqs.visaServices;
+  }
+
   const faqMap = {
-    '/visa-services': serviceFaqs.visaServices,
     '/passport-renewal': serviceFaqs.passportRenewal,
     '/traffic-ticket-payment': serviceFaqs.trafficTicket,
     '/property-tax-payment': serviceFaqs.propertyTax,
@@ -546,6 +598,7 @@ function getRouteFaqs(pathname) {
     '/consultation': serviceFaqs.consultation,
     '/flight-accommodation-booking': serviceFaqs.flightAccommodation,
   };
+
   return faqMap[pathname] || null;
 }
 
@@ -754,7 +807,7 @@ function HomePage() {
   );
 }
 
-function ServicePage({ disclaimer, title, subtitle, image, description, prices, formButtons, showFormSection = true, children }) {
+function ServicePage({ disclaimer, title, subtitle, image, description, prices, formButtons, showFormSection = true, children, childrenBelowPricing = false, childrenAbovePricing = false }) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   return (
@@ -768,10 +821,11 @@ function ServicePage({ disclaimer, title, subtitle, image, description, prices, 
           <h1 className="mt-3 text-4xl font-black leading-tight tracking-tight sm:text-5xl">{title}</h1>
           <p className={clsx('mt-2 text-lg font-semibold', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>{subtitle}</p>
           {description ? <p className={clsx('mt-4 max-w-3xl text-base leading-7', isDark ? 'text-slate-300' : 'text-slate-600')}>{description}</p> : null}
-          {children ? <div className="mt-6">{children}</div> : null}
+          {children && !childrenBelowPricing && !childrenAbovePricing ? <div className="mt-6">{children}</div> : null}
         </div>
       </div>
       <div className="grid gap-4">
+        {children && childrenAbovePricing ? <div className="mt-0">{children}</div> : null}
         {prices?.length ? (
           <div className={clsx('rounded-3xl border p-5 shadow-2xl transition-colors duration-300', isDark ? 'border-fuchsia-400/20 bg-gradient-to-br from-fuchsia-500/15 via-slate-900 to-slate-900 shadow-black/30' : 'border-fuchsia-200 bg-gradient-to-br from-white via-fuchsia-50 to-white shadow-slate-200/70')}>
             <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-fuchsia-300' : 'text-fuchsia-700')}>Pricing</div>
@@ -792,6 +846,7 @@ function ServicePage({ disclaimer, title, subtitle, image, description, prices, 
             </div>
           </div>
         ) : null}
+        {children && childrenBelowPricing ? <div className="mt-4">{children}</div> : null}
         {showFormSection ? (
           <div className={clsx('rounded-3xl border p-5 shadow-2xl transition-colors duration-300', isDark ? 'border-sky-400/15 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 shadow-black/30' : 'border-sky-200 bg-gradient-to-br from-white via-sky-50 to-white shadow-slate-200/70')}>
             <div className={clsx('text-sm uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>Google Forms</div>
@@ -916,6 +971,34 @@ function VisaServicesPage() {
   );
 }
 
+function UsaVisaTypesSection() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  return (
+    <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
+      <div className="mt-2 text-2xl font-bold">Visa Categories</div>
+
+      <ul className={clsx('mt-4 space-y-3 text-sm leading-6', isDark ? 'text-slate-300' : 'text-slate-700')}>
+        {usaVisaTypes.map((item) => {
+          const Icon = item.icon;
+          return (
+            <li key={item.code} className="flex items-start gap-3">
+              <Icon className={clsx('mt-1 h-5 w-5 shrink-0', isDark ? 'text-sky-300' : 'text-sky-600')} />
+              <div>
+                <span className={clsx('font-semibold', isDark ? 'text-white' : 'text-slate-900')}>
+                  {item.code} — {item.title}:
+                </span>{' '}
+                <span>{item.description}</span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function TravelBookingPage() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -925,6 +1008,7 @@ function TravelBookingPage() {
       subtitle="Flight & Accommodation Support"
       image={images.booking}
       description=""
+      disclaimer="Prices are subject to change without notice due to varying exchange rates."
       prices={[
         { label: 'Locate Options', price: 'J$5,000' },
         { label: 'Book (Using Your Option or Ours)', price: 'J$5,000' },
@@ -964,7 +1048,7 @@ function ConsultationPage() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   return (
-    <ServicePage showFormSection={false} title="Consultation" subtitle="Speak With Us First" image={images.consultation} description="">
+    <ServicePage showFormSection={false} disclaimer="Prices are subject to change without notice due to varying exchange rates." title="Consultation" subtitle="Speak With Us First" image={images.consultation} description="">
       <div className="grid gap-4 lg:grid-cols-[1fr_0.95fr]">
         <div className={clsx(sectionCardClasses(isDark), 'p-5')}>
           <div className={clsx('text-sm font-semibold uppercase tracking-widest', isDark ? 'text-sky-300' : 'text-sky-700')}>Consultation Details</div>
@@ -1095,16 +1179,19 @@ export default function App() {
                     description={page.description}
                     prices={page.prices}
                     formButtons={page.formButtons}
-                    disclaimer={page.title === 'USA Visa' || page.title === 'Canada Visa' || page.title === 'UK Visa'  ? '*Fees listed include our service fee unless otherwise stated.' : undefined}
-                  />
+                    disclaimer={page.disclaimer}
+                    childrenAbovePricing={page.path === '/visa-services/usa'}
+                  >
+                    {page.path === '/visa-services/usa' ? <UsaVisaTypesSection /> : null}
+                  </ServicePage>
                 </Layout>
               }
             />
           ))}
-          <Route path="/passport-renewal" element={<Layout><ServicePage disclaimer="*Fees listed include our service fee unless otherwise stated." title="Passport Renewal" subtitle="Jamaican Passport Support" image={images.passport} description="This service is only available to Jamaican adults who are renewing a passport that was originally issued to them as adults." prices={[{ label: 'Standard Renewal (7 Days)', price: 'J$11,500' }, { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' }, { label: 'Overseas Renewal (Shipping Included)', price: 'J$33,880' }, { label: '3-Days Renewal (Delivery)', price: 'J$16,850' }, { label: '3-Days Renewal (Pickup)', price: 'J$14,500' }]} formButtons={[{ label: 'Passport Renewal Form', href: 'https://forms.gle/GS3us1hDmaj8ydTY9' }]} /></Layout>} />
-          <Route path="/traffic-ticket-payment" element={<Layout><ServicePage showFormSection={false} title="Traffic Ticket Payment" subtitle="Avoid the Stress of a Court Date" image={images.traffic} description="" prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]} /></Layout>} />
-          <Route path="/property-tax-payment" element={<Layout><ServicePage title="Property Tax Payment" subtitle="Easy Payment Support" image={images.property} description="" prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]} formButtons={[{ label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' }]} /></Layout>} />
-          <Route path="/motor-vehicle-registration" element={<Layout><ServicePage showFormSection={false} title="Motor Vehicle Registration" subtitle="Simple Registration Guidance" image={images.registration} description="" prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]} /></Layout>} />
+          <Route path="/passport-renewal" element={<Layout><ServicePage disclaimer="*Fees listed include our service fee unless otherwise stated. Prices are subject to change without notice due to varying exchange rates." title="Passport Renewal" subtitle="Jamaican Passport Support" image={images.passport} description="This service is only available to Jamaican adults who are renewing a passport that was originally issued to them as adults." prices={[{ label: 'Standard Renewal (7 Days)', price: 'J$11,500' }, { label: 'Standard Renewal with Delivery (7 Days)', price: 'J$13,850' }, { label: 'Overseas Renewal (Shipping Included)', price: 'J$33,880' }, { label: '3-Days Renewal (Delivery)', price: 'J$16,850' }, { label: '3-Days Renewal (Pickup)', price: 'J$14,500' }]} formButtons={[{ label: 'Passport Renewal Form', href: 'https://forms.gle/GS3us1hDmaj8ydTY9' }]} /></Layout>} />
+          <Route path="/traffic-ticket-payment" element={<Layout><ServicePage showFormSection={false} disclaimer="Prices are subject to change without notice due to varying exchange rates." title="Traffic Ticket Payment" subtitle="Avoid the Stress of a Court Date" image={images.traffic} description="" prices={[{ label: 'Traffic Ticket Payment', price: 'J$2,500' }]} /></Layout>} />
+          <Route path="/property-tax-payment" element={<Layout><ServicePage disclaimer="Prices are subject to change without notice due to varying exchange rates." title="Property Tax Payment" subtitle="Easy Payment Support" image={images.property} description="" prices={[{ label: 'Property Tax Payment', price: 'J$2,500' }]} formButtons={[{ label: 'Property Tax Payment Form', href: 'https://forms.gle/PXYanNZ263Dtn7mu9' }]} /></Layout>} />
+          <Route path="/motor-vehicle-registration" element={<Layout><ServicePage showFormSection={false} disclaimer="Prices are subject to change without notice due to varying exchange rates." title="Motor Vehicle Registration" subtitle="Simple Registration Guidance" image={images.registration} description="" prices={[{ label: 'Motor Vehicle Registration', price: 'J$3,500' }]} /></Layout>} />
           <Route path="/flight-accommodation-booking" element={<Layout><TravelBookingPage /></Layout>} />
           <Route path="/consultation" element={<Layout><ConsultationPage /></Layout>} />
         </Routes>
