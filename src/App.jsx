@@ -120,10 +120,10 @@ const paymentPages = [
         heading: 'National Commercial Bank',
         fields: [
           ['Bank Name', 'National Commercial Bank'],
-          ['Bank Branch', 'Constant Spring'],
-          ['Account Type', 'JMD Savings'],
-          ['Account Holder', 'Shinel Lattibeaudiere-Henry'],
-          ['Account Number', '334546551'],
+          ['Bank Branch', 'Portmore'],
+          ['Account Type', 'JMD Chequing'],
+          ['Account Holder', 'Go Via Travel Services +'],
+          ['Account Number', '361846125'],
         ],
       },
       {
