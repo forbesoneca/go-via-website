@@ -221,7 +221,7 @@ const paymentPages = [
       'Complete the transfer with the correct amount',
       'Send the payment screenshot on WhatsApp',
     ],
-    accounts: [{ heading: 'LYNK Details', fields: [['Handle', '@shinel-henry']] }],
+    accounts: [{ heading: 'LYNK Details', fields: [['Handle', '@oneca']] }],
   },
 ];
 
